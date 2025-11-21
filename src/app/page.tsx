@@ -1,3 +1,6 @@
+
+'use client';
+
 import { curriculum } from '@/lib/data';
 import Link from 'next/link';
 import {
@@ -15,8 +18,22 @@ import Image from 'next/image';
 import {
   getLevelImage,
 } from '@/lib/placeholder-images';
+import { useUserProgress } from '@/hooks/use-user-progress';
 
 export default function DashboardPage() {
+  const { getTopicProficiency } = useUserProgress();
+  
+  const calculateLevelProgress = (levelId: string) => {
+    const level = curriculum.levels.find(l => l.id === levelId);
+    if (!level || level.topics.length === 0) {
+      return 0;
+    }
+    const totalProficiency = level.topics.reduce((sum, topic) => {
+      return sum + (getTopicProficiency(topic.id) || 0);
+    }, 0);
+    return Math.round(totalProficiency / level.topics.length);
+  };
+
   return (
     <div className="container mx-auto py-8">
       <header className="mb-12 text-center">
@@ -28,8 +45,9 @@ export default function DashboardPage() {
         </p>
       </header>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {curriculum.levels.map((level, index) => {
+        {curriculum.levels.map((level) => {
           const levelImage = getLevelImage(level.id);
+          const levelProgress = calculateLevelProgress(level.id);
           return (
             <Card
               key={level.id}
@@ -59,9 +77,9 @@ export default function DashboardPage() {
                 <div className="w-full">
                   <div className="mb-2 flex justify-between text-sm text-muted-foreground">
                     <span>Прогресс</span>
-                    <span>{index * 15}%</span>
+                    <span>{levelProgress}%</span>
                   </div>
-                  <Progress value={index * 15} />
+                  <Progress value={levelProgress} />
                 </div>
                 <Button asChild className="w-full" variant="default">
                   <Link href={`/${level.id}`}>

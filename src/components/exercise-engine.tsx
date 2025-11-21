@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Topic } from "@/lib/types";
@@ -11,6 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { CheckCircle, Loader2, RefreshCw, Sparkles, ThumbsUp, XCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent } from "./ui/card";
+import { useUserProgress } from "@/hooks/use-user-progress";
 
 type ExerciseState = {
   exercise: string;
@@ -32,7 +34,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
   const [isLoading, setIsLoading] = useState(true);
   const [userAnswer, setUserAnswer] = useState("");
   const [feedback, setFeedback] = useState<Feedback>(null);
-  const [proficiency, setProficiency] = useState(0);
+  const { proficiency, setTopicProficiency } = useUserProgress(topic.id);
   const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
 
@@ -40,7 +42,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     setIsLoading(true);
     setFeedback(null);
     setExerciseState(null);
-    setProficiency(0);
+    setTopicProficiency(0);
     setExerciseHistory([]);
     try {
       const response = await assessSubjectMastery({
@@ -97,7 +99,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
         }
 
         const newProficiency = proficiency + (isCorrect ? 10 : -5);
-        setProficiency(Math.max(0, Math.min(100, newProficiency)));
+        setTopicProficiency(newProficiency);
 
         const nextExerciseResponse = await assessSubjectMastery({
             subject: topic.title,
