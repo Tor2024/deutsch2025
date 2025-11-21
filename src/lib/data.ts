@@ -169,10 +169,139 @@ export const curriculum: Curriculum = {
         }
       ]
     },
-    { id: 'b1', title: 'Уровень B1: Средний', description: 'Выход на новый уровень. Вы сможете понимать основное содержание большинства разговоров, высказывать свое мнение и справляться с большинством ситуаций в путешествии.', topics: [] },
-    { id: 'b2', title: 'Уровень B2: Продвинутый', description: 'Свободное общение. Вы сможете понимать сложные тексты, бегло общаться с носителями языка и ясно излагать свои мысли на широкий круг тем.', topics: [] },
-    { id: 'c1', title: 'Уровень C1: Профессиональный', description: 'Высокий уровень владения. Вы сможете эффективно использовать язык для социальных, академических и профессиональных целей.', topics: [] },
-    { id: 'c2', title: 'Уровень C2: Владение в совершенстве', description: 'Владение на уровне носителя. Вы будете понимать практически все, выражая свои мысли спонтанно, точно и без усилий.', topics: [] }
+    { 
+      id: 'b1', 
+      title: 'Уровень B1: Средний', 
+      description: 'Выход на новый уровень. Вы сможете понимать основное содержание большинства разговоров, высказывать свое мнение и справляться с большинством ситуаций в путешествии.', 
+      topics: [
+        {
+          id: 'prateritum',
+          title: 'Прошедшее время Präteritum',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Präteritum</h2><p>Используется для повествования в прошлом, в основном в письменной речи (книги, статьи). Образуется изменением основы глагола. Пример: ich <strong>sagte</strong> (я сказал), er <strong>ging</strong> (он шел).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'genitiv',
+          title: 'Падеж Genitiv',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Genitiv</h2><p>Отвечает на вопрос "Чей?" (Wessen?). Выражает принадлежность. Пример: Das Auto <strong>des Mannes</strong> (машина мужчины). Часто заменяется конструкцией von + Dativ в разговорной речи.</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'konjunktiv2',
+          title: 'Сослагательное наклонение (Konjunktiv II)',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Konjunktiv II</h2><p>Используется для выражения нереальных желаний, вежливых просьб, предположений. Образуется с помощью вспомогательного глагола <strong>würden</strong> + инфинитив или от формы Präteritum сильных глаголов. Пример: Ich <strong>würde</strong> gern einen Kaffee <strong>trinken</strong> (Я бы хотел выпить кофе).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'nebensatze',
+          title: 'Придаточные предложения',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Придаточные предложения</h2><p>Сложные предложения с союзами типа <strong>dass</strong> (что), <strong>weil</strong> (потому что), <strong>obwohl</strong> (хотя). Спрягаемый глагол в придаточном предложении уходит в самый конец. Пример: Ich weiß, <strong>dass du kommst</strong> (Я знаю, что ты придешь).</p>',
+          exercises: [],
+          vocabulary: []
+        }
+      ] 
+    },
+    { 
+      id: 'b2', 
+      title: 'Уровень B2: Продвинутый', 
+      description: 'Свободное общение. Вы сможете понимать сложные тексты, бегло общаться с носителями языка и ясно излагать свои мысли на широкий круг тем.', 
+      topics: [
+        {
+          id: 'plusquamperfekt',
+          title: 'Предпрошедшее время (Plusquamperfekt)',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Plusquamperfekt</h2><p>Используется для обозначения действия, которое произошло в прошлом до другого действия в прошлом. Образуется с помощью <strong>hatten/waren</strong> + Partizip II. Пример: Nachdem ich gegessen <strong>hatte</strong>, ging ich spazieren (После того как я поел, я пошел гулять).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'passiv',
+          title: 'Пассивный залог (Passiv)',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Passiv</h2><p>Используется, когда важно само действие, а не тот, кто его выполняет. Образуется с помощью глагола <strong>werden</strong> + Partizip II. Пример: Das Auto <strong>wird repariert</strong> (Машину ремонтируют).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'relativsatze',
+          title: 'Относительные придаточные предложения',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Relativsätze</h2><p>Уточняют существительное из главного предложения. Начинаются с относительных местоимений (der, die, das и др.). Пример: Das ist der Mann, <strong>der mir geholfen hat</strong> (Это тот мужчина, который мне помог).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'n-deklination',
+          title: 'N-склонение существительных',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">N-Deklination</h2><p>Группа существительных мужского рода (в основном одушевленных), которые получают окончание <strong>-(e)n</strong> во всех падежах, кроме Nominativ единственного числа. Пример: der Junge, den Junge<strong>n</strong>, dem Junge<strong>n</strong>, des Junge<strong>n</strong>.</p>',
+          exercises: [],
+          vocabulary: []
+        }
+      ] 
+    },
+    { 
+      id: 'c1', 
+      title: 'Уровень C1: Профессиональный', 
+      description: 'Высокий уровень владения. Вы сможете эффективно использовать язык для социальных, академических и профессиональных целей.', 
+      topics: [
+        {
+          id: 'konjunktiv1',
+          title: 'Косвенная речь (Konjunktiv I)',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Konjunktiv I</h2><p>Используется для передачи чужих слов (косвенная речь), в основном в официальных текстах, новостях. Образуется от основы инфинитива. Пример: Er sagt, er <strong>komme</strong> später (Он говорит, что придет позже).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'futur2',
+          title: 'Будущее совершенное (Futur II)',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Futur II</h2><p>Выражает предположение о завершенном действии в прошлом или действие, которое завершится к определенному моменту в будущем. Образуется: <strong>werden</strong> + Partizip II + <strong>haben/sein</strong>. Пример: Er <strong>wird</strong> das Buch schon <strong>gelesen haben</strong> (Он, должно быть, уже прочитал книгу).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'nominalisierung',
+          title: 'Номинализация',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Nominalisierung</h2><p>Преобразование глаголов и прилагательных в существительные. Это делает речь более формальной и "академической". Пример: hoffen (надеяться) -> die Hoffnung (надежда).</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'partizipialkonstruktionen',
+          title: 'Причастные обороты',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Partizipialkonstruktionen</h2><p>Конструкции с Partizip I и Partizip II, которые заменяют придаточные предложения, делая речь более лаконичной. Пример: Das <strong>weinende</strong> Kind (плачущий ребенок).</p>',
+          exercises: [],
+          vocabulary: []
+        }
+      ] 
+    },
+    { 
+      id: 'c2', 
+      title: 'Уровень C2: Владение в совершенстве', 
+      description: 'Владение на уровне носителя. Вы будете понимать практически все, выражая свои мысли спонтанно, точно и без усилий.', 
+      topics: [
+        {
+          id: 'stilistik',
+          title: 'Стилистика и оттенки значений',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Stilistik</h2><p>Глубокое понимание стилистических различий между синонимами, использование идиом, формального и неформального языка. Выбор наиболее точных и выразительных слов в зависимости от контекста.</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'komplexe-satze',
+          title: 'Сложные синтаксические структуры',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Komplexe Satzstrukturen</h2><p>Свободное владение сложными и многоуровневыми предложениями, включая редкие грамматические конструкции, для выражения самых тонких нюансов мысли.</p>',
+          exercises: [],
+          vocabulary: []
+        },
+        {
+          id: 'fachsprache',
+          title: 'Язык для профессиональных целей (Fachsprache)',
+          explanation: '<h2 class="text-xl font-bold mb-2 font-headline">Fachsprache</h2><p>Освоение терминологии и языковых конструкций, специфичных для определенной профессиональной области (медицина, юриспруденция, техника и т.д.).</p>',
+          exercises: [],
+          vocabulary: []
+        }
+      ] 
+    }
   ]
 };
 
