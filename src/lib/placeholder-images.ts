@@ -8,3 +8,7 @@ export type ImagePlaceholder = {
 };
 
 export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;
+
+export function getLevelImage(levelId: string): ImagePlaceholder | undefined {
+  return PlaceHolderImages.find(img => img.id === `level-${levelId}`);
+}

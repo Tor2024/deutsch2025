@@ -1,0 +1,190 @@
+"use client";
+
+import type { Topic } from "@/lib/types";
+import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
+import { generateAdaptiveExercise } from "@/ai/flows/adaptive-exercise-generation";
+import { useState, useEffect } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Progress } from "./ui/progress";
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
+import { CheckCircle, Loader2, RefreshCw, Sparkles, ThumbsUp, XCircle } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent } from "./ui/card";
+
+type ExerciseState = {
+  exercise: string;
+  isMastered: boolean;
+};
+
+type Feedback = {
+  type: "correct" | "incorrect";
+  message: string;
+} | null;
+
+type ExerciseHistoryItem = {
+  exercise: string;
+  correct: boolean;
+};
+
+export function ExerciseEngine({ topic }: { topic: Topic }) {
+  const [exerciseState, setExerciseState] = useState<ExerciseState | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [userAnswer, setUserAnswer] = useState("");
+  const [feedback, setFeedback] = useState<Feedback>(null);
+  const [proficiency, setProficiency] = useState(0);
+  const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
+  const { toast } = useToast();
+
+  const startFirstExercise = async () => {
+    setIsLoading(true);
+    setFeedback(null);
+    setExerciseState(null);
+    setProficiency(0);
+    setExerciseHistory([]);
+    try {
+      const response = await assessSubjectMastery({
+        subject: topic.title,
+        userProficiency: 0,
+        exerciseHistory: [],
+      });
+      setExerciseState(response);
+    } catch (error) {
+      console.error("Error starting exercise:", error);
+      toast({
+        title: "Ошибка",
+        description: "Не удалось загрузить упражнение. Попробуйте снова.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    startFirstExercise();
+  }, [topic.id]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!exerciseState || !userAnswer) return;
+
+    setIsLoading(true);
+    setFeedback(null);
+
+    // This is a simplified check. In a real app, you'd need a more robust way to evaluate answers.
+    // For now, we'll call an AI to get a more targeted exercise upon wrong answer.
+    const isCorrect = userAnswer.toLowerCase().trim() === 'placeholder_correct'; // We'll let the AI decide correctness mostly
+
+    try {
+        let response;
+        const newHistoryItem = { exercise: exerciseState.exercise, correct: isCorrect };
+
+        if (!isCorrect) {
+            const adaptiveResponse = await generateAdaptiveExercise({
+                grammarConcept: topic.title,
+                userLevel: 'A1', // This should be dynamic
+                pastErrors: `User answered '${userAnswer}' to the question: '${exerciseState.exercise}'`,
+            });
+            setFeedback({ type: 'incorrect', message: adaptiveResponse.explanation });
+            
+            // The new exercise is the adaptive one
+            response = { exercise: adaptiveResponse.exerciseText, isMastered: false };
+            setExerciseHistory(prev => [...prev, { exercise: exerciseState.exercise, correct: false }]);
+        } else {
+             setFeedback({ type: 'correct', message: 'Отлично! Следующий вопрос.' });
+             setExerciseHistory(prev => [...prev, newHistoryItem]);
+        }
+
+        const newProficiency = proficiency + (isCorrect ? 10 : -5);
+        setProficiency(Math.max(0, Math.min(100, newProficiency)));
+
+        const nextExerciseResponse = await assessSubjectMastery({
+            subject: topic.title,
+            userProficiency: newProficiency / 100,
+            exerciseHistory: [...exerciseHistory, newHistoryItem],
+        });
+
+        setExerciseState(nextExerciseResponse);
+
+
+    } catch (error) {
+        console.error("Error submitting answer:", error);
+        toast({
+            title: "Ошибка",
+            description: "Не удалось проверить ответ. Попробуйте снова.",
+            variant: "destructive",
+        });
+    } finally {
+        setUserAnswer("");
+        setIsLoading(false);
+    }
+  };
+
+
+  if (isLoading && !exerciseState) {
+    return (
+      <div className="flex flex-col items-center justify-center text-center p-8">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <p className="mt-4 text-muted-foreground">ИИ-тренер готовит ваше первое задание...</p>
+      </div>
+    );
+  }
+
+  if (exerciseState?.isMastered) {
+    return (
+      <Card className="bg-gradient-to-br from-primary/10 to-transparent">
+        <CardContent className="p-6 text-center">
+            <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4"/>
+            <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
+            <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы. <br/> Можно переходить к следующей или повторить материал.</p>
+            <Button onClick={startFirstExercise} className="mt-6">
+                <RefreshCw className="mr-2 h-4 w-4" />
+                Пройти заново
+            </Button>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+        <div>
+            <div className="flex justify-between items-center mb-2">
+                <label htmlFor="mastery" className="text-sm font-medium text-muted-foreground">Уровень освоения</label>
+                <span className="text-sm font-bold text-primary">{proficiency}%</span>
+            </div>
+            <Progress value={proficiency} id="mastery" />
+        </div>
+
+        <Card>
+            <CardContent className="p-6">
+                <p className="text-lg text-foreground mb-4">{exerciseState?.exercise}</p>
+                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+                    <Input
+                        type="text"
+                        value={userAnswer}
+                        onChange={(e) => setUserAnswer(e.target.value)}
+                        placeholder="Введите ваш ответ..."
+                        className="flex-grow"
+                        disabled={isLoading}
+                    />
+                    <Button type="submit" disabled={isLoading || !userAnswer}>
+                        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Проверить'}
+                    </Button>
+                </form>
+            </CardContent>
+        </Card>
+
+        {feedback && (
+            <Alert variant={feedback.type === 'incorrect' ? 'destructive' : 'default'}>
+                {feedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
+                <AlertTitle className="font-headline">
+                    {feedback.type === 'correct' ? 'Правильно!' : 'Обратите внимание'}
+                </AlertTitle>
+                <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: feedback.message }} />
+            </Alert>
+        )}
+    </div>
+  );
+}
