@@ -72,7 +72,8 @@ export const curriculum: Curriculum = {
                 { german: 'ledig', russian: 'холост/незамужняя', example: 'Nein, ich bin ledig.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'alltag-und-wohnen',
@@ -117,7 +118,8 @@ export const curriculum: Curriculum = {
                 { german: 'fernsehen', russian: 'смотреть телевизор', example: 'Sie sieht abends fern.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'essen-und-einkaufen',
@@ -168,7 +170,8 @@ export const curriculum: Curriculum = {
                 { german: 'mögen', russian: 'любить, нравиться', example: 'Ich mag Käse.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'freizeit-und-termine',
@@ -220,7 +223,8 @@ export const curriculum: Curriculum = {
                 { german: 'die Idee, -n', russian: 'идея', example: 'Das ist eine gute Idee.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'reisen-und-orientierung',
@@ -274,7 +278,8 @@ export const curriculum: Curriculum = {
                 { german: 'der Urlaub, -e', russian: 'отпуск', example: 'Wir machen Urlaub in Italien.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         }
       ]
     },
@@ -318,9 +323,16 @@ export const curriculum: Curriculum = {
                 { german: 'studieren', russian: 'учиться (в вузе)', example: 'Sie hat in Berlin studiert.' },
                 { german: 'umziehen', russian: 'переезжать', example: 'Wir sind letztes Jahr umgezogen.' },
                 { german: 'heiraten', russian: 'жениться, выходить замуж', example: 'Sie haben 1990 geheiratet.' },
+                 { german: 'gelernt', russian: 'учил (Partizip II от lernen)', example: 'Wir haben Deutsch gelernt.' },
+                { german: 'gesehen', russian: 'видел (Partizip II от sehen)', example: 'Hast du den Film gesehen?' },
+                { german: 'gegangen', russian: 'шел (Partizip II от gehen)', example: 'Sie ist ins Kino gegangen.' },
+                { german: 'gefahren', russian: 'ехал (Partizip II от fahren)', example: 'Ich bin nach Berlin gefahren.' },
+                { german: 'gekommen', russian: 'пришел (Partizip II от kommen)', example: 'Wann bist du gekommen?' },
+                { german: 'gegessen', russian: 'ел (Partizip II от essen)', example: 'Wir haben Pizza gegessen.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'wohnen-und-dienstleistungen',
@@ -357,7 +369,8 @@ export const curriculum: Curriculum = {
                 { german: 'das Paket, -e', russian: 'посылка', example: 'Ich muss ein Paket zur Post bringen.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'gesundheit-und-reisen',
@@ -396,7 +409,8 @@ export const curriculum: Curriculum = {
                 { german: 'die Fahrkarte, -n', russian: 'билет', example: 'Wo kann ich eine Fahrkarte kaufen?' },
               ]
             }
-          ]
+          ],
+          exercises: []
         }
       ]
     },
@@ -406,128 +420,145 @@ export const curriculum: Curriculum = {
       description: 'Выход на новый уровень. Вы сможете понимать основное содержание большинства разговоров, высказывать свое мнение и справляться с большинством ситуаций в путешествии.', 
       topics: [
         {
-          id: 'prateritum',
-          title: 'Прошедшее время Präteritum',
+          id: 'arbeit-und-gesellschaft',
+          title: 'Работа, карьера и общество',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Präteritum: прошлое в повествовании</h2>
-            <p class="mb-4">Präteritum — это простое прошедшее время. В отличие от Perfekt, оно используется в основном в <strong class="text-primary">письменной речи</strong> (книги, статьи, новости) для повествования.</p>
-            <p class="mb-4">Для слабых глаголов оно образуется добавлением <strong class="text-accent">-te-</strong> к основе, для сильных — изменением корневой гласной (эти формы нужно учить).</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-              <li><strong class="text-primary">haben:</strong> ich hatte, du hattest, er hatte...</li>
-              <li><strong class="text-primary">sein:</strong> ich war, du warst, er war...</li>
-              <li><strong>sagen (слабый):</strong> ich sagte, du sagtest, er sagte...</li>
-              <li><strong>gehen (сильный):</strong> ich ging, du gingst, er ging...</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Прошедшие времена: Präteritum vs Perfekt</h2>
+            <p class="mb-4">На уровне B1 мы активно различаем использование <strong class="text-primary">Perfekt</strong> (для устной речи, диалогов) и <strong class="text-primary">Präteritum</strong> (для письменного повествования, рассказов, новостей). Важно научиться использовать Präteritum не только для 'sein' и 'haben', но и для других распространенных глаголов.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Perfekt:</strong> "Ich <strong class="text-accent">habe</strong> gestern meinen Lebenslauf <strong class="text-accent">geschickt</strong>." (устный рассказ другу)</li>
+              <li><strong>Präteritum:</strong> "Er <strong class="text-accent">schickte</strong> seinen Lebenslauf und <strong class="text-accent">wartete</strong> auf eine Antwort." (письменный рассказ)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Склонение прилагательных (Adjektivdeklination)</h2>
+            <p class="mb-4">Это одна из ключевых тем B1. Окончание прилагательного зависит от артикля перед ним, падежа и рода существительного.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li><strong>С определенным артиклем (der/die/das):</strong> Der <strong class="text-primary">neue</strong> Kollege ist nett.</li>
+              <li><strong>С неопределенным артиклем (ein/eine):</strong> Ich suche einen <strong class="text-primary">neuen</strong> Job.</li>
+              <li><strong>Без артикля:</strong> Ich trinke gern <strong class="text-primary">kalten</strong> Tee.</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Коннекторы: выражение причин и следствий</h2>
+            <p class="mb-4">Чтобы строить логичные высказывания, мы используем союзы и наречия, указывающие на причину (<strong class="text-primary">deshalb, deswegen</strong>) или уступку (<strong class="text-primary">obwohl, trotzdem</strong>).</p>
+             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Obwohl</strong> er krank war, <strong class="text-accent">ging</strong> er zur Arbeit. (Придаточное предложение, глагол в конце)</li>
+              <li>Er war krank, <strong class="text-primary">trotzdem</strong> <strong class="text-accent">ging</strong> er zur Arbeit. (Два главных предложения, глагол на 2-м месте)</li>
             </ul>
           `,
           vocabulary: [
             {
-              theme: 'Глаголы в Präteritum',
+              theme: 'Профессия и социум',
               words: [
-                { german: 'hatte', russian: 'имел', example: 'Ich hatte keine Zeit.' },
-                { german: 'war', russian: 'был', example: 'Er war gestern krank.' },
-                { german: 'ging', russian: 'шел', example: 'Wir gingen ins Museum.' },
-                { german: 'sagte', russian: 'сказал', example: 'Der Lehrer sagte nichts.' },
-                { german: 'kam', russian: 'пришел', example: 'Sie kam zu spät.' },
-                { german: 'sah', russian: 'видел', example: 'Ich sah einen interessanten Film.' },
-                { german: 'wusste', russian: 'знал', example: 'Er wusste die Antwort nicht.' },
-                { german: 'lebte', russian: 'жил', example: 'Meine Oma lebte in einem Dorf.' },
-                { german: 'spielte', russian: 'играл', example: 'Als Kind spielte ich gern Fußball.' },
-                { german: 'es gab', russian: 'было, имелось', example: 'Früher gab es hier keine Häuser.' },
+                { german: 'der Lebenslauf, "-e', russian: 'резюме', example: 'Haben Sie Ihren Lebenslauf dabei?' },
+                { german: 'das Vorstellungsgespräch, -e', russian: 'собеседование', example: 'Ich bin nervös vor dem Vorstellungsgespräch.' },
+                { german: 'der Arbeitgeber, -', russian: 'работодатель', example: 'Mein Arbeitgeber ist sehr flexibel.' },
+                { german: 'der Arbeitnehmer, -', russian: 'работник', example: 'Die Rechte der Arbeitnehmer sind wichtig.' },
+                { german: 'die Bewerbung, -en', russian: 'заявление о приеме на работу', example: 'Ich habe viele Bewerbungen geschrieben.' },
+                { german: 'sich bewerben um', russian: 'подавать заявление на', example: 'Er bewirbt sich um eine neue Stelle.' },
+                { german: 'die Gesellschaft, -en', russian: 'общество', example: 'Das ist ein Problem für die ganze Gesellschaft.' },
+                { german: 'die Generation, -en', russian: 'поколение', example: 'Die ältere Generation denkt anders.' },
+                { german: 'der Konflikt, -e', russian: 'конфликт', example: 'Wir müssen eine Lösung für den Konflikt finden.' },
+                { german: 'deswegen / deshalb / daher', russian: 'поэтому', example: 'Ich war krank, deswegen bin ich nicht gekommen.' },
+                { german: 'obwohl', russian: 'хотя', example: 'Obwohl es regnet, gehen wir spazieren.' },
+                { german: 'trotzdem', russian: 'несмотря на это', example: 'Es regnet, trotzdem gehen wir spazieren.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
-          id: 'genitiv',
-          title: 'Падеж Genitiv',
+          id: 'lebensstil-und-medien',
+          title: 'Образ жизни, здоровье и медиа',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Genitiv: падеж принадлежности</h2>
-            <p class="mb-4">Genitiv отвечает на вопрос "Чей?" (<strong class="text-primary">Wessen?</strong>) и выражает принадлежность или отношение.</p>
-            <p class="mb-4">В мужском и среднем роде к существительному добавляется окончание <strong class="text-accent">-(e)s</strong>.</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-              <li>Das Auto <strong class="text-primary">des Mannes</strong>. (Машина мужчины.)</li>
-              <li>Die Farbe <strong class="text-primary">des Hauses</strong>. (Цвет дома.)</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Пассивный залог (Passiv)</h2>
+            <p class="mb-4">Пассив используется, когда важно само действие, а не тот, кто его выполняет. На уровне B1 мы знакомимся с пассивом в настоящем (<strong class="text-primary">Präsens</strong>) и прошедшем (<strong class="text-primary">Präteritum</strong>) времени.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Präsens Passiv:</strong> "Hier <strong class="text-accent">wird</strong> nicht <strong class="text-accent">geraucht</strong>." (Здесь не курят.)</li>
+              <li><strong>Präteritum Passiv:</strong> "Das Paket <strong class="text-accent">wurde</strong> gestern <strong class="text-accent">geliefert</strong>." (Посылка была доставлена вчера.)</li>
             </ul>
-            <p class="mt-4">В разговорной речи Genitiv часто заменяется конструкцией <strong class="text-primary">von + Dativ</strong>: Das Auto <strong class="text-accent">von dem Mann</strong>.</p>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Глаголы с предлогами (Verben mit Präpositionen)</h2>
+            <p class="mb-4">Многие глаголы в немецком требуют после себя определенного предлога с определенным падежом. Эти связки нужно заучивать.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>warten <strong class="text-primary">auf</strong> (+ Akk): Ich warte <strong class="text-primary">auf den</strong> Bus.</li>
+              <li>denken <strong class="text-primary">an</strong> (+ Akk): Ich denke <strong class="text-primary">an dich</strong>.</li>
+              <li>sprechen <strong class="text-primary">mit</strong> (+ Dat): Ich spreche <strong class="text-primary">mit meinem</strong> Chef.</li>
+              <li>sich freuen <strong class="text-primary">über</strong> (+ Akk): Ich freue mich <strong class="text-primary">über das</strong> Geschenk. (радоваться чему-то свершившемуся)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Косвенная речь (Indirekte Rede) - введение</h2>
+            <p class="mb-4">Для передачи чужих слов, особенно в формальной речи, используется <strong class="text-primary">Konjunktiv I</strong>. На уровне B1 мы начинаем его узнавать и использовать в простых формах, часто с глаголом 'sein'.</p>
+             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Прямая речь:</strong> Er sagt: "Ich <strong class="text-accent">bin</strong> krank."</li>
+              <li><strong>Косвенная речь:</strong> Er sagt, er <strong class="text-primary">sei</strong> krank. (Он говорит, что (якобы) болен.)</li>
+            </ul>
           `,
           vocabulary: [
             {
-              theme: 'Выражение принадлежности',
+              theme: 'Здоровье, медиа и личное мнение',
               words: [
-                { german: 'wessen', russian: 'чей', example: 'Wessen Tasche ist das?' },
-                { german: 'des Vaters', russian: 'отца', example: 'Das ist das Buch des Vaters.' },
-                { german: 'der Mutter', russian: 'матери', example: 'Die Tasche der Mutter ist neu.' },
-                { german: 'des Kindes', russian: 'ребенка', example: 'Das Spielzeug des Kindes ist kaputt.' },
-                { german: 'der Direktor', russian: 'директор', example: 'Das Büro des Direktors ist im zweiten Stock.' },
-                { german: 'wegen (+G)', russian: 'из-за, по причине', example: 'Wegen des schlechten Wetters bleiben wir zu Hause.' },
-                { german: 'trotz (+G)', russian: 'несмотря на', example: 'Trotz des Regens gehen wir spazieren.' },
-                { german: 'während (+G)', russian: 'во время, в течение', example: 'Während des Unterrichts soll man leise sein.' },
-                { german: 'das Haus, "-er', russian: 'дом', example: 'Das Dach des Hauses ist rot.' },
-                { german: 'das Auto, -s', russian: 'машина', example: 'Der Preis des Autos ist hoch.' },
+                { german: 'die Gesundheit', russian: 'здоровье', example: 'Gesundheit ist das Wichtigste.' },
+                { german: 'die Ernährung', russian: 'питание', example: 'Eine gesunde Ernährung ist entscheidend.' },
+                { german: 'sich beschweren über', russian: 'жаловаться на', example: 'Der Kunde beschwert sich über den schlechten Service.' },
+                { german: 'die Werbung, -en', russian: 'реклама', example: 'Werbung im Fernsehen nervt mich.' },
+                { german: 'der Einfluss, "-e', russian: 'влияние', example: 'Soziale Medien haben einen großen Einfluss.' },
+                { german: 'der Verbraucher, -', russian: 'потребитель', example: 'Die Rechte der Verbraucher müssen geschützt werden.' },
+                { german: 'die Nachrichten (Pl.)', russian: 'новости', example: 'Hast du heute die Nachrichten gesehen?' },
+                { german: 'die Meinung, -en', russian: 'мнение', example: 'Meiner Meinung nach ist das eine gute Idee.' },
+                { german: 'argumentieren', russian: 'аргументировать', example: 'Er kann seine Position gut argumentieren.' },
+                { german: 'sich interessieren für', russian: 'интересоваться чем-либо', example: 'Ich interessiere mich für Geschichte.' },
+                { german: 'teilnehmen an', russian: 'принимать участие в', example: 'Nimmst du am Wettbewerb teil?' },
+                { german: 'die Versicherung, -en', russian: 'страховка', example: 'Hast du eine Krankenversicherung?' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
-          id: 'konjunktiv2',
-          title: 'Сослагательное наклонение (Konjunktiv II)',
+          id: 'reisen-und-technologie',
+          title: 'Путешествия, технологии и экология',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Konjunktiv II: Мир "бы"</h2>
-            <p class="mb-4">Konjunktiv II используется для выражения:</p>
-            <ul class="list-disc list-inside space-y-2 mb-4 bg-muted p-4 rounded-lg">
-              <li><strong>Нереальных желаний:</strong> <strong class="text-primary">Wenn ich Zeit hätte</strong>, würde ich reisen. (Если бы у меня было время, я бы путешествовал.)</li>
-              <li><strong>Вежливых просьб:</strong> <strong class="text-primary">Könnten Sie</strong> mir bitte helfen? (Не могли бы Вы мне помочь?)</li>
-              <li><strong>Советов:</strong> An deiner Stelle <strong class="text-primary">würde ich</strong> mehr lernen. (На твоем месте я бы больше учил.)</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Относительные предложения (Relativsätze)</h2>
+            <p class="mb-4">Эти предложения дают дополнительную информацию о существительном из главного предложения. Они вводятся относительными местоимениями (<strong class="text-primary">der, die, das</strong>), которые ставятся сразу после существительного. Глагол в таком предложении уходит в конец.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>Das ist der Bus, <strong class="text-accent">der</strong> nach Hamburg <strong class="text-accent">fährt</strong>. (Это автобус, который едет в Гамбург.)</li>
+              <li>Ich suche das Hotel, <strong class="text-accent">das</strong> du mir <strong class="text-accent">empfohlen hast</strong>. (Я ищу отель, который ты мне порекомендовал.)</li>
             </ul>
-            <p>Чаще всего образуется с помощью формы <strong class="text-primary">würden + Infinitiv</strong>, что является универсальным способом.</p>
-          `,
-          vocabulary: [
-            {
-              theme: 'Желания, просьбы, советы',
-              words: [
-                { german: 'würde', russian: 'бы (вспом. глагол)', example: 'Ich würde gern ein Eis essen.' },
-                { german: 'hätte', russian: 'имел бы', example: 'Wenn ich Geld hätte, würde ich ein Haus kaufen.' },
-                { german: 'wäre', russian: 'был бы', example: 'Wenn ich du wäre, würde ich das nicht tun.' },
-                { german: 'könnte', russian: 'мог бы', example: 'Könnten Sie das Fenster schließen?' },
-                { german: 'sollte', russian: 'следовало бы', example: 'Du solltest mehr schlafen.' },
-                { german: 'der Wunsch, "-e', russian: 'желание', example: 'Ich habe einen großen Wunsch.' },
-                { german: 'der Ratschlag, "-e', russian: 'совет', example: 'Er gab mir einen guten Ratschlag.' },
-                { german: 'die Bitte, -n', russian: 'просьба', example: 'Könnten Sie mir eine Bitte erfüllen?' },
-                { german: 'wenn', russian: 'если бы', example: 'Wenn das Wetter schön wäre...' },
-                { german: 'an deiner Stelle', russian: 'на твоем месте', example: 'An deiner Stelle würde ich zum Arzt gehen.' },
-              ]
-            }
-          ]
-        },
-        {
-          id: 'nebensatze',
-          title: 'Придаточные предложения',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Придаточные предложения: усложняем речь</h2>
-            <p class="mb-4">Придаточные предложения зависят от главного и вводятся различными союзами. Главное правило: <strong class="text-primary">спрягаемый глагол в придаточном предложении всегда уходит в самый конец</strong>.</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-              <li><strong>dass (что):</strong> Ich weiß, <strong class="text-accent">dass du morgen kommst</strong>.</li>
-              <li><strong>weil (потому что):</strong> Ich lerne Deutsch, <strong class="text-accent">weil ich in Deutschland arbeiten will</strong>.</li>
-              <li><strong>obwohl (хотя):</strong> Er geht spazieren, <strong class="text-accent">obwohl es regnet</strong>.</li>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Будущее время (Futur I)</h2>
+            <p class="mb-4">Futur I используется для выражения планов на будущее или предположений. Оно образуется с помощью вспомогательного глагола <strong class="text-primary">werden</strong> и инфинитива основного глагола в конце предложения.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li><strong>План:</strong> Nächstes Jahr <strong class="text-primary">werde</strong> ich nach Deutschland <strong class="text-accent">fliegen</strong>.</li>
+              <li><strong>Предположение:</strong> Er ist nicht da. Er <strong class="text-primary">wird</strong> wohl krank <strong class="text-accent">sein</strong>. (Его нет. Он, наверное, болен.)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Номинализация (Nominalisierung)</h2>
+            <p class="mb-4">Это превращение глаголов или прилагательных в существительные. Этот прием делает речь более формальной и часто используется в письменном языке. Самый простой способ - написать инфинитив глагола с большой буквы и добавить артикль <strong class="text-primary">das</strong>.</p>
+             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>rauchen (курить) → <strong class="text-accent">Das Rauchen</strong> ist hier verboten.</li>
+              <li>leben (жить) → <strong class="text-accent">Das Leben</strong> in der Stadt ist teuer.</li>
             </ul>
           `,
           vocabulary: [
              {
-              theme: 'Союзы придаточных предложений',
+              theme: 'Путешествия, экология и техника',
               words: [
-                { german: 'dass', russian: 'что, чтобы', example: 'Ich hoffe, dass du kommst.' },
-                { german: 'weil', russian: 'потому что', example: 'Er bleibt zu Hause, weil er krank ist.' },
-                { german: 'obwohl', russian: 'хотя', example: 'Sie geht arbeiten, obwohl sie müde ist.' },
-                { german: 'wenn', russian: 'когда, если', example: 'Wenn es regnet, lese ich ein Buch.' },
-                { german: 'als', russian: 'когда (однократно в прошлом)', example: 'Als ich ein Kind war, spielte ich oft hier.' },
-                { german: 'damit', russian: 'чтобы (цель)', example: 'Ich lerne, damit ich die Prüfung bestehe.' },
-                { german: 'ob', russian: 'ли (в косвенном вопросе)', example: 'Ich weiß nicht, ob er kommt.' },
-                { german: 'bevor', russian: 'прежде чем', example: 'Bevor du gehst, ruf mich an.' },
-                { german: 'nachdem', russian: 'после того как', example: 'Nachdem er gegessen hatte, ging er spazieren.' },
-                { german: 'der Satz, "-e', russian: 'предложение', example: 'Dieser Satz ist zu lang.' },
+                { german: 'die Umwelt', russian: 'окружающая среда', example: 'Wir müssen die Umwelt schützen.' },
+                { german: 'der Klimawandel', russian: 'изменение климата', example: 'Der Klimawandel ist ein globales Problem.' },
+                { german: 'der Müll', russian: 'мусор', example: 'Bitte trennen Sie den Müll.' },
+                { german: 'die Wiederverwertung / das Recycling', russian: 'переработка', example: 'Recycling ist sehr wichtig.' },
+                { german: 'das Gerät, -e', russian: 'устройство, прибор', example: 'Mein neues Gerät hat viele Funktionen.' },
+                { german: 'die Anwendung / die App, -s', russian: 'приложение', example: 'Ich nutze diese App jeden Tag.' },
+                { german: 'der Akku, -s', russian: 'аккумулятор', example: 'Mein Akku ist fast leer.' },
+                { german: 'die Stornierung, -en', russian: 'отмена, аннулирование', example: 'Die Stornierung des Fluges war kostenlos.' },
+                { german: 'die Sehenswürdigkeit, -en', russian: 'достопримечательность', example: 'Welche Sehenswürdigkeiten gibt es hier?' },
+                { german: 'die Unterkunft, "-e', russian: 'жилье, ночлег', example: 'Wir suchen eine günstige Unterkunft.' },
+                { german: 'umweltfreundlich', russian: 'экологичный', example: 'Ich versuche, umweltfreundlich zu leben.' },
+                { german: 'digital', russian: 'цифровой', example: 'Die digitale Welt verändert alles.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         }
       ] 
     },
@@ -561,7 +592,8 @@ export const curriculum: Curriculum = {
                 { german: 'passieren', russian: 'случаться, происходить', example: 'Sie erzählte, was am Tag zuvor passiert war.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'passiv',
@@ -591,7 +623,8 @@ export const curriculum: Curriculum = {
                 { german: 'die Lösung, -en', russian: 'решение', example: 'Eine Lösung muss gefunden werden.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'relativsatze',
@@ -607,7 +640,7 @@ export const curriculum: Curriculum = {
               theme: 'Описания и уточнения',
               words: [
                 { german: 'der, die, das (Relativpronomen)', russian: 'который, которая, которое', example: 'Der Film, den ich gesehen habe, war super.' },
-                { german: 'dessen (Genitiv m/n)', russian: 'которого, чей', example: 'Das ist der Autor, dessen Bücher ich liebe.' },
+                { german: 'dessen (Genitiv m/n)', russian: 'которого, чей', example: 'Das is der Autor, dessen Bücher ich liebe.' },
                 { german: 'deren (Genitiv f/pl)', russian: 'которой, которых, чья', example: 'Die Frau, deren Auto gestohlen wurde, ging zur Polizei.' },
                 { german: 'was (Relativpronomen)', russian: 'что', example: 'Das ist alles, was ich weiß.' },
                 { german: 'wo (Relativadverb)', russian: 'где', example: 'Die Stadt, in der ich lebe, ist sehr schön.' },
@@ -618,7 +651,8 @@ export const curriculum: Curriculum = {
                 { german: 'sich erinnern an', russian: 'вспоминать о', example: 'Das ist das Lied, an das ich mich erinnere.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'n-deklination',
@@ -653,7 +687,8 @@ export const curriculum: Curriculum = {
                 { german: 'das Herz, -ens, -en', russian: 'сердце', example: 'Er hat ein gutes Herz.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         }
       ] 
     },
@@ -688,7 +723,8 @@ export const curriculum: Curriculum = {
                 { german: 'der Bericht, -e', russian: 'отчет, сообщение', example: 'Der Bericht des Ministers sei unvollständig.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'futur2',
@@ -718,7 +754,8 @@ export const curriculum: Curriculum = {
                 { german: 'die Vergangenheit', russian: 'прошлое', example: 'Er wird in der Vergangenheit viele Fehler gemacht haben.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'nominalisierung',
@@ -748,7 +785,8 @@ export const curriculum: Curriculum = {
                 { german: 'das Treffen, -', russian: 'встреча (от treffen)', example: 'Das Treffen findet morgen statt.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'partizipialkonstruktionen',
@@ -777,7 +815,8 @@ export const curriculum: Curriculum = {
                 { german: 'gekocht', russian: 'сваренный, приготовленный', example: 'Die gekochten Kartoffeln schmecken gut.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         }
       ] 
     },
@@ -814,7 +853,8 @@ export const curriculum: Curriculum = {
                 { german: 'der Kontext, -e', russian: 'контекст', example: 'Das Wort hat in diesem Kontext eine andere Bedeutung.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'komplexe-satze',
@@ -840,7 +880,8 @@ export const curriculum: Curriculum = {
                 { german: 'das Satzgefüge, -', russian: 'сложноподчиненное предложение', example: 'Sie analysierte das komplexe Satzgefüge.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         },
         {
           id: 'fachsprache',
@@ -872,9 +913,13 @@ export const curriculum: Curriculum = {
                 { german: 'die Strategie, -n', russian: 'стратегия', example: 'Die Firma hat eine neue Marketingstrategie entwickelt.' },
               ]
             }
-          ]
+          ],
+          exercises: []
         }
       ] 
     }
   ]
 };
+
+
+    
