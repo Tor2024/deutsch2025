@@ -284,144 +284,116 @@ export const curriculum: Curriculum = {
       description: 'Расширяем словарный запас и грамматику. Вы научитесь говорить о прошлом, делать покупки, договариваться о встречах и лучше понимать собеседников.',
       topics: [
         {
-          id: 'perfekt',
-          title: 'Прошедшее время Perfekt',
+          id: 'biografie-und-vergangenheit',
+          title: 'Биография и прошлое',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Время Perfekt: Рассказываем о прошлом</h2>
-            <p class="mb-4">Perfekt — это основное время для разговоров о прошедших событиях. Оно образуется с помощью вспомогательного глагола (<strong class="text-primary">haben</strong> или <strong class="text-primary">sein</strong>) и причастия прошедшего времени (<strong>Partizip II</strong>).</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4">Формула: <strong>Подлежащее + haben/sein + ... + Partizip II.</strong></div>
-            
-            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Когда haben, а когда sein?</h3>
-            <ul class="list-disc list-inside space-y-2 mb-6">
-              <li><strong class="text-primary">Sein</strong> используется с глаголами, обозначающими <strong class="text-accent">движение</strong> (gehen, fahren, fliegen) или <strong class="text-accent">смену состояния</strong> (einschlafen, aufwachen, sterben).<br><em>Пример: Ich <strong class="text-primary">bin</strong> nach Hause <strong class="text-accent">gegangen</strong>. (Я ушел домой.)</em></li>
-              <li><strong class="text-primary">Haben</strong> используется во всех остальных случаях, что составляет большинство глаголов.<br><em>Пример: Ich <strong class="text-primary">habe</strong> ein Buch <strong class="text-accent">gelesen</strong>. (Я прочитал книгу.)</em></li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Прошедшее время Perfekt</h2>
+            <p class="mb-4">Perfekt — основное время для рассказа о прошлом в устной речи. Оно состоит из двух частей: вспомогательного глагола <strong class="text-primary">haben</strong> или <strong class="text-primary">sein</strong> на втором месте и <strong class="text-accent">Partizip II</strong> (причастия) в конце предложения.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>С <strong class="text-primary">sein</strong>: глаголы движения (gehen, fahren) и смены состояния (einschlafen). <em>Пример: Ich <strong class="text-primary">bin</strong> gestern ins Kino <strong class="text-accent">gegangen</strong>.</em></li>
+              <li>С <strong class="text-primary">haben</strong>: все остальные глаголы. <em>Пример: Ich <strong class="text-primary">habe</strong> ein Buch <strong class="text-accent">gelesen</strong>.</em></li>
             </ul>
 
-            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Как образовать Partizip II?</h3>
+            <h2 class="font-headline text-2xl font-bold mb-4">Прошедшее время Präteritum</h2>
+            <p class="mb-4">Для глаголов <strong class="text-primary">haben</strong>, <strong class="text-primary">sein</strong> и <strong class="text-accent">модальных глаголов</strong> в разговоре о прошлом чаще используется Präteritum. Это их простые формы, которые нужно запомнить.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>sein: Ich <strong class="text-primary">war</strong>, du <strong class="text-primary">warst</strong>, er/sie/es <strong class="text-primary">war</strong>, wir <strong class="text-primary">waren</strong>, ihr <strong class="text-primary">wart</strong>, sie/Sie <strong class="text-primary">waren</strong>.</li>
+              <li>haben: Ich <strong class="text-primary">hatte</strong>, du <strong class="text-primary">hattest</strong>, er/sie/es <strong class="text-primary">hatte</strong>, ...</li>
+              <li>können: Ich <strong class="text-primary">konnte</strong>, du <strong class="text-primary">konntest</strong>, ...</li>
+              <li>wollen: Ich <strong class="text-primary">wollte</strong>, du <strong class="text-primary">wolltest</strong>, ...</li>
+            </ul>
+            <p>Пример: Gestern <strong class="text-primary">hatte</strong> ich keine Zeit. Ich <strong class="text-primary">war</strong> zu Hause. Ich <strong class="text-primary">wollte</strong> lesen, aber ich <strong class="text-primary">konnte</strong> nicht.</p>
+          `,
+          vocabulary: [
+            {
+              theme: 'События жизни',
+              words: [
+                { german: 'die Geburt, -en', russian: 'рождение', example: 'der Geburtsort' },
+                { german: 'die Schule, -n', russian: 'школа', example: 'Ich bin in die Schule gegangen.' },
+                { german: 'die Ausbildung, -en', russian: 'образование, обучение', example: 'Er hat eine Ausbildung als Mechaniker gemacht.' },
+                { german: 'der Beruf, -e', russian: 'профессия', example: 'Was sind Sie von Beruf?' },
+                { german: 'das Ereignis, -se', russian: 'событие', example: 'Das war ein wichtiges Ereignis in meinem Leben.' },
+                { german: 'die Vergangenheit', russian: 'прошлое', example: 'In der Vergangenheit war alles anders.' },
+                { german: 'der Lebenslauf, "-e', russian: 'резюме, биография', example: 'Schicken Sie mir bitte Ihren Lebenslauf.' },
+                { german: 'studieren', russian: 'учиться (в вузе)', example: 'Sie hat in Berlin studiert.' },
+                { german: 'umziehen', russian: 'переезжать', example: 'Wir sind letztes Jahr umgezogen.' },
+                { german: 'heiraten', russian: 'жениться, выходить замуж', example: 'Sie haben 1990 geheiratet.' },
+              ]
+            }
+          ]
+        },
+        {
+          id: 'wohnen-und-dienstleistungen',
+          title: 'Жильё и услуги',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">Предлоги места с Dativ и Akkusativ (Wechselpräpositionen)</h2>
+            <p class="mb-4">Предлоги <strong class="text-primary">in, an, auf, neben, über, unter, vor, hinter, zwischen</strong> могут использоваться с двумя падежами:</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>С падежом <strong class="text-accent">Dativ</strong>, если отвечают на вопрос <strong class="text-primary">Wo?</strong> (где?) и обозначают местоположение. <em>Пример: Das Buch liegt <strong class="text-accent">auf dem</strong> Tisch.</em></li>
+              <li>С падежом <strong class="text-accent">Akkusativ</strong>, если отвечают на вопрос <strong class="text-primary">Wohin?</strong> (куда?) и обозначают направление. <em>Пример: Ich lege das Buch <strong class="text-accent">auf den</strong> Tisch.</em></li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Описание жилья и бытовых проблем</h2>
+            <p class="mb-4">Для описания квартиры и проблем (например, в разговоре с арендодателем) используются прилагательные и специализированная лексика. Для сравнения используются степени сравнения.</p>
+             <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Степени сравнения (Komparativ und Superlativ)</h3>
             <ul class="list-disc list-inside space-y-2">
-              <li><strong>Слабые глаголы:</strong> <strong class="text-primary">ge</strong> + основа + <strong class="text-primary">(e)t</strong>. Пример: machen → <strong class="text-accent">gemacht</strong>.</li>
-              <li><strong>Сильные глаголы:</strong> <strong class="text-primary">ge</strong> + (часто измененная) основа + <strong class="text-primary">en</strong>. Пример: sprechen → <strong class="text-accent">gesprochen</strong>. Формы сильных глаголов нужно запоминать.</li>
+              <li><strong>Komparativ (сравнительная):</strong> <strong class="text-accent">schnell<span class="text-primary">er</span></span></strong> (быстрее), <strong class="text-accent">größ<span class="text-primary">er</span></span></strong> (больше). Используется с <strong class="text-primary">als</strong> (чем). <em>Meine Wohnung ist <strong class="text-accent">größer als</strong> deine.</em></li>
+              <li><strong>Superlativ (превосходная):</strong> <strong class="text-accent">am</span> schnell<span class="text-primary">sten</span></strong> (самый быстрый), <strong class="text-accent">der/die/das</span> größ<span class="text-primary">te</span></strong> (самый большой). <em>Er ist <strong class="text-accent">am schnellsten</span>. Das ist <strong class="text-accent">das größte</strong> Haus.</em></li>
             </ul>
           `,
           vocabulary: [
             {
-              theme: 'Прошедшие события',
+              theme: 'Аренда и быт',
               words: [
-                { german: 'gestern', russian: 'вчера', example: 'Gestern habe ich gearbeitet.' },
-                { german: 'gemacht', russian: 'делал (Partizip II от machen)', example: 'Was hast du gestern gemacht?' },
-                { german: 'gearbeitet', russian: 'работал (Partizip II от arbeiten)', example: 'Er hat 10 Stunden gearbeitet.' },
-                { german: 'gelernt', russian: 'учил (Partizip II от lernen)', example: 'Wir haben Deutsch gelernt.' },
-                { german: 'gesehen', russian: 'видел (Partizip II от sehen)', example: 'Hast du den Film gesehen?' },
-                { german: 'gegangen', russian: 'шел (Partizip II от gehen)', example: 'Sie ist ins Kino gegangen.' },
-                { german: 'gefahren', russian: 'ехал (Partizip II от fahren)', example: 'Ich bin nach Berlin gefahren.' },
-                { german: 'gekommen', russian: 'пришел (Partizip II от kommen)', example: 'Wann bist du gekommen?' },
-                { german: 'gegessen', russian: 'ел (Partizip II от essen)', example: 'Wir haben Pizza gegessen.' },
-                { german: 'getrunken', russian: 'пил (Partizip II от trinken)', example: 'Er hat Kaffee getrunken.' },
+                { german: 'die Miete, -n', russian: 'арендная плата', example: 'Die Miete ist sehr hoch.' },
+                { german: 'die Nebenkosten (Pl.)', russian: 'коммунальные услуги', example: 'Die Nebenkosten sind nicht in der Miete enthalten.' },
+                { german: 'der Vermieter, -', russian: 'арендодатель', example: 'Ich muss meinen Vermieter anrufen.' },
+                { german: 'die Wohnungsanzeige, -n', russian: 'объявление о сдаче квартиры', example: 'Ich habe eine interessante Wohnungsanzeige gelesen.' },
+                { german: 'kaputt', russian: 'сломанный', example: 'Die Heizung ist kaputt.' },
+                { german: 'funktionieren', russian: 'работать, функционировать', example: 'Das Internet funktioniert nicht.' },
+                { german: 'der Handwerker, -', russian: 'мастер, ремесленник', example: 'Der Handwerker kommt morgen.' },
+                { german: 'das Konto, Konten', russian: 'счёт (в банке)', example: 'Ich möchte ein Konto eröffnen.' },
+                { german: 'überweisen', russian: 'переводить (деньги)', example: 'Können Sie das Geld überweisen?' },
+                { german: 'das Paket, -e', russian: 'посылка', example: 'Ich muss ein Paket zur Post bringen.' },
               ]
             }
           ]
         },
         {
-          id: 'dativ',
-          title: 'Падеж Dativ',
+          id: 'gesundheit-und-reisen',
+          title: 'Здоровье и путешествия',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Дательный падеж (Dativ)</h2>
-            <p class="mb-4">Dativ отвечает на вопросы "Кому?" (<strong class="text-primary">Wem?</strong>), "Где?" (<strong class="text-primary">Wo?</strong>). Он указывает на <strong class="text-accent">косвенное дополнение</strong> (адресата действия) или на местоположение.</p>
-            <ul class="list-disc list-inside space-y-2 mb-6">
-              <li><strong>Косвенное дополнение:</strong> Ich gebe <strong class="text-primary">dem Mann</strong> ein Buch. (Я даю <strong class="text-accent">мужчине</strong> книгу.) - Кому я даю книгу?</li>
-              <li><strong>Местоположение:</strong> Das Buch liegt auf <strong class="text-primary">dem Tisch</strong>. (Книга лежит на <strong class="text-accent">столе</strong>.) - Где лежит книга?</li>
-            </ul>
-            
-            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Артикли и местоимения в Dativ</h3>
-             <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse my-4">
-                <thead>
-                  <tr class="bg-muted/50">
-                    <th class="border p-3">Падеж</th>
-                    <th class="border p-3">Муж.р. (m)</th>
-                    <th class="border p-3">Жен.р. (f)</th>
-                    <th class="border p-3">Сред.р. (n)</th>
-                    <th class="border p-3">Мн.ч. (pl)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="border p-3 font-medium">Nominativ</td>
-                    <td class="border p-3">der</td>
-                    <td class="border p-3">die</td>
-                    <td class="border p-3">das</td>
-                    <td class="border p-3">die</td>
-                  </tr>
-                  <tr>
-                    <td class="border p-3 font-medium">Dativ</td>
-                    <td class="border p-3"><strong class="text-primary">dem</strong></td>
-                    <td class="border p-3"><strong class="text-primary">der</strong></td>
-                    <td class="border p-3"><strong class="text-primary">dem</strong></td>
-                    <td class="border p-3"><strong class="text-primary">den ...n</strong></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="mt-4">Важно: во множественном числе в Dativ к существительному почти всегда добавляется окончание <strong class="text-primary">-n</strong> (если его там еще нет).</p>
-          `,
-          vocabulary: [
-            {
-              theme: 'Глаголы и предлоги, требующие Dativ',
-              words: [
-                { german: 'helfen (+D)', russian: 'помогать', example: 'Ich helfe dir.' },
-                { german: 'danken (+D)', russian: 'благодарить', example: 'Wir danken dem Lehrer.' },
-                { german: 'gefallen (+D)', russian: 'нравиться', example: 'Das Auto gefällt mir.' },
-                { german: 'antworten (+D)', russian: 'отвечать', example: 'Antworte mir bitte.' },
-                { german: 'der Mann, "-er', russian: 'мужчина', example: 'Ich gebe dem Mann das Buch.' },
-                { german: 'die Frau, -en', russian: 'женщина, жена', example: 'Er hilft der Frau.' },
-                { german: 'das Kind, -er', russian: 'ребенок', example: 'Die Mutter liest dem Kind vor.' },
-                { german: 'die Leute (Pl.)', russian: 'люди', example: 'Der Politiker antwortet den Leuten.' },
-                { german: 'mit (+D)', russian: 'с (кем-либо, чем-либо)', example: 'Ich fahre mit dem Zug.' },
-                { german: 'nach (+D)', russian: 'в, на (направление)', example: 'Wir fliegen nach Deutschland.' },
-              ]
-            }
-          ]
-        },
-        {
-          id: 'modalverben',
-          title: 'Модальные глаголы',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Модальные глаголы</h2>
-            <p class="mb-4">Модальные глаголы выражают отношение к действию: возможность, необходимость, желание. В предложении модальный глагол спрягается и стоит на втором месте, а основной глагол уходит в конец в форме инфинитива.</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4">Ich <strong class="text-primary">kann</strong> gut Deutsch <strong class="text-accent">sprechen</strong>. (Я могу хорошо говорить по-немецки.)</div>
-            
-            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Шесть основных модальных глаголов:</h3>
-            <ul class="list-disc list-inside space-y-2 mb-6">
-              <li><strong>können:</strong> мочь, уметь (физическая возможность, навык)</li>
-              <li><strong>müssen:</strong> быть должным (внутренняя необходимость, обязанность)</li>
-              <li><strong>sollen:</strong> быть должным (совет, поручение, моральный долг)</li>
-              <li><strong>dürfen:</strong> мочь (иметь разрешение)</li>
-              <li><strong>wollen:</strong> хотеть (конкретное желание)</li>
-              <li><strong>mögen / möchten:</strong> любить, нравиться / хотел бы (вежливое желание)</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Визит к врачу</h2>
+            <p class="mb-4">Для описания самочувствия и записи к врачу используются специальные глаголы и выражения. Часто необходимы возвратные глаголы.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Mir tut</strong> der Kopf <strong class="text-primary">weh</strong>. (У меня болит голова.)</li>
+              <li>Ich fühle <strong class="text-primary">mich</strong> nicht gut. (Я плохо себя чувствую.)</li>
+              <li>Ich möchte einen Termin <strong class="text-primary">vereinbaren</strong>. (Я хотел бы записаться на прием.)</li>
             </ul>
 
-             <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Особенности спряжения</h3>
-             <p class="mb-4">В единственном числе (<strong class="text-primary">ich, du, er/sie/es</strong>) многие модальные глаголы меняют корневую гласную. Формы для <strong class="text-primary">ich</strong> и <strong class="text-primary">er/sie/es</strong> совпадают!</p>
-             <ul class="list-disc list-inside space-y-2 p-4 bg-muted rounded-lg">
-              <li><strong>können:</strong> ich kann, du kannst, er/sie/es kann</li>
-              <li><strong>müssen:</strong> ich muss, du musst, er/sie/es muss</li>
-              <li><strong>dürfen:</strong> ich darf, du darfst, er/sie/es darf</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Придаточные предложения (Nebensätze)</h2>
+            <p class="mb-4">На уровне А2 мы начинаем активнее использовать придаточные предложения. Главное правило: <strong class="text-primary">спрягаемый глагол всегда уходит в конец предложения</strong>.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>С <strong class="text-primary">dass</strong> (что): Ich weiß, <strong class="text-accent">dass du krank bist</strong>. (Я знаю, что ты болен.)</li>
+              <li>С <strong class="text-primary">weil</strong> (потому что): Ich bleibe zu Hause, <strong class="text-accent">weil ich krank bin</strong>. (Я остаюсь дома, потому что я болен.)</li>
+              <li>С <strong class="text-primary">wenn</strong> (если, когда): <strong class="text-accent">Wenn ich krank bin</strong>, gehe ich zum Arzt. (Когда я болею, я иду к врачу.)</li>
+              <li>С <strong class="text-primary">obwohl</strong> (хотя): Er arbeitet, <strong class="text-accent">obwohl er krank ist</strong>. (Он работает, хотя болен.)</li>
             </ul>
           `,
           vocabulary: [
              {
-              theme: 'Возможности и обязанности',
+              theme: 'Здоровье и медицина',
               words: [
-                { german: 'können', russian: 'мочь, уметь', example: 'Ich kann schwimmen.' },
-                { german: 'müssen', russian: 'быть должным (необходимо)', example: 'Du musst die Hausaufgaben machen.' },
-                { german: 'sollen', russian: 'быть должным (совет)', example: 'Du sollst nicht lügen.' },
-                { german: 'dürfen', russian: 'мочь (иметь разрешение)', example: 'Hier darf man nicht parken.' },
-                { german: 'wollen', russian: 'хотеть', example: 'Wir wollen ins Kino gehen.' },
-                { german: 'möchten', russian: 'хотел бы', example: 'Ich möchte einen Kaffee, bitte.' },
-                { german: 'die Hausaufgabe, -n', russian: 'домашнее задание', example: 'Er muss seine Hausaufgaben machen.' },
-                { german: 'schwimmen', russian: 'плавать', example: 'Kannst du schwimmen?' },
-                { german: 'rauchen', russian: 'курить', example: 'Man darf hier nicht rauchen.' },
-                { german: 'reisen', russian: 'путешествовать', example: 'Sie will nach Italien reisen.' },
+                { german: 'der Schmerz, -en', russian: 'боль', example: 'Ich habe Kopfschmerzen.' },
+                { german: 'weh|tun', russian: 'болеть', example: 'Mein Hals tut weh.' },
+                { german: 'das Fieber', russian: 'температура, жар', example: 'Das Kind hat Fieber.' },
+                { german: 'der Arzt, "-e', russian: 'врач', example: 'Ich muss zum Arzt gehen.' },
+                { german: 'der Termin, -e', russian: 'запись, встреча', example: 'Ich habe einen Termin beim Arzt.' },
+                { german: 'das Rezept, -e', russian: 'рецепт', example: 'Der Arzt gibt mir ein Rezept.' },
+                { german: 'die Apotheke, -n', russian: 'аптека', example: 'Ich gehe in die Apotheke.' },
+                { german: 'sich fühlen', russian: 'чувствовать себя', example: 'Wie fühlen Sie sich?' },
+                { german: 'die Verspätung, -en', russian: 'опоздание', example: 'Der Zug hat Verspätung.' },
+                { german: 'die Fahrkarte, -n', russian: 'билет', example: 'Wo kann ich eine Fahrkarte kaufen?' },
               ]
             }
           ]
