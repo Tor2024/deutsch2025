@@ -29,7 +29,7 @@ const VerifyAnswerOutputSchema = z.object({
   explanation: z
     .string()
     .describe(
-      'A brief explanation in Russian about why the answer is correct or incorrect. If correct, provide some positive reinforcement. If incorrect, explain the mistake.'
+      'A brief explanation in Russian about why the answer is correct or incorrect, formatted with HTML. If correct, provide positive reinforcement. If incorrect, explain the mistake using <strong> and <strong class="text-primary"> for emphasis.'
     ),
 });
 
@@ -53,9 +53,9 @@ const verifyAnswerPrompt = ai.definePrompt({
 
   1. Determine if the user's answer is correct. The answer might be slightly different but still semantically correct (e.g., different word order if grammatically acceptable, synonyms). Be flexible but accurate.
   2. Based on the correctness, set the 'isCorrect' flag to true or false.
-  3. Provide a brief explanation in Russian.
-     - If the answer is correct, give positive feedback (e.g., "Отлично!", "Все верно!").
-     - If the answer is incorrect, gently explain the user's mistake. For example, if it's a grammar error, point it out. If it's a wrong word, suggest the right one.
+  3. Provide a brief explanation in Russian, formatted with simple HTML.
+     - If the answer is correct, give positive feedback (e.g., "<p>Отлично! Всё верно!</p>").
+     - If the answer is incorrect, gently explain the user's mistake. Use <p> tags for paragraphs. For example: "<p>Почти! Вы использовали неправильный артикль. Правильно будет <strong class="text-primary">{{correctAnswer}}</strong>, потому что...</p>". Use <strong> to emphasize parts of your explanation.
 
   Your response must be in valid JSON format.
   `,

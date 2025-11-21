@@ -53,7 +53,7 @@ const AdaptiveExerciseOutputSchema = z.object({
   explanation: z
     .string()
     .describe(
-      'A detailed explanation in Russian about the grammar rule being practiced.'
+      'A detailed explanation in Russian about the grammar rule being practiced, formatted with HTML tags (<h2>, <ul>, <li>, <strong>). Important terms should be wrapped in `<strong class="text-primary">...</strong>`.'
     ),
 });
 
@@ -82,7 +82,7 @@ const adaptiveExercisePrompt = ai.definePrompt({
   3.  **Comprehension Answer:** Provide the correct answer to the comprehension question.
   4.  **Targeted Exercise:** Create one fill-in-the-blank sentence that directly and obviously tests the '{{grammarConcept}}'. Use underscores for the blank space (e.g., "Ich ___ ins Kino.").
   5.  **Targeted Answer:** Provide the exact word(s) that should go in the blank.
-  6.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian.
+  6.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
 
   Ensure the output is parsable JSON and follows the specified schema.
   `,
