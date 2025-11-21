@@ -4,10 +4,9 @@
 import type { Topic, VocabularyWord } from "@/lib/types";
 import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
-import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
 import { generateAudio } from "@/ai/flows/text-to-speech";
 import { generateFeedback } from "@/ai/flows/generate-feedback";
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
@@ -157,8 +156,10 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       setCurrentStep('reading');
 
       // Generate audio in parallel
-      handleSpeak(response.readingText);
-
+      if (response.readingText) {
+          handleSpeak(response.readingText);
+      }
+      
     } catch (error) {
       console.error("Error starting exercise cycle:", error);
       toast({
@@ -253,11 +254,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     } else if (currentStep === 'explanation') {
         setIsSubmitting(true);
         try {
-            const masteryResponse = await assessSubjectMastery({
-                subject: topic.title,
-                userProficiency: (proficiency) / 100,
-                exerciseHistory: exerciseHistory.map(h => ({ exercise: h.exercise, correct: h.isCorrect })),
-            });
+            const isMastered = proficiency >= 100;
             
             const feedbackResponse = await generateFeedback({
                 topicTitle: topic.title,
@@ -266,8 +263,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
             setFinalFeedback(feedbackResponse.feedback);
             
 
-            if (masteryResponse.isMastered) {
-                setTopicProficiency(100);
+            if (isMastered) {
                 setCurrentStep('mastered');
                 onMastered();
                 setExerciseHistory([]); // Clear history after mastering
