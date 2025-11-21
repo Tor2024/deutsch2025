@@ -5,7 +5,7 @@ import type { Topic } from "@/lib/types";
 import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
 import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
@@ -27,7 +27,12 @@ type ExerciseHistoryItem = {
     correct: boolean;
 };
 
-export function ExerciseEngine({ topic }: { topic: Topic }) {
+type ExerciseEngineProps = {
+    topic: Topic;
+    onMastered: () => void;
+}
+
+export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [exerciseData, setExerciseData] = useState<AdaptiveExerciseOutput | null>(null);
   const [currentStep, setCurrentStep] = useState<Step>('loading');
   const [userAnswer, setUserAnswer] = useState("");
@@ -46,7 +51,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
 
   const currentStepIndex = useMemo(() => steps.findIndex(s => s.id === currentStep), [steps, currentStep]);
 
-  const startExerciseCycle = async () => {
+  const startExerciseCycle = useCallback(async () => {
     setCurrentStep('loading');
     setFeedback(null);
     setUserAnswer('');
@@ -69,11 +74,11 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
         variant: "destructive",
       });
     }
-  };
+  }, [topic.title, exerciseHistory, toast]);
 
   useEffect(() => {
     startExerciseCycle();
-  }, [topic.id]);
+  }, [startExerciseCycle]);
 
   const addHistoryAndProficiency = (question: string, isCorrect: boolean) => {
     setExerciseHistory(prev => [...prev, { exercise: question, correct: isCorrect }]);
@@ -140,20 +145,31 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
   const handleContinue = async () => {
     setFeedback(null);
     setUserAnswer('');
+    setIsSubmitting(true);
+
     if (currentStep === 'reading') {
         setCurrentStep('comprehension');
+        setIsSubmitting(false);
     } else if (currentStep === 'explanation') {
-        const masteryResponse = await assessSubjectMastery({
-            subject: topic.title,
-            userProficiency: (proficiency + 15) / 100, // check with new proficiency
-            exerciseHistory,
-        });
+        try {
+            const masteryResponse = await assessSubjectMastery({
+                subject: topic.title,
+                userProficiency: (proficiency + 15) / 100, // check with new proficiency
+                exerciseHistory,
+            });
 
-        if (masteryResponse.isMastered) {
-            setTopicProficiency(100);
-            setCurrentStep('mastered');
-        } else {
-            startExerciseCycle();
+            if (masteryResponse.isMastered) {
+                setTopicProficiency(100);
+                setCurrentStep('mastered');
+                onMastered(); // Notify parent component
+            } else {
+                startExerciseCycle();
+            }
+        } catch (error) {
+            console.error("Error assessing mastery:", error);
+            startExerciseCycle(); // Fallback to new cycle
+        } finally {
+            setIsSubmitting(false);
         }
     }
   };
@@ -231,10 +247,6 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
           <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4" />
           <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
           <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы. <br /> Можно переходить к следующей или повторить материал.</p>
-          <Button onClick={() => { setTopicProficiency(0); setExerciseHistory([]); startExerciseCycle(); }} className="mt-6">
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Пройти заново
-          </Button>
         </CardContent>
       </Card>
     )
@@ -276,5 +288,3 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     </div>
   );
 }
-
-    

@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { ExerciseEngine } from '@/components/exercise-engine';
+import { SpacedRepetitionWrapper } from '@/components/spaced-repetition-wrapper';
 import { VocabularyTrainer } from '@/components/vocabulary-trainer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -161,7 +161,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                 </CardTitle>
             </CardHeader>
             <CardContent>
-                <ExerciseEngine topic={topic} />
+                <SpacedRepetitionWrapper topic={topic} />
             </CardContent>
         </Card>
       </div>
