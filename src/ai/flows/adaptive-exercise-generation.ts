@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -28,16 +29,31 @@ const AdaptiveExerciseInputSchema = z.object({
 export type AdaptiveExerciseInput = z.infer<typeof AdaptiveExerciseInputSchema>;
 
 const AdaptiveExerciseOutputSchema = z.object({
-  exerciseText: z
+  readingText: z
     .string()
     .describe(
-      'A German language exercise targeted at the specified grammar concept and user level.'
+      'A short, engaging German text (3-5 sentences) for reading practice, relevant to the grammar concept and user level.'
     ),
-  correctAnswer: z.string().describe('The correct answer to the exercise.'),
+  comprehensionQuestion: z
+    .string()
+    .describe(
+      'A question in German based on the reading text to check understanding.'
+    ),
+  comprehensionAnswer: z
+    .string()
+    .describe('The correct answer to the comprehension question.'),
+  fillInTheBlankExercise: z
+    .string()
+    .describe(
+      'A fill-in-the-blank sentence exercise targeting the specific grammar concept. Use underscores for the blank (e.g., "Ich ___ nach Hause.").'
+    ),
+  fillInTheBlankAnswer: z
+    .string()
+    .describe('The correct word(s) for the fill-in-the-blank exercise.'),
   explanation: z
     .string()
     .describe(
-      'A detailed explanation of the grammar concept and why the answer is correct, in Russian.'
+      'A detailed explanation in Russian about the grammar rule being practiced.'
     ),
 });
 
@@ -59,13 +75,16 @@ const adaptiveExercisePrompt = ai.definePrompt({
   The user's level is: {{userLevel}}.
   Here are some examples of past errors they have made: {{pastErrors}}
 
-  Generate a targeted exercise to help the user practice this concept. The exercise should be appropriate for their level.
+  Your task is to create a comprehensive, multi-part exercise set to help the user practice this concept.
 
-  Also provide the correct answer to the exercise.
+  1.  **Reading Practice:** Write a short, engaging German text (3-5 sentences) that is relevant to the user's level and naturally incorporates the '{{grammarConcept}}'.
+  2.  **Comprehension Check:** Based on the text you just wrote, create one comprehension question in German.
+  3.  **Comprehension Answer:** Provide the correct answer to the comprehension question.
+  4.  **Targeted Exercise:** Create one fill-in-the-blank sentence that directly and obviously tests the '{{grammarConcept}}'. Use underscores for the blank space (e.g., "Ich ___ ins Kino.").
+  5.  **Targeted Answer:** Provide the exact word(s) that should go in the blank.
+  6.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian.
 
-  Finally, provide a detailed explanation of the grammar concept and why the answer is correct. The explanation MUST be in Russian.
-
-  Ensure the output is parsable JSON, and follows the schema. Focus on practical examples to help the user internalize the concept.
+  Ensure the output is parsable JSON and follows the specified schema.
   `,
 });
 
