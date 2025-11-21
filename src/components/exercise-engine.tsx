@@ -6,12 +6,13 @@ import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/ada
 import { verifyAnswer } from "@/ai/flows/verify-answer";
 import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
 import { generateAudio } from "@/ai/flows/text-to-speech";
+import { generateFeedback } from "@/ai/flows/generate-feedback";
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil, Volume2, Files, Sprout, ArrowRight, ArrowLeft } from "lucide-react";
+import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil, Volume2, Files, Sprout, ArrowRight, ArrowLeft, Move } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
 import { useUserProgress } from "@/hooks/use-user-progress";
@@ -32,7 +33,12 @@ type Exercise = {
     answer: string;
 }
 
-type Step = 'vocab-learning' | 'vocab-practicing' | 'reading' | 'comprehension' | 'grammar' | 'explanation' | 'mastered' | 'loading';
+type SentenceConstructionExercise = {
+    words: string[];
+    correctSentence: string;
+}
+
+type Step = 'vocab-learning' | 'vocab-practicing' | 'reading' | 'comprehension' | 'grammar' | 'sentence-construction' | 'explanation' | 'mastered' | 'loading';
 
 
 type ExerciseHistoryItem = {
@@ -57,17 +63,20 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [audioData, setAudioData] = useState<string | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [finalFeedback, setFinalFeedback] = useState<string | null>(null);
+
 
   // Vocabulary state
   const allWords = useMemo(() => topic.vocabulary.flatMap(v => v.words), [topic.vocabulary]);
   const [shuffledVocabulary, setShuffledVocabulary] = useState<Vocabulary[]>([]);
   const [vocabIndex, setVocabIndex] = useState(0);
   const [incorrectVocab, setIncorrectVocab] = useState<Vocabulary[]>([]);
-  const [vocabFeedback, setVocabFeedback] = useState<{type: 'correct' | 'incorrect', correctAnswer: string} | null>(null);
+  const [vocabFeedback, setVocabFeedback] = useState<{type: 'correct' | 'incorrect', message: string} | null>(null);
 
 
   const [comprehensionExercises, setComprehensionExercises] = useState<Exercise[]>([]);
   const [grammarExercises, setGrammarExercises] = useState<Exercise[]>([]);
+  const [sentenceConstructionExercises, setSentenceConstructionExercises] = useState<SentenceConstructionExercise[]>([]);
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
 
   useEffect(() => {
@@ -82,10 +91,11 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
 
   const steps: { id: Step, name: string, icon: React.ElementType }[] = useMemo(() => [
     { id: 'vocab-learning', name: 'Слова', icon: Sprout },
-    { id: 'vocab-practicing', name: 'Тренировка слов', icon: Files },
+    { id: 'vocab-practicing', name: 'Практика слов', icon: Files },
     { id: 'reading', name: 'Чтение', icon: BookOpen },
     { id: 'comprehension', name: 'Понимание', icon: BrainCircuit },
     { id: 'grammar', name: 'Грамматика', icon: Pencil },
+    { id: 'sentence-construction', name: 'Построение фраз', icon: Move },
     { id: 'explanation', name: 'Объяснение', icon: BookOpen },
   ], []);
 
@@ -111,6 +121,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       setExerciseData(response);
       setComprehensionExercises(response.comprehensionExercises);
       setGrammarExercises(response.grammarExercises);
+      setSentenceConstructionExercises(response.sentenceConstructionExercises || []);
       setCurrentStep('reading');
 
       // Generate audio in parallel
@@ -161,32 +172,42 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   }, [isSpeaking, toast]);
 
-  const handleSubmitGrammar = async (e: React.FormEvent) => {
+  const handleSubmitExercise = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!exerciseData || !userAnswer || isSubmitting) return;
 
     setIsSubmitting(true);
     setFeedback(null);
 
-    let currentExercises: Exercise[] = [];
+    let currentExercise;
+    let currentExercises: (Exercise | SentenceConstructionExercise)[] = [];
+
     if (currentStep === 'comprehension') {
         currentExercises = comprehensionExercises;
+        currentExercise = comprehensionExercises[currentExerciseIndex];
     } else if (currentStep === 'grammar') {
         currentExercises = grammarExercises;
+        currentExercise = grammarExercises[currentExerciseIndex];
+    } else if (currentStep === 'sentence-construction') {
+        currentExercises = sentenceConstructionExercises;
+        currentExercise = sentenceConstructionExercises[currentExerciseIndex];
     }
-    
-    const currentExercise = currentExercises[currentExerciseIndex];
+
+    if (!currentExercise) return;
+
+    const question = 'words' in currentExercise ? currentExercise.words.join(' / ') : currentExercise.question;
+    const correctAnswer = 'correctSentence' in currentExercise ? currentExercise.correctSentence : currentExercise.answer;
 
     try {
       const verification = await verifyAnswer({
-        question: currentExercise.question,
+        question: question,
         userAnswer,
-        correctAnswer: currentExercise.answer,
+        correctAnswer: correctAnswer,
       });
 
       const isCorrect = verification.isCorrect;
       setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: verification.explanation });
-      addHistoryAndProficiency(currentExercise.question, isCorrect);
+      addHistoryAndProficiency(question, isCorrect);
       
       if (isCorrect) {
         setTimeout(() => {
@@ -196,11 +217,12 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                 setCurrentExerciseIndex(prev => prev + 1);
             } else {
                 setCurrentExerciseIndex(0);
-                if (currentStep === 'comprehension') {
-                    setCurrentStep('grammar');
-                } else if (currentStep === 'grammar') {
-                    setCurrentStep('explanation');
+                if (currentStep === 'comprehension') setCurrentStep('grammar');
+                else if (currentStep === 'grammar') {
+                    if (sentenceConstructionExercises.length > 0) setCurrentStep('sentence-construction');
+                    else setCurrentStep('explanation');
                 }
+                else if (currentStep === 'sentence-construction') setCurrentStep('explanation');
             }
         }, 3000);
       }
@@ -230,6 +252,13 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                 userProficiency: (proficiency) / 100,
                 exerciseHistory,
             });
+            
+            const feedbackResponse = await generateFeedback({
+                topicTitle: topic.title,
+                exerciseHistory: exerciseHistory,
+            });
+            setFinalFeedback(feedbackResponse.feedback);
+            setExerciseHistory([]);
 
             if (masteryResponse.isMastered) {
                 setTopicProficiency(100);
@@ -239,7 +268,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                 startExerciseCycle();
             }
         } catch (error) {
-            console.error("Error assessing mastery:", error);
+            console.error("Error in post-cycle phase:", error);
+            // Fallback to just restart the cycle
             startExerciseCycle();
         } finally {
             setIsSubmitting(false);
@@ -264,36 +294,54 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   };
 
-  const handleVocabCheck = (e: React.FormEvent) => {
+  const handleVocabCheck = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!userAnswer.trim()) return;
+    if (!userAnswer.trim() || isSubmitting) return;
+    
+    setIsSubmitting(true);
+    setVocabFeedback(null);
 
-    const isCorrect = userAnswer.trim().toLowerCase() === currentVocabWord.german.toLowerCase();
-    
-    if (isCorrect) {
-      setVocabFeedback({ type: 'correct', correctAnswer: currentVocabWord.german });
-    } else {
-      setVocabFeedback({ type: 'incorrect', correctAnswer: currentVocabWord.german });
-      if (!incorrectVocab.some(v => v.german === currentVocabWord.german)) {
-        setIncorrectVocab(prev => [...prev, currentVocabWord]);
-      }
-    }
-    
-    setTimeout(() => {
-      setVocabFeedback(null);
-      setUserAnswer('');
-      if (vocabIndex < shuffledVocabulary.length - 1) {
-        setVocabIndex(prev => prev + 1);
-      } else {
-        if (incorrectVocab.length > 0) {
-          setShuffledVocabulary(incorrectVocab.sort(() => Math.random() - 0.5));
-          setIncorrectVocab([]);
-          setVocabIndex(0);
-        } else {
-          startExerciseCycle();
+    try {
+        const verification = await verifyAnswer({
+            question: `Как перевести "${currentVocabWord.russian}"?`,
+            userAnswer: userAnswer,
+            correctAnswer: currentVocabWord.german,
+        });
+
+        setVocabFeedback({
+            type: verification.isCorrect ? 'correct' : 'incorrect',
+            message: verification.explanation,
+        });
+
+        if (!verification.isCorrect) {
+            if (!incorrectVocab.some(v => v.german === currentVocabWord.german)) {
+              setIncorrectVocab(prev => [...prev, currentVocabWord]);
+            }
         }
-      }
-    }, 2500);
+
+        setTimeout(() => {
+          setVocabFeedback(null);
+          setUserAnswer('');
+          if (vocabIndex < shuffledVocabulary.length - 1) {
+            setVocabIndex(prev => prev + 1);
+          } else {
+            if (incorrectVocab.length > 0) {
+              setShuffledVocabulary(incorrectVocab.sort(() => Math.random() - 0.5));
+              setIncorrectVocab([]);
+              setVocabIndex(0);
+              toast({ title: "Повторение", description: "Давайте повторим слова, в которых вы ошиблись." });
+            } else {
+              startExerciseCycle();
+            }
+          }
+        }, verification.isCorrect ? 2500 : 5000);
+
+    } catch (error) {
+        console.error("Error verifying vocab:", error);
+        toast({ title: "Ошибка", description: "Не удалось проверить ответ.", variant: "destructive" });
+    } finally {
+        setIsSubmitting(false);
+    }
   };
 
 
@@ -331,37 +379,36 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       case 'vocab-practicing':
         if (!currentVocabWord) return null;
         return (
-            <Card className="min-h-[250px] flex flex-col justify-between">
+            <Card className="min-h-[300px] flex flex-col justify-between">
                 <CardHeader>
-                    <CardTitle className="text-center text-2xl">Напишите перевод:</CardTitle>
+                    <CardTitle className="text-center text-2xl">Напишите перевод (с артиклем):</CardTitle>
                     <CardDescription className="text-center text-4xl font-bold">{currentVocabWord.russian}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleVocabCheck} className="flex gap-2 items-center">
-                        <Button variant="ghost" size="icon" className="shrink-0" onClick={() => handleSpeak(currentVocabWord.german)} disabled={isSpeaking}>
-                            {isSpeaking ? <Loader2 className="animate-spin" /> : <Volume2 />}
-                        </Button>
                         <Input
                             type="text"
                             placeholder="Ответ на немецком..."
                             value={userAnswer}
                             onChange={(e) => setUserAnswer(e.target.value)}
-                            disabled={!!vocabFeedback}
+                            disabled={!!vocabFeedback || isSubmitting}
                             className="text-lg h-12"
                         />
-                        <Button type="submit" size="lg" disabled={!!vocabFeedback || !userAnswer.trim()}>Проверить</Button>
+                        <Button type="submit" size="lg" disabled={!!vocabFeedback || !userAnswer.trim() || isSubmitting}>
+                            {isSubmitting ? <Loader2 className="animate-spin" /> : 'Проверить'}
+                        </Button>
                     </form>
                     {vocabFeedback && (
                         <Alert variant={vocabFeedback.type === 'correct' ? 'default' : 'destructive'} className="mt-4">
                             {vocabFeedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-                            <AlertTitle>{vocabFeedback.type === 'correct' ? 'Верно!' : 'Ошибка!'}</AlertTitle>
-                            <AlertDescription>
-                            Правильный ответ: <strong className="font-bold">{vocabFeedback.correctAnswer}</strong>
-                            </AlertDescription>
+                            <AlertTitle>{vocabFeedback.type === 'correct' ? 'Верно!' : 'Обратите внимание'}</AlertTitle>
+                            <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: vocabFeedback.message }} />
                         </Alert>
                     )}
                 </CardContent>
-                <CardFooter></CardFooter>
+                <CardFooter>
+                    <Progress value={((vocabIndex + 1) / shuffledVocabulary.length) * 100} className="w-full"/>
+                </CardFooter>
             </Card>
         );
 
@@ -384,28 +431,44 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         );
       case 'comprehension':
       case 'grammar':
-        const isComprehension = currentStep === 'comprehension';
-        const currentExercises = isComprehension ? comprehensionExercises : grammarExercises;
-        const currentExercise = currentExercises[currentExerciseIndex];
-        const title = isComprehension ? 'Ответьте на вопрос' : 'Заполните пропуск (на немецком)';
+      case 'sentence-construction':
+        let currentExercise, currentExercisesList;
+        let title = '';
+        if (currentStep === 'comprehension') {
+            currentExercisesList = comprehensionExercises;
+            title = 'Ответьте на вопрос (на немецком)';
+        } else if (currentStep === 'grammar') {
+            currentExercisesList = grammarExercises;
+            title = 'Заполните пропуск (на немецком)';
+        } else {
+            currentExercisesList = sentenceConstructionExercises;
+            title = 'Составьте предложение из слов';
+        }
+        currentExercise = currentExercisesList[currentExerciseIndex];
+        
         return (
           <Card>
             <CardHeader>
                 <div className="flex justify-between items-center">
                     <CardTitle>{title}</CardTitle>
                     <span className="text-sm font-medium text-muted-foreground">
-                        {currentExerciseIndex + 1} / {currentExercises.length}
+                        {currentExerciseIndex + 1} / {currentExercisesList.length}
                     </span>
                 </div>
             </CardHeader>
             <CardContent>
-              <p className="text-lg text-foreground mb-4">{currentExercise.question}</p>
-              <form onSubmit={handleSubmitGrammar} className="flex flex-col sm:flex-row gap-2">
+              <div className="text-lg text-foreground mb-4">
+                {currentStep === 'sentence-construction' && currentExercise ? (
+                    <p className="font-bold tracking-wider">{(currentExercise as SentenceConstructionExercise).words.join(' / ')}</p>
+                ) : (currentExercise as Exercise)?.question}
+              </div>
+
+              <form onSubmit={handleSubmitExercise} className="flex flex-col sm:flex-row gap-2">
                 <Input
                   type="text"
                   value={userAnswer}
                   onChange={(e) => setUserAnswer(e.target.value)}
-                  placeholder="Введите ваш ответ..."
+                  placeholder="Введите ваш ответ на немецком..."
                   className="flex-grow"
                   disabled={isSubmitting || !!feedback}
                 />
@@ -449,7 +512,14 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         <CardContent className="p-6 text-center">
           <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4" />
           <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
-          <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы. <br /> Можно переходить к следующей или повторить материал.</p>
+          <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы.</p>
+          {finalFeedback && (
+             <Alert className="mt-4 text-left">
+                <BrainCircuit className="h-4 w-4" />
+                <AlertTitle>Персональный отзыв от AI-тренера</AlertTitle>
+                <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: finalFeedback }} />
+            </Alert>
+          )}
         </CardContent>
       </Card>
     )

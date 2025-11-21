@@ -40,6 +40,11 @@ const ExerciseSchema = z.object({
     answer: z.string().describe('The correct answer.')
 });
 
+const SentenceConstructionExerciseSchema = z.object({
+  words: z.array(z.string()).describe('An array of words to be arranged into a correct sentence.'),
+  correctSentence: z.string().describe('The correctly formed sentence.'),
+});
+
 const AdaptiveExerciseOutputSchema = z.object({
   readingText: z
     .string()
@@ -53,6 +58,10 @@ const AdaptiveExerciseOutputSchema = z.object({
   grammarExercises: z.array(ExerciseSchema).length(3)
     .describe(
       'An array of 3 fill-in-the-blank sentence exercises targeting the specific grammar concept. Use underscores for the blank (e.g., "Ich ___ nach Hause."). Each exercise should have a question and the correct answer.'
+    ),
+  sentenceConstructionExercises: z.array(SentenceConstructionExerciseSchema).length(2)
+    .describe(
+        'An array of 2 sentence construction exercises. Provide a set of words that the user must assemble into a grammatically correct sentence.'
     ),
   explanation: z
     .string()
@@ -89,7 +98,8 @@ const adaptiveExercisePrompt = ai.definePrompt({
   1.  **Reading Practice:** Write a short, engaging German text (3-5 sentences) that is relevant to the user's level, naturally incorporates the '{{grammarConcept}}', and uses several words from the provided vocabulary list.
   2.  **Comprehension Check:** Based on the text you just wrote, create an array of 3 comprehension questions in German. For each, provide the question and the correct answer.
   3.  **Targeted Grammar Exercises:** Create an array of 3 fill-in-the-blank sentences that directly and obviously test the '{{grammarConcept}}' and use words from the vocabulary list. Use underscores for the blank space (e.g., "Ich ___ ins Kino."). For each, provide the full sentence as the question and the exact word(s) for the blank as the answer.
-  4.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
+  4.  **Sentence Construction:** Create an array of 2 exercises where the user must form a correct sentence from a given set of words. This tests word order.
+  5.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
 
   Ensure the output is parsable JSON and follows the specified schema.
   `,
