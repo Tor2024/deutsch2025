@@ -12,6 +12,12 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+const VocabularyWordSchema = z.object({
+  german: z.string(),
+  russian: z.string(),
+  example: z.string(),
+});
+
 const AdaptiveExerciseInputSchema = z.object({
   grammarConcept: z
     .string()
@@ -24,6 +30,7 @@ const AdaptiveExerciseInputSchema = z.object({
     .describe(
       'Examples of past errors made by the user related to this grammar concept.'
     ),
+  vocabulary: z.array(VocabularyWordSchema).describe('A list of vocabulary words to incorporate into the exercises.'),
 });
 
 export type AdaptiveExerciseInput = z.infer<typeof AdaptiveExerciseInputSchema>;
@@ -70,13 +77,18 @@ const adaptiveExercisePrompt = ai.definePrompt({
 
   The user is struggling with the following grammar concept: {{grammarConcept}}.
   The user's level is: {{userLevel}}.
-  Here are some examples of past errors they have made: {{pastErrors}}
+  Here are some examples of past errors they have made: {{pastErrors}}.
+  
+  The exercises MUST incorporate words from the following vocabulary list:
+  {{#each vocabulary}}
+  - {{german}} ({{russian}}): {{example}}
+  {{/each}}
 
   Your task is to create a comprehensive, multi-part exercise set to help the user practice this concept.
 
-  1.  **Reading Practice:** Write a short, engaging German text (3-5 sentences) that is relevant to the user's level and naturally incorporates the '{{grammarConcept}}'.
+  1.  **Reading Practice:** Write a short, engaging German text (3-5 sentences) that is relevant to the user's level, naturally incorporates the '{{grammarConcept}}', and uses several words from the provided vocabulary list.
   2.  **Comprehension Check:** Based on the text you just wrote, create an array of 3 comprehension questions in German. For each, provide the question and the correct answer.
-  3.  **Targeted Grammar Exercises:** Create an array of 3 fill-in-the-blank sentences that directly and obviously test the '{{grammarConcept}}'. Use underscores for the blank space (e.g., "Ich ___ ins Kino."). For each, provide the full sentence as the question and the exact word(s) for the blank as the answer.
+  3.  **Targeted Grammar Exercises:** Create an array of 3 fill-in-the-blank sentences that directly and obviously test the '{{grammarConcept}}' and use words from the vocabulary list. Use underscores for the blank space (e.g., "Ich ___ ins Kino."). For each, provide the full sentence as the question and the exact word(s) for the blank as the answer.
   4.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
 
   Ensure the output is parsable JSON and follows the specified schema.
