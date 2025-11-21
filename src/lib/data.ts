@@ -4,6 +4,244 @@ import type { Curriculum } from './types';
 export const curriculum: Curriculum = {
   levels: [
     {
+      id: 'a0',
+      title: 'Уровень 0: Основы Грамматики',
+      description: 'Фундаментальные правила немецкого языка. Здесь собраны ключевые грамматические темы, которые являются каркасом для построения правильных предложений и понимания языка.',
+      topics: [
+        {
+          id: 'word-order',
+          title: 'Порядок слов в предложении',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">1. Простое повествовательное предложение</h2>
+            <p class="mb-4">В стандартном немецком предложении спрягаемый (изменяемый) глагол всегда стоит на <strong>втором месте</strong>. Подлежащее (кто/что выполняет действие) может стоять на первом или на третьем месте.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>Прямой порядок слов: <code class="bg-card p-1 rounded">Подлежащее (1) + Глагол (2) + Остальные части предложения.</code></li>
+              <li><em>Пример: <strong class="text-primary">Ich</strong> <strong class="text-accent">lerne</strong> heute Deutsch.</em> (Я учу сегодня немецкий.)</li>
+              <li class="mt-2">Обратный порядок слов (когда на первое место выносится второстепенный член): <code class="bg-card p-1 rounded">Второстепенный член (1) + Глагол (2) + Подлежащее (3) + ...</code></li>
+              <li><em>Пример: <strong class="text-primary">Heute</strong> <strong class="text-accent">lerne</strong> <strong class="text-primary">ich</strong> Deutsch.</em> (Сегодня я учу немецкий.)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">2. Вопросительное предложение</h2>
+            <p class="mb-4">Существует два типа вопросов:</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li><strong>Вопрос без вопросительного слова (ответ Да/Нет):</strong> Глагол стоит на <strong>первом месте</strong>.</li>
+              <li><em>Пример: <strong class="text-accent">Lernst</strong> du Deutsch?</em> (Ты учишь немецкий?)</li>
+              <li class="mt-2"><strong>Вопрос с вопросительным словом (W-Frage):</strong> Вопросительное слово стоит на <strong>первом месте</strong>, а глагол — на <strong>втором</strong>.</li>
+               <li><em>Пример: <strong class="text-primary">Was</strong> <strong class="text-accent">lernst</strong> du?</em> (Что ты учишь?)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">3. Придаточное предложение</h2>
+            <p class="mb-4">В придаточных предложениях, которые вводятся союзами (dass, weil, wenn и т.д.), спрягаемый глагол уходит в <strong>самый конец</strong>.</p>
+            <div class="bg-muted p-3 rounded-lg italic my-4">Ich bleibe zu Hause, <strong class="text-primary">weil</strong> ich Deutsch <strong class="text-accent">lerne</strong>. (Я остаюсь дома, потому что я учу немецкий.)</div>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'faelle',
+          title: 'Падежи (Die Fälle)',
+          explanation: `
+            <p class="mb-4">Падеж показывает, какую роль существительное играет в предложении. В немецком языке четыре падежа.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">1. Nominativ (Именительный падеж)</h2>
+            <p class="mb-4">Отвечает на вопросы <strong>Wer?</strong> (кто?) / <strong>Was?</strong> (что?). Обозначает подлежащее — того, кто совершает действие. Это начальная форма слова.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em><strong class="text-primary">Der Lehrer</strong> erklärt die Regel.</em> (Кто объясняет? — Учитель.)</div>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">2. Akkusativ (Винительный падеж)</h2>
+            <p class="mb-4">Отвечает на вопросы <strong>Wen?</strong> (кого?) / <strong>Was?</strong> (что?). Обозначает прямой объект, на который направлено действие. Большинство глаголов требуют Akkusativ (sehen, lesen, haben, kaufen...).</p>
+            <p class="mb-4"><strong>Важнейшее правило:</strong> в Akkusativ меняется только артикль мужского рода: <strong>der → den</strong>, <strong>ein → einen</strong>.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em>Ich sehe <strong class="text-accent">den Lehrer</strong>.</em> (Я вижу кого? — Учителя.)</div>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">3. Dativ (Дательный падеж)</h2>
+            <p class="mb-4">Отвечает на вопрос <strong>Wem?</strong> (кому?). Обозначает косвенный объект (адресата действия). Используется с глаголами типа geben (давать), helfen (помогать), danken (благодарить) и многими предлогами.</p>
+            <p class="mb-4">Изменение артиклей: der → <strong>dem</strong>, die → <strong>der</strong>, das → <strong>dem</strong>, die (мн.ч.) → <strong>den (+n)</strong>.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em>Ich gebe <strong class="text-accent">dem Lehrer</strong> das Buch.</em> (Я даю книгу кому? — Учителю.)</div>
+            
+            <h2 class="font-headline text-2xl font-bold mb-4">4. Genitiv (Родительный падеж)</h2>
+            <p class="mb-4">Отвечает на вопрос <strong>Wessen?</strong> (чей?). Обозначает принадлежность. В разговорной речи часто заменяется конструкцией <strong>von + Dativ</strong>.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em>Das ist das Buch <strong class="text-accent">des Lehrers</strong>.</em> (Это книга чья? — Учителя.)</div>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'artikel',
+          title: 'Артикли',
+          explanation: `
+            <p class="mb-4">Артикль — это короткое слово перед существительным, которое указывает на его род, число и падеж.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">1. Определенный артикль (Bestimmter Artikel)</h2>
+            <p class="mb-4">Используется, когда речь идет о конкретном, уже известном или единственном в своем роде предмете. Аналог английского 'the'.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>Мужской род: <strong>der</strong> Mann (этот конкретный мужчина)</li>
+              <li>Женский род: <strong>die</strong> Frau (эта конкретная женщина)</li>
+              <li>Средний род: <strong>das</strong> Kind (этот конкретный ребенок)</li>
+              <li>Множественное число: <strong>die</strong> Leute (эти конкретные люди)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">2. Неопределенный артикль (Unbestimmter Artikel)</h2>
+            <p class="mb-4">Используется, когда речь идет о каком-то одном, неопределенном предмете из ряда подобных, или когда предмет упоминается впервые. Аналог английского 'a/an'.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>Мужской род: <strong>ein</strong> Mann (какой-то мужчина)</li>
+              <li>Женский род: <strong>eine</strong> Frau (какая-то женщина)</li>
+              <li>Средний род: <strong>ein</strong> Kind (какой-то ребенок)</li>
+              <li><strong>Во множественном числе неопределенный артикль отсутствует!</strong></li>
+            </ul>
+            
+            <h2 class="font-headline text-2xl font-bold mb-4">3. Нулевой артикль</h2>
+            <p class="mb-4">Артикль не используется:</p>
+             <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>Перед именами, названиями городов и большинства стран (без прилагательного): <em>Ich wohne in <strong>Berlin</strong>.</em></li>
+              <li>Перед названиями профессий и национальностей в составе сказуемого: <em>Er ist <strong>Arzt</strong>.</em></li>
+              <li>Перед веществами и материалами в неопределенном количестве: <em>Ich trinke <strong>Kaffee</strong>.</em></li>
+              <li>Во множественном числе, когда в единственном стоял бы неопределенный артикль: <em>Ich sehe <strong>Äpfel</strong>.</em> (Я вижу яблоки.) ср. <em>Ich sehe <strong>einen Apfel</strong>.</em></li>
+            </ul>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'verben-und-zeiten',
+          title: 'Глаголы и времена',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">1. Präsens (Настоящее время)</h2>
+            <p class="mb-4">Самое употребительное время. Описывает действия в настоящем, а также запланированные действия в будущем. Глагол спрягается (изменяется по лицам и числам) и стоит на 2-м месте в предложении.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em>Ich <strong class="text-accent">lerne</strong> Deutsch. Er <strong class="text-accent">lernt</strong> Deutsch.</em></div>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">2. Perfekt (Прошедшее разговорное время)</h2>
+            <p class="mb-4">Основное время для обозначения прошлого в устной речи. Образуется с помощью вспомогательного глагола <strong class="text-primary">haben</strong> или <strong class="text-primary">sein</strong> (на 2-м месте) и <strong class="text-accent">Partizip II</strong> (причастия) в конце.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>С <strong class="text-primary">sein</strong>: глаголы движения и смены состояния. <em>Ich <strong class="text-primary">bin</strong> gestern ins Kino <strong class="text-accent">gegangen</strong>.</em></li>
+              <li>С <strong class="text-primary">haben</strong>: все остальные глаголы. <em>Ich <strong class="text-primary">habe</strong> ein Buch <strong class="text-accent">gelesen</strong>.</em></li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">3. Präteritum (Прошедшее повествовательное время)</h2>
+            <p class="mb-4">Используется в письменной речи (книги, рассказы, новости). Для глаголов <strong class="text-primary">sein</strong>, <strong class="text-primary">haben</strong> и модальных глаголов используется и в устной речи вместо Perfekt.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em>Ich <strong class="text-accent">war</strong> gestern zu Hause. Ich <strong class="text-accent">hatte</strong> keine Zeit.</em></div>
+
+             <h2 class="font-headline text-2xl font-bold mb-4">4. Futur I (Будущее время)</h2>
+            <p class="mb-4">Выражает намерение или предположение о будущем. Образуется с помощью вспомогательного глагола <strong class="text-primary">werden</strong> (на 2-м месте) и инфинитива основного глагола в конце.</p>
+            <div class="bg-muted p-3 rounded-lg my-4"><em>Ich <strong class="text-primary">werde</strong> morgen meine Oma <strong class="text-accent">besuchen</strong>.</em> (Я завтра навещу бабушку.)</div>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'negation',
+          title: 'Отрицание: nicht и kein',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">Когда использовать "kein"?</h2>
+            <p class="mb-4">Отрицание <strong class="text-primary">kein</strong> используется только для отрицания <strong>существительных</strong>.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>С существительными, которые стоят <strong>с неопределенным артиклем</strong>.</li>
+              <li><em>Ich habe <strong class="text-accent">einen</strong> Hund. → Ich habe <strong class="text-primary">keinen</strong> Hund.</em></li>
+              <li class="mt-2">С существительными, которые стоят <strong>без артикля</strong> (нулевой артикль).</li>
+              <li><em>Ich habe Hunger. → Ich habe <strong class="text-primary">keinen</strong> Hunger.</em></li>
+              <li><em>Ich sehe Äpfel. → Ich sehe <strong class="text-primary">keine</strong> Äpfel.</em></li>
+            </ul>
+            <p class="mb-4"><strong class="text-primary">Kein</strong> склоняется так же, как неопределенный артикль 'ein'.</p>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Когда использовать "nicht"?</h2>
+            <p class="mb-4">Отрицание <strong class="text-primary">nicht</strong> используется во всех остальных случаях для отрицания:</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Всего предложения</strong> (стоит в конце): <em>Ich komme <strong class="text-primary">nicht</strong>.</em></li>
+              <li><strong>Глагола</strong> (стоит в конце): <em>Ich schlafe <strong class="text-primary">nicht</strong>.</em></li>
+              <li><strong>Прилагательного</strong> (стоит перед прилагательным): <em>Das Auto ist <strong class="text-primary">nicht</strong> neu.</em></li>
+              <li><strong>Наречия</strong> (стоит перед наречием): <em>Er spricht <strong class="text-primary">nicht</strong> schnell.</em></li>
+              <li><strong>Существительного с определенным артиклем</strong> (стоит перед артиклем): <em>Das ist <strong class="text-primary">nicht</strong> der richtige Weg.</em></li>
+              <li><strong>Существительного с притяжательным местоимением</strong> (стоит перед местоимением): <em>Das ist <strong class="text-primary">nicht</strong> mein Auto.</em></li>
+            </ul>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'modalverben',
+          title: 'Модальные глаголы',
+          explanation: `
+            <p class="mb-4">Модальные глаголы изменяют смысл основного глагола, добавляя оттенок возможности, необходимости, желания и т.д. В предложении модальный глагол спрягается и стоит на 2-м месте, а основной глагол уходит в конец в форме инфинитива.</p>
+            <div class="bg-muted p-3 rounded-lg italic my-4">Ich <strong class="text-primary">kann</strong> gut Deutsch <strong class="text-accent">sprechen</strong>.</div>
+            <h2 class="font-headline text-2xl font-bold mb-4">Значения глаголов:</h2>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li><strong class="text-primary">können:</strong> мочь, уметь (физическая возможность, навык). <em>Ich kann schwimmen.</em></li>
+              <li><strong class="text-primary">dürfen:</strong> мочь (иметь разрешение). <em>Hier darf man nicht rauchen.</em></li>
+              <li><strong class="text-primary">müssen:</strong> быть должным (внутренняя необходимость, обязанность). <em>Ich muss heute arbeiten.</em></li>
+              <li><strong class="text-primary">sollen:</strong> быть должным (по чьему-то указанию, совет). <em>Der Arzt sagt, ich soll mehr schlafen.</em></li>
+              <li><strong class="text-primary">wollen:</strong> хотеть (сильное желание, план). <em>Ich will nach Deutschland fliegen.</em></li>
+              <li><strong class="text-primary">mögen/möchten:</strong> любить, нравиться / хотел бы (вежливое желание). <em>Ich mag Pizza. Ich möchte einen Kaffee bestellen.</em></li>
+            </ul>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'konjunktionen',
+          title: 'Союзы (Konjunktionen)',
+          explanation: `
+            <p class="mb-4">Союзы связывают слова и предложения. Они делятся на две основные группы по влиянию на порядок слов.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">1. Сочинительные союзы (прямой порядок слов)</h2>
+            <p class="mb-4">Эти союзы соединяют равноправные предложения и не влияют на порядок слов. Глагол после них стоит на своем обычном месте. Запомнить их можно по акрониму <strong class="text-primary">ADUSO</strong>.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>a</strong>ber - но: <em>Ich will kommen, <strong class="text-primary">aber</strong> ich habe keine Zeit.</em></li>
+              <li><strong>d</strong>enn - так как, потому что: <em>Ich lerne Deutsch, <strong class="text-primary">denn</strong> ich will in Deutschland arbeiten.</em></li>
+              <li><strong>u</strong>nd - и: <em>Er liest ein Buch <strong class="text-primary">und</strong> sie hört Musik.</em></li>
+              <li><strong>s</strong>ondern - а, но (при противопоставлении с отрицанием): <em>Das ist nicht Kaffee, <strong class="text-primary">sondern</strong> Tee.</em></li>
+              <li><strong>o</strong>der - или: <em>Fahren wir ans Meer <strong class="text-primary">oder</strong> bleiben wir zu Hause?</em></li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">2. Подчинительные союзы (глагол в конце)</h2>
+            <p class="mb-4">Эти союзы вводят придаточное предложение. Спрягаемый глагол в придаточном предложении всегда уходит в <strong>конец</strong>.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>dass</strong> - что: <em>Ich weiß, <strong class="text-primary">dass</strong> du müde <strong class="text-accent">bist</strong>.</em></li>
+              <li><strong>weil</strong> - потому что: <em>Ich komme nicht, <strong class="text-primary">weil</strong> ich krank <strong class="text-accent">bin</strong>.</em></li>
+              <li><strong>wenn</strong> - когда, если: <em><strong class="text-primary">Wenn</strong> das Wetter gut <strong class="text-accent">ist</strong>, gehen wir spazieren.</em></li>
+              <li><strong>obwohl</strong> - хотя: <em>Er geht zur Arbeit, <strong class="text-primary">obwohl</strong> er sich nicht gut <strong class="text-accent">fühlt</strong>.</em></li>
+              <li><strong>ob</strong> - ли (в косвенных вопросах): <em>Ich weiß nicht, <strong class="text-primary">ob</strong> er <strong class="text-accent">kommt</strong>.</em></li>
+            </ul>
+          `,
+          vocabulary: [],
+          exercises: []
+        },
+        {
+          id: 'praepositionen',
+          title: 'Предлоги (Präpositionen)',
+          explanation: `
+            <p class="mb-4">Предлоги в немецком языке требуют после себя определенного падежа.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">1. Предлоги с Akkusativ</h2>
+            <p class="mb-4">Всегда требуют винительного падежа. Запомнить можно по мнемонике "FUDGE-O".</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>f</strong>ür - для: <em>Das Geschenk ist <strong class="text-primary">für dich</strong>.</em></li>
+              <li><strong>u</strong>m - вокруг, в (о времени): <em>Wir sitzen <strong class="text-primary">um den</strong> Tisch. Der Film beginnt <strong class="text-primary">um</strong> 20 Uhr.</em></li>
+              <li><strong>d</strong>urch - через, сквозь: <em>Wir fahren <strong class="text-primary">durch den</strong> Tunnel.</em></li>
+              <li><strong>g</strong>egen - против: <em>Er spielt <strong class="text-primary">gegen seinen</strong> Freund.</em></li>
+              <li><strong>e</strong>ntlang - вдоль: <em>Wir gehen <strong class="text-primary">den Fluss entlang</strong>.</em> (предлог стоит после сущ.)</li>
+              <li><strong>o</strong>hne - без: <em>Ich trinke Kaffee <strong class="text-primary">ohne Zucker</strong>.</em></li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">2. Предлоги с Dativ</h2>
+            <p class="mb-4">Всегда требуют дательного падежа.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>aus</strong> - из: <em>Er kommt <strong class="text-primary">aus der</strong> Schweiz.</em></li>
+              <li><strong>bei</strong> - у, при: <em>Ich wohne <strong class="text-primary">bei meinen</strong> Eltern.</em></li>
+              <li><strong>mit</strong> - с: <em>Ich fahre <strong class="text-primary">mit dem</strong> Bus.</em></li>
+              <li><strong>nach</strong> - в, на (направления), после: <em>Wir fliegen <strong class="text-primary">nach</strong> Deutschland. <strong class="text-primary">Nach der</strong> Arbeit gehe ich nach Hause.</em></li>
+              <li><strong>seit</strong> - с (с каких-то пор): <em>Ich lerne <strong class="text-primary">seit einem</strong> Jahr Deutsch.</em></li>
+              <li><strong>von</strong> - от, с: <em>Das ist ein Geschenk <strong class="text-primary">von meiner</strong> Freundin.</em></li>
+              <li><strong>zu</strong> - к, на: <em>Ich gehe <strong class="text-primary">zum</strong> Arzt.</em> (zu + dem)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">3. Предлоги двойного управления (Wechselpräpositionen)</h2>
+            <p class="mb-4">Эти предлоги могут использоваться как с Dativ, так и с Akkusativ. Правило простое:</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>Вопрос <strong>Wo?</strong> (где?) → <strong class="text-primary">Dativ</strong>: <em>Das Buch liegt <strong class="text-accent">auf dem</strong> Tisch.</em></li>
+              <li>Вопрос <strong>Wohin?</strong> (куда?) → <strong class="text-primary">Akkusativ</strong>: <em>Ich lege das Buch <strong class="text-accent">auf den</strong> Tisch.</em></li>
+            </ul>
+            <p>К этим предлогам относятся: <strong>in, an, auf, neben, über, unter, vor, hinter, zwischen</strong>.</p>
+          `,
+          vocabulary: [],
+          exercises: []
+        }
+      ]
+    },
+    {
       id: 'a1',
       title: 'Уровень A1: Начинающий',
       description: 'Основы для уверенного старта. Вы научитесь представляться, вести простые диалоги, понимать базовые фразы и строить предложения в настоящем времени.',
@@ -1151,13 +1389,11 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Umweltschutz', russian: 'защита окружающей среды', article: 'der', plural: '-', pluralArticle: '-', exampleSingular: 'Umweltschutz ist ein wichtiges Thema.', examplePlural: '-' },
                 { type: 'noun', german: 'Therapie', russian: 'терапия', article: 'die', plural: 'Therapien', pluralArticle: 'die', exampleSingular: 'Er macht eine Therapie.', examplePlural: 'Es gibt verschiedene Therapien für diese Krankheit.' },
                 { type: 'noun', german: 'Prävention', russian: 'профилактика', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Prävention ist besser als Heilen.', examplePlural: '-' },
-                { type: 'conjunction', german: 'daher', russian: 'поэтому', structure: 'Порядок слов как в главном предложении (глагол на 2-м месте).', example: 'Das Wetter war schlecht, daher blieben wir zu Hause.' },
-                { type: 'conjunction', german: 'sowohl … als auch', russian: 'как … так и', structure: 'Соединяет однородные члены предложения.', example: 'Er mag sowohl Kaffee als auch Tee.' },
-                { type: 'conjunction', german: 'entweder … oder', russian: 'либо … либо', structure: 'Соединяет альтернативные члены предложения или предложения.', example: 'Wir fahren entweder nach Berlin oder nach Hamburg.' },
-                { type: 'conjunction', german: 'weder … noch', russian: 'ни … ни', structure: 'Соединяет отрицаемые члены предложения.', example: 'Er trinkt weder Kaffee noch Tee.' },
-                { type: 'adverb', german: 'möglicherweise', russian: 'возможно', structure: 'Обычно стоит после глагола или в начале предложения.', example: 'Möglicherweise kommt er später.' },
-                { type: 'adverb', german: 'einerseits', russian: 'с одной стороны', structure: 'Часто используется в паре с andererseits.', example: 'Einerseits möchte ich reisen, andererseits habe ich wenig Geld.' },
-                { type: 'adverb', german: 'andererseits', russian: 'с другой стороны', structure: 'Часто используется в паре с einerseits.', example: 'Andererseits ist es auch schön, zu Hause zu bleiben.' },
+                { type: 'conjunction', german: 'dennoch', russian: 'тем не менее', structure: 'Порядок слов как в главном предложении (глагол на 2-м месте).', example: 'Das Wetter war schlecht, dennoch machten wir einen Spaziergang.' },
+                { type: 'conjunction', german: 'jedoch', russian: 'однако', structure: 'Может стоять после глагола или в начале предложения.', example: 'Er ist reich, jedoch nicht glücklich.' },
+                { type: 'conjunction', german: 'außerdem', russian: 'кроме того', structure: 'Порядок слов как в главном предложении (глагол на 2-м месте).', example: 'Ich mag Sport; außerdem ernähre ich mich gesund.' },
+                { type: 'conjunction', german: 'darüber hinaus', russian: 'сверх того, кроме того', structure: 'Порядок слов как в главном предложении (глагол на 2-м месте).', example: 'Die Wohnung ist schön. Darüber hinaus ist die Miete günstig.' },
+                { type: 'adverb', german: 'insbesondere', russian: 'в особенности', structure: 'Обычно стоит после глагола или в середине предложения.', example: 'Ich mag deutsche Literatur, insbesondere die Werke von Goethe.' },
               ]
             }
           ],
