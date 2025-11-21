@@ -83,13 +83,6 @@ export const curriculum: Curriculum = {
                     { type: 'noun', german: 'Nachname', russian: 'фамилия', article: 'der', plural: 'Nachnamen', pluralArticle: 'die', exampleSingular: 'Mein Nachname ist Müller.', examplePlural: 'Schmidt und Schneider sind häufige Nachnamen.' },
                     { type: 'noun', german: 'Alter', russian: 'возраст', article: 'das', plural: 'Alter', pluralArticle: 'die', exampleSingular: 'Das Alter ist nur eine Zahl.', examplePlural: 'In verschiedenen Altern hat man verschiedene Interessen.' },
                     { type: 'noun', german: 'Adresse', russian: 'адрес', article: 'die', plural: 'Adressen', pluralArticle: 'die', exampleSingular: 'Können Sie mir Ihre Adresse geben?', examplePlural: 'Ich sammle die Adressen aller Teilnehmer.' },
-                    { type: 'noun', german: 'Straße', russian: 'улица', article: 'die', plural: 'Straßen', pluralArticle: 'die', exampleSingular: 'Ich wohne in der Schillerstraße.', examplePlural: 'Die Straßen in der Innenstadt sind sehr eng.' },
-                    { type: 'noun', german: 'Hausnummer', russian: 'номер дома', article: 'die', plural: 'Hausnummern', pluralArticle: 'die', exampleSingular: 'Meine Hausnummer ist 10.', examplePlural: 'Die Hausnummern sind gut sichtbar.' },
-                    { type: 'noun', german: 'Stadt', russian: 'город', article: 'die', plural: 'Städte', pluralArticle: 'die', exampleSingular: 'Berlin ist eine große Stadt.', examplePlural: 'Ich besuche gerne alte Städte.' },
-                    { type: 'noun', german: 'Land', russian: 'страна', article: 'das', plural: 'Länder', pluralArticle: 'die', exampleSingular: 'Deutschland ist ein schönes Land.', examplePlural: 'Ich möchte viele Länder bereisen.' },
-                    { type: 'noun', german: 'Postleitzahl', russian: 'почтовый индекс', article: 'die', plural: 'Postleitzahlen', pluralArticle: 'die', exampleSingular: 'Die Postleitzahl von Berlin Mitte ist 10117.', examplePlural: 'Postleitzahlen helfen bei der schnellen Zustellung.' },
-                    { type: 'noun', german: 'Geburtsdatum', russian: 'дата рождения', article: 'das', plural: 'Geburtsdaten', pluralArticle: 'die', exampleSingular: 'Mein Geburtsdatum ist der 1. Januar.', examplePlural: 'Bitte prüfen Sie die Geburtsdaten.' },
-                    { type: 'noun', german: 'Geburtsort', russian: 'место рождения', article: 'der', plural: 'Geburtsorte', pluralArticle: 'die', exampleSingular: 'Mein Geburtsort ist eine kleine Stadt.', examplePlural: 'Die Geburtsorte der Dichter sind oft Museen.' },
                     { type: 'noun', german: 'Telefonnummer', russian: 'номер телефона', article: 'die', plural: 'Telefonnummern', pluralArticle: 'die', exampleSingular: 'Meine Telefonnummer ist 0123456789.', examplePlural: 'Bitte notieren Sie alle Telefonnummern.' },
                     { type: 'noun', german: 'E-Mail', russian: 'электронная почта', article: 'die', plural: 'E-Mails', pluralArticle: 'die', exampleSingular: 'Schicken Sie mir eine E-Mail.', examplePlural: 'Ich muss noch viele E-Mails beantworten.' },
                 ]
@@ -116,8 +109,6 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Cousine', russian: 'кузина', article: 'die', plural: 'Cousinen', pluralArticle: 'die', exampleSingular: 'Meine Cousine studiert Kunst.', examplePlural: 'Ich gehe mit meiner Cousine einkaufen.' },
                 { type: 'noun', german: 'Freund', russian: 'друг', article: 'der', plural: 'Freunde', pluralArticle: 'die', exampleSingular: 'Ich treffe heute meinen besten Freund.', examplePlural: 'Am Wochenende feiere ich mit meinen Freunden.' },
                 { type: 'noun', german: 'Freundin', russian: 'подруга', article: 'die', plural: 'Freundinnen', pluralArticle: 'die', exampleSingular: 'Meine Freundin und ich gehen ins Kino.', examplePlural: 'Sie hat viele Freundinnen.' },
-                { type: 'noun', german: 'Kollege', russian: 'коллега (муж.)', article: 'der', plural: 'Kollegen', pluralArticle: 'die', exampleSingular: 'Mein Kollege aus dem Büro ist sehr nett.', examplePlural: 'Ich gehe mit den Kollegen Mittag essen.' },
-                { type: 'noun', german: 'Kollegin', russian: 'коллега (жен.)', article: 'die', plural: 'Kolleginnen', pluralArticle: 'die', exampleSingular: 'Meine Kollegin hilft mir bei der Arbeit.', examplePlural: 'Die Kolleginnen planen eine Überraschung.' },
               ]
             }
           ],
@@ -167,24 +158,19 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Flur', russian: 'коридор', article: 'der', plural: 'Flure', pluralArticle: 'die', exampleSingular: 'Die Schuhe stehen im Flur.', examplePlural: 'Die Flure des Hotels sind sehr lang.' },
                 { type: 'noun', german: 'Tür', russian: 'дверь', article: 'die', plural: 'Türen', pluralArticle: 'die', exampleSingular: 'Bitte schließ die Tür.', examplePlural: 'Die Türen sind aus Holz.' },
                 { type: 'noun', german: 'Fenster', russian: 'окно', article: 'das', plural: 'Fenster', pluralArticle: 'die', exampleSingular: 'Machst du bitte das Fenster auf?', examplePlural: 'Die Fenster müssen geputzt werden.' },
+                 { type: 'noun', german: 'Tisch', russian: 'стол', article: 'der', plural: 'Tische', pluralArticle: 'die', exampleSingular: 'Das Essen steht auf dem Tisch.', examplePlural: 'Für die Party brauchen wir mehr Tische.' },
+                { type: 'noun', german: 'Stuhl', russian: 'стул', article: 'der', plural: 'Stühle', pluralArticle: 'die', exampleSingular: 'Dieser Stuhl ist sehr bequem.', examplePlural: 'Wir brauchen noch vier Stühle.' },
+                { type: 'noun', german: 'Bett', russian: 'кровать', article: 'das', plural: 'Betten', pluralArticle: 'die', exampleSingular: 'Ich gehe jetzt ins Bett.', examplePlural: 'Das Hotel hat sehr bequeme Betten.' },
+                { type: 'noun', german: 'Schrank', russian: 'шкаф', article: 'der', plural: 'Schränke', pluralArticle: 'die', exampleSingular: 'Meine Kleidung ist im Schrank.', examplePlural: 'In der Küche gibt es viele Schränke.' },
+                { type: 'noun', german: 'Sofa', russian: 'диван', article: 'das', plural: 'Sofas', pluralArticle: 'die', exampleSingular: 'Wir sitzen auf dem Sofa und sehen fern.', examplePlural: 'Diese Sofas sind sehr modern.' },
+                { type: 'noun', german: 'Sessel', russian: 'кресло', article: 'der', plural: 'Sessel', pluralArticle: 'die', exampleSingular: 'Mein Opa sitzt gerne in seinem Sessel.', examplePlural: 'Die Sessel im Wartezimmer sind sehr bequem.' },
+                { type: 'noun', german: 'Lampe', russian: 'лампа', article: 'die', plural: 'Lampen', pluralArticle: 'die', exampleSingular: 'Die Lampe über dem Tisch ist neu.', examplePlural: 'Schalte bitte alle Lampen aus.' },
+                { type: 'noun', german: 'Teppich', russian: 'ковер', article: 'der', plural: 'Teppiche', pluralArticle: 'die', exampleSingular: 'Der Teppich ist sehr weich.', examplePlural: 'Persische Teppiche sind weltberühmt.' },
+                { type: 'noun', german: 'Fernseher', russian: 'телевизор', article: 'der', plural: 'Fernseher', pluralArticle: 'die', exampleSingular: 'Der Fernseher ist zu laut.', examplePlural: 'Moderne Fernseher haben eine tolle Bildqualität.' },
+                { type: 'noun', german: 'Kühlschrank', russian: 'холодильник', article: 'der', plural: 'Kühlschränke', pluralArticle: 'die', exampleSingular: 'Die Milch steht im Kühlschrank.', examplePlural: 'Moderne Kühlschränke verbrauchen wenig Strom.' },
+                { type: 'noun', german: 'Herd', russian: 'плита', article: 'der', plural: 'Herde', pluralArticle: 'die', exampleSingular: 'Die Suppe kocht auf dem Herd.', examplePlural: 'Induktionsherde sind sehr effizient.' },
+                { type: 'noun', german: 'Waschmaschine', russian: 'стиральная машина', article: 'die', plural: 'Waschmaschinen', pluralArticle: 'die', exampleSingular: 'Die Waschmaschine ist kaputt.', examplePlural: 'Die meisten Haushalte haben Waschmaschinen.' },
               ]
-            },
-            {
-                theme: 'Мебель',
-                words: [
-                    { type: 'noun', german: 'Tisch', russian: 'стол', article: 'der', plural: 'Tische', pluralArticle: 'die', exampleSingular: 'Das Essen steht auf dem Tisch.', examplePlural: 'Für die Party brauchen wir mehr Tische.' },
-                    { type: 'noun', german: 'Stuhl', russian: 'стул', article: 'der', plural: 'Stühle', pluralArticle: 'die', exampleSingular: 'Dieser Stuhl ist sehr bequem.', examplePlural: 'Wir brauchen noch vier Stühle.' },
-                    { type: 'noun', german: 'Bett', russian: 'кровать', article: 'das', plural: 'Betten', pluralArticle: 'die', exampleSingular: 'Ich gehe jetzt ins Bett.', examplePlural: 'Das Hotel hat sehr bequeme Betten.' },
-                    { type: 'noun', german: 'Schrank', russian: 'шкаф', article: 'der', plural: 'Schränke', pluralArticle: 'die', exampleSingular: 'Meine Kleidung ist im Schrank.', examplePlural: 'In der Küche gibt es viele Schränke.' },
-                    { type: 'noun', german: 'Sofa', russian: 'диван', article: 'das', plural: 'Sofas', pluralArticle: 'die', exampleSingular: 'Wir sitzen auf dem Sofa und sehen fern.', examplePlural: 'Diese Sofas sind sehr modern.' },
-                    { type: 'noun', german: 'Sessel', russian: 'кресло', article: 'der', plural: 'Sessel', pluralArticle: 'die', exampleSingular: 'Mein Opa sitzt gerne in seinem Sessel.', examplePlural: 'Die Sessel im Wartezimmer sind sehr bequem.' },
-                    { type: 'noun', german: 'Lampe', russian: 'лампа', article: 'die', plural: 'Lampen', pluralArticle: 'die', exampleSingular: 'Die Lampe über dem Tisch ist neu.', examplePlural: 'Schalte bitte alle Lampen aus.' },
-                    { type: 'noun', german: 'Teppich', russian: 'ковер', article: 'der', plural: 'Teppiche', pluralArticle: 'die', exampleSingular: 'Der Teppich ist sehr weich.', examplePlural: 'Persische Teppiche sind weltberühmt.' },
-                    { type: 'noun', german: 'Fernseher', russian: 'телевизор', article: 'der', plural: 'Fernseher', pluralArticle: 'die', exampleSingular: 'Der Fernseher ist zu laut.', examplePlural: 'Moderne Fernseher haben eine tolle Bildqualität.' },
-                    { type: 'noun', german: 'Kühlschrank', russian: 'холодильник', article: 'der', plural: 'Kühlschränke', pluralArticle: 'die', exampleSingular: 'Die Milch steht im Kühlschrank.', examplePlural: 'Moderne Kühlschränke verbrauchen wenig Strom.' },
-                    { type: 'noun', german: 'Herd', russian: 'плита', article: 'der', plural: 'Herde', pluralArticle: 'die', exampleSingular: 'Die Suppe kocht auf dem Herd.', examplePlural: 'Induktionsherde sind sehr effizient.' },
-                    { type: 'noun', german: 'Waschmaschine', russian: 'стиральная машина', article: 'die', plural: 'Waschmaschinen', pluralArticle: 'die', exampleSingular: 'Die Waschmaschine ist kaputt.', examplePlural: 'Die meisten Haushalte haben Waschmaschinen.' },
-                ]
             },
             {
                 theme: 'Тело и здоровье',
@@ -205,7 +191,41 @@ export const curriculum: Curriculum = {
                     { type: 'noun', german: 'Husten', russian: 'кашель', article: 'der', plural: 'Husten', pluralArticle: 'die', exampleSingular: 'Der Husten stört mich beim Schlafen.', examplePlural: 'Es gibt verschiedene Arten von Husten.' },
                     { type: 'noun', german: 'Schnupfen', russian: 'насморк', article: 'der', plural: 'Schnupfen', pluralArticle: 'die', exampleSingular: 'Im Winter habe ich oft Schnupfen.', examplePlural: 'Die Schnupfen sind sehr ansteckend.' },
                 ]
-            }
+            },
+            {
+                theme: 'Время и даты',
+                words: [
+                    { type: 'noun', german: 'Uhr', russian: 'час, часы', article: 'die', plural: 'Uhren', pluralArticle: 'die', exampleSingular: 'Es ist drei Uhr.', examplePlural: 'Ich sammle alte Uhren.' },
+                    { type: 'noun', german: 'Stunde', russian: 'час (продолжительность)', article: 'die', plural: 'Stunden', pluralArticle: 'die', exampleSingular: 'Der Film dauert eine Stunde.', examplePlural: 'Ich habe zwei Stunden gewartet.' },
+                    { type: 'noun', german: 'Minute', russian: 'минута', article: 'die', plural: 'Minuten', pluralArticle: 'die', exampleSingular: 'Ich bin in einer Minute da.', examplePlural: 'Warte bitte fünf Minuten.' },
+                    { type: 'noun', german: 'Tag', russian: 'день', article: 'der', plural: 'Tage', pluralArticle: 'die', exampleSingular: 'Heute ist ein schöner Tag.', examplePlural: 'Die Woche hat sieben Tage.' },
+                    { type: 'noun', german: 'Woche', russian: 'неделя', article: 'die', plural: 'Wochen', pluralArticle: 'die', exampleSingular: 'Nächste Woche habe ich Urlaub.', examplePlural: 'Ich fahre für zwei Wochen weg.' },
+                    { type: 'noun', german: 'Monat', russian: 'месяц', article: 'der', plural: 'Monate', pluralArticle: 'die', exampleSingular: 'Der Mai ist mein Lieblingsmonat.', examplePlural: 'Das Jahr hat zwölf Monate.' },
+                    { type: 'noun', german: 'Jahr', russian: 'год', article: 'das', plural: 'Jahre', pluralArticle: 'die', exampleSingular: 'Dieses Jahr lerne ich Deutsch.', examplePlural: 'Ich lebe seit drei Jahren in Deutschland.' },
+                    { type: 'other', german: 'heute', russian: 'сегодня', example: 'Was machst du heute?' },
+                    { type: 'other', german: 'morgen', russian: 'завтра', example: 'Morgen habe ich einen Termin.' },
+                    { type: 'other', german: 'gestern', russian: 'вчера', example: 'Gestern war ich im Kino.' },
+                    { type: 'other', german: 'Montag', russian: 'понедельник', example: 'Am Montag beginnt die neue Woche.' },
+                    { type: 'other', german: 'Dienstag', russian: 'вторник', example: 'Ich habe am Dienstag einen Arzttermin.' },
+                    { type: 'other', german: 'Mittwoch', russian: 'среда', example: 'Am Mittwoch treffe ich meine Freunde.' },
+                    { type: 'other', german: 'Donnerstag', russian: 'четверг', example: 'Donnerstag ist fast Wochenende.' },
+                    { type: 'other', german: 'Freitag', russian: 'пятница', example: 'Freitagabend gehe ich oft aus.' },
+                    { type: 'other', german: 'Samstag', russian: 'суббота', example: 'Am Samstag schlafe ich lange.' },
+                    { type: 'other', german: 'Sonntag', russian: 'воскресенье', example: 'Sonntag ist ein Ruhetag.' },
+                    { type: 'other', german: 'Januar', russian: 'январь', example: 'Im Januar ist es kalt.' },
+                    { type: 'other', german: 'Februar', russian: 'февраль', example: 'Der Februar ist der kürzeste Monat.' },
+                    { type: 'other', german: 'März', russian: 'март', example: 'Im März beginnt der Frühling.' },
+                    { type: 'other', german: 'April', russian: 'апрель', example: 'Der April macht, was er will.' },
+                    { type: 'other', german: 'Mai', russian: 'май', example: 'Im Mai blühen die Blumen.' },
+                    { type: 'other', german: 'Juni', russian: 'июнь', example: 'Im Juni fängt der Sommer an.' },
+                    { type: 'other', german: 'Juli', russian: 'июль', example: 'Im Juli ist es oft sehr heiß.' },
+                    { type: 'other', german: 'August', russian: 'август', example: 'Wir fahren im August in den Urlaub.' },
+                    { type: 'other', german: 'September', russian: 'сентябрь', example: 'Im September beginnt die Schule.' },
+                    { type: 'other', german: 'Oktober', russian: 'октябрь', example: 'Der Oktober ist oft golden.' },
+                    { type: 'other', german: 'November', russian: 'ноябрь', example: 'Im November ist es oft neblig.' },
+                    { type: 'other', german: 'Dezember', russian: 'декабрь', example: 'Im Dezember ist Weihnachten.' },
+                ]
+            },
           ],
           exercises: []
         },
@@ -468,6 +488,72 @@ export const curriculum: Curriculum = {
                     { type: 'adjective', german: 'schön', russian: 'красивый, хороший', comparative: 'schöner', superlative: 'am schönsten', example: 'Das Wetter ist heute schön.' },
                     { type: 'adjective', german: 'schlecht', russian: 'плохой', comparative: 'schlechter', superlative: 'am schlechtesten', example: 'Bei schlechtem Wetter bleibe ich zu Hause.' },
                 ]
+            },
+            {
+                theme: 'Основные глаголы',
+                words: [
+                    { type: 'verb', german: 'sein', russian: 'быть', conjugation: 'ich bin, du bist, er ist', example: 'Ich bin müde.' },
+                    { type: 'verb', german: 'haben', russian: 'иметь', conjugation: 'ich habe, du hast, er hat', example: 'Ich habe eine Frage.' },
+                    { type: 'verb', german: 'machen', russian: 'делать', conjugation: 'ich mache, du machst', example: 'Was machst du am Wochenende?' },
+                    { type: 'verb', german: 'gehen', russian: 'идти', conjugation: 'ich gehe, du gehst', example: 'Ich gehe ins Kino.' },
+                    { type: 'verb', german: 'kommen', russian: 'приходить', conjugation: 'ich komme, du kommst', example: 'Kommst du mit?' },
+                    { type: 'verb', german: 'wohnen', russian: 'жить', conjugation: 'ich wohne, du wohnst', example: 'Ich wohne in Berlin.' },
+                    { type: 'verb', german: 'heißen', russian: 'называться', conjugation: 'ich heiße, du heißt', example: 'Wie heißt du?' },
+                    { type: 'verb', german: 'arbeiten', russian: 'работать', conjugation: 'ich arbeite, du arbeitest', example: 'Ich arbeite als Programmierer.' },
+                    { type: 'verb', german: 'lernen', russian: 'учить', conjugation: 'ich lerne, du lernst', example: 'Ich lerne Deutsch.' },
+                    { type: 'verb', german: 'sprechen', russian: 'говорить', conjugation: 'ich spreche, du sprichst', example: 'Sprichst du Englisch?' },
+                    { type: 'verb', german: 'schreiben', russian: 'писать', conjugation: 'ich schreibe, du schreibst', example: 'Ich schreibe eine E-Mail.' },
+                    { type: 'verb', german: 'hören', russian: 'слышать, слушать', conjugation: 'ich höre, du hörst', example: 'Ich höre gerne Musik.' },
+                    { type: 'verb', german: 'sehen', russian: 'видеть', conjugation: 'ich sehe, du siehst', example: 'Ich sehe einen Film.' },
+                    { type: 'verb', german: 'fahren', russian: 'ехать', conjugation: 'ich fahre, du fährst', example: 'Ich fahre mit dem Auto.' },
+                    { type: 'verb', german: 'essen', russian: 'есть', conjugation: 'ich esse, du isst', example: 'Ich esse eine Pizza.' },
+                    { type: 'verb', german: 'trinken', russian: 'пить', conjugation: 'ich trinke, du trinkst', example: 'Ich trinke einen Kaffee.' },
+                    { type: 'verb', german: 'finden', russian: 'находить', conjugation: 'ich finde, du findest', example: 'Ich finde meine Schlüssel nicht.' },
+                    { type: 'verb', german: 'nehmen', russian: 'брать', conjugation: 'ich nehme, du nimmst', example: 'Ich nehme den Bus.' },
+                    { type: 'verb', german: 'geben', russian: 'давать', conjugation: 'ich gebe, du gibst', example: 'Gib mir bitte das Buch.' },
+                    { type: 'verb', german: 'bringen', russian: 'приносить', conjugation: 'ich bringe, du bringst', example: 'Ich bringe dir einen Kaffee.' },
+                    { type: 'verb', german: 'denken', russian: 'думать', conjugation: 'ich denke, du denkst', example: 'Ich denke an dich.' },
+                    { type: 'verb', german: 'fragen', russian: 'спрашивать', conjugation: 'ich frage, du fragst', example: 'Ich frage den Lehrer.' },
+                    { type: 'verb', german: 'antworten', russian: 'отвечать', conjugation: 'ich antworte, du antwortest', example: 'Antworte mir bitte.' },
+                    { type: 'verb', german: 'stehen', russian: 'стоять', conjugation: 'ich stehe, du stehst', example: 'Das Auto steht vor dem Haus.' },
+                    { type: 'verb', german: 'sitzen', russian: 'сидеть', conjugation: 'ich sitze, du sitzt', example: 'Wir sitzen im Café.' },
+                    { type: 'verb', german: 'liegen', russian: 'лежать', conjugation: 'ich liege, du liegst', example: 'Das Buch liegt auf dem Tisch.' },
+                    { type: 'verb', german: 'schlafen', russian: 'спать', conjugation: 'ich schlafe, du schläfst', example: 'Ich schlafe acht Stunden.' },
+                    { type: 'verb', german: 'aufstehen', russian: 'вставать', conjugation: 'ich stehe auf, du stehst auf', example: 'Ich stehe um 7 Uhr auf.' },
+                    { type: 'verb', german: 'ausgehen', russian: 'выходить (гулять)', conjugation: 'ich gehe aus, du gehst aus', example: 'Am Freitag gehe ich mit Freunden aus.' },
+                    { type: 'verb', german: 'mitkommen', russian: 'идти с кем-то', conjugation: 'ich komme mit, du kommst mit', example: 'Ich gehe ins Kino, kommst du mit?' },
+                    { type: 'verb', german: 'aufmachen', russian: 'открывать', conjugation: 'ich mache auf, du machst auf', example: 'Mach bitte das Fenster auf.' },
+                    { type: 'verb', german: 'zumachen', russian: 'закрывать', conjugation: 'ich mache zu, du machst zu', example: 'Mach bitte die Tür zu.' },
+                ]
+            },
+            {
+                theme: 'Прилагательные и наречия',
+                words: [
+                    { type: 'adjective', german: 'gut', russian: 'хороший', comparative: 'besser', superlative: 'am besten', example: 'Das Essen ist gut.' },
+                    { type: 'adjective', german: 'schlecht', russian: 'плохой', comparative: 'schlechter', superlative: 'am schlechtesten', example: 'Das Wetter ist schlecht.' },
+                    { type: 'adjective', german: 'schön', russian: 'красивый', comparative: 'schöner', superlative: 'am schönsten', example: 'Sie hat ein schönes Lächeln.' },
+                    { type: 'adjective', german: 'hässlich', russian: 'некрасивый', comparative: 'hässlicher', superlative: 'am hässlichsten', example: 'Das Gebäude ist alt und hässlich.' },
+                    { type: 'adjective', german: 'groß', russian: 'большой, высокий', comparative: 'größer', superlative: 'am größten', example: 'Berlin ist eine große Stadt.' },
+                    { type: 'adjective', german: 'klein', russian: 'маленький, низкий', comparative: 'kleiner', superlative: 'am kleinsten', example: 'Das ist ein kleines Problem.' },
+                    { type: 'adjective', german: 'jung', russian: 'молодой', comparative: 'jünger', superlative: 'am jüngsten', example: 'Mein Bruder ist jünger als ich.' },
+                    { type: 'adjective', german: 'alt', russian: 'старый', comparative: 'älter', superlative: 'am ältesten', example: 'Mein Opa ist sehr alt.' },
+                    { type: 'adjective', german: 'neu', russian: 'новый', comparative: 'neuer', superlative: 'am neuesten', example: 'Ich habe ein neues Handy.' },
+                    { type: 'adjective', german: 'kaputt', russian: 'сломанный', comparative: 'kaputter', superlative: 'am kaputtesten', example: 'Mein Fahrrad ist kaputt.' },
+                    { type: 'adjective', german: 'interessant', russian: 'интересный', comparative: 'interessanter', superlative: 'am interessantesten', example: 'Das Buch ist sehr interessant.' },
+                    { type: 'adjective', german: 'langsam', russian: 'медленный', comparative: 'langsamer', superlative: 'am langsamsten', example: 'Die Schnecke ist sehr langsam.' },
+                    { type: 'adjective', german: 'schnell', russian: 'быстрый', comparative: 'schneller', superlative: 'am schnellsten', example: 'Das Auto fährt schnell.' },
+                    { type: 'adjective', german: 'ruhig', russian: 'тихий, спокойный', comparative: 'ruhiger', superlative: 'am ruhigsten', example: 'Hier ist es sehr ruhig.' },
+                    { type: 'adjective', german: 'laut', russian: 'громкий', comparative: 'lauter', superlative: 'am lautesten', example: 'Die Musik ist zu laut.' },
+                    { type: 'other', german: 'gern', russian: 'охотно', example: 'Ich trinke gern Kaffee.' },
+                    { type: 'other', german: 'sehr', russian: 'очень', example: 'Das ist sehr gut.' },
+                    { type: 'other', german: 'nicht', russian: 'не', example: 'Ich verstehe das nicht.' },
+                    { type: 'other', german: 'nie', russian: 'никогда', example: 'Ich war noch nie in Japan.' },
+                    { type: 'other', german: 'immer', russian: 'всегда', example: 'Er ist immer pünktlich.' },
+                    { type: 'other', german: 'oft', russian: 'часто', example: 'Ich gehe oft ins Kino.' },
+                    { type: 'other', german: 'manchmal', russian: 'иногда', example: 'Manchmal esse ich Pizza.' },
+                    { type: 'other', german: 'schon', russian: 'уже', example: 'Ich habe schon gegessen.' },
+                    { type: 'other', german: 'noch', russian: 'ещё', example: 'Ich habe noch Hunger.' },
+                ]
             }
           ],
           exercises: []
@@ -516,6 +602,12 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Partner', russian: 'партнер', article: 'der', plural: 'Partner', pluralArticle: 'die', exampleSingular: 'Mein Partner und ich wohnen zusammen.', examplePlural: 'Die Partner arbeiten gut im Team.' },
                 { type: 'noun', german: 'Partnerschaft', russian: 'партнерство', article: 'die', plural: 'Partnerschaften', pluralArticle: 'die', exampleSingular: 'Eine gute Partnerschaft braucht viel Arbeit.', examplePlural: 'Es gibt verschiedene Arten von Partnerschaften.' },
                 { type: 'noun', german: 'Bekannte', russian: 'знакомый/знакомая', article: 'der/die', plural: 'Bekannten', pluralArticle: 'die', exampleSingular: 'Ein Bekannter hat mir geholfen.', examplePlural: 'Ich habe viele Bekannte in der Stadt.' },
+                { type: 'noun', german: 'Schwager', russian: 'шурин, зять', article: 'der', plural: 'Schwäger', pluralArticle: 'die', exampleSingular: 'Mein Schwager kommt am Wochenende zu Besuch.', examplePlural: 'Meine beiden Schwäger verstehen sich gut.' },
+                { type: 'noun', german: 'Schwägerin', russian: 'невестка, золовка', article: 'die', plural: 'Schwägerinnen', pluralArticle: 'die', exampleSingular: 'Meine Schwägerin ist sehr nett.', examplePlural: 'Ich habe zwei Schwägerinnen.' },
+                { type: 'noun', german: 'Schwiegermutter', russian: 'теща, свекровь', article: 'die', plural: 'Schwiegermütter', pluralArticle: 'die', exampleSingular: 'Ich besuche meine Schwiegermutter.', examplePlural: 'Alle Schwiegermütter lieben ihre Enkel.' },
+                { type: 'noun', german: 'Schwiegervater', russian: 'тесть, свекор', article: 'der', plural: 'Schwiegerväter', pluralArticle: 'die', exampleSingular: 'Mein Schwiegervater ist Rentner.', examplePlural: 'Die Schwiegerväter spielen Karten.' },
+                { type: 'noun', german: 'Enkelin', russian: 'внучка', article: 'die', plural: 'Enkelinnen', pluralArticle: 'die', exampleSingular: 'Meine Enkelin ist 5 Jahre alt.', examplePlural: 'Die Großeltern spielen mit ihren Enkelinnen.' },
+                { type: 'noun', german: 'Enkel', russian: 'внук', article: 'der', plural: 'Enkel', pluralArticle: 'die', exampleSingular: 'Der Enkel besucht seine Großeltern.', examplePlural: 'Der Opa ist stolz auf seine Enkel.' },
               ]
             },
             {
@@ -532,10 +624,16 @@ export const curriculum: Curriculum = {
                     { type: 'verb', german: 'arbeiten', russian: 'работать', conjugation: 'ich arbeite, du arbeitest', example: 'Ich arbeite als Ingenieur.' },
                     { type: 'noun', german: 'Firma', russian: 'компания', article: 'die', plural: 'Firmen', pluralArticle: 'die', exampleSingular: 'Er arbeitet bei einer großen Firma.', examplePlural: 'Viele deutsche Firmen sind international tätig.' },
                     { type: 'noun', german: 'Büro', russian: 'офис', article: 'das', plural: 'Büros', pluralArticle: 'die', exampleSingular: 'Ich fahre jeden Tag ins Büro.', examplePlural: 'Moderne Büros sind oft offen gestaltet.' },
-                    { type: 'noun', german: 'Chef', russian: 'начальник', article: 'der', plural: 'Chefs', pluralArticle: 'die', exampleSingular: 'Mein Chef ist sehr verständnisvoll.', examplePlural: 'Die Chefs der Abteilungen treffen sich wöchentlich.' },
-                    { type: 'noun', german: 'Chefin', russian: 'начальница', article: 'die', plural: 'Chefinnen', pluralArticle: 'die', exampleSingular: 'Meine Chefin ist sehr kompetent.', examplePlural: 'Die Chefinnen besprechen die neue Strategie.' },
                     { type: 'noun', german: 'Arbeitszeit', russian: 'рабочее время', article: 'die', plural: 'Arbeitszeiten', pluralArticle: 'die', exampleSingular: 'Meine Arbeitszeit ist von 9 bis 17 Uhr.', examplePlural: 'Flexible Arbeitszeiten werden immer beliebter.' },
                     { type: 'verb', german: 'verdienen', russian: 'зарабатывать', conjugation: 'ich verdiene, du verdienst', example: 'Wie viel kann man in diesem Beruf verdienen?' },
+                    { type: 'verb', german: 'einladen', russian: 'приглашать', conjugation: 'ich lade ein, du lädst ein, er lädt ein', example: 'Ich lade dich zu meinem Geburtstag ein.' },
+                    { type: 'verb', german: 'feiern', russian: 'праздновать', conjugation: 'ich feiere, du feierst, er feiert', example: 'Wir feiern eine große Party.' },
+                    { type: 'verb', german: 'erzählen', russian: 'рассказывать', conjugation: 'ich erzähle, du erzählst, er erzählt', example: 'Erzähl mir eine Geschichte!' },
+                    { type: 'verb', german: 'verstehen', russian: 'понимать', conjugation: 'ich verstehe, du verstehst, er versteht', example: 'Ich verstehe die Frage nicht.' },
+                    { type: 'verb', german: 'erklären', russian: 'объяснять', conjugation: 'ich erkläre, du erklärst, er erklärt', example: 'Kannst du mir das erklären?' },
+                    { type: 'verb', german: 'zeigen', russian: 'показывать', conjugation: 'ich zeige, du zeigst, er zeigt', example: 'Ich zeige dir die Stadt.' },
+                    { type: 'verb', german: 'anfangen', russian: 'начинать', conjugation: 'ich fange an, du fängst an, er fängt an', example: 'Der Film fängt um 20 Uhr an.' },
+                    { type: 'verb', german: 'aufhören', russian: 'заканчивать', conjugation: 'ich höre auf, du hörst auf, er hört auf', example: 'Ich höre auf zu rauchen.' },
                 ]
             }
           ],
@@ -662,7 +760,7 @@ export const curriculum: Curriculum = {
                 ]
             },
             {
-                theme: 'Погода',
+                theme: 'Погода и одежда',
                 words: [
                     { type: 'adjective', german: 'sonnig', russian: 'солнечно', comparative: 'sonniger', superlative: 'am sonnigsten', example: 'Morgen wird es sonnig.' },
                     { type: 'adjective', german: 'bewölkt', russian: 'облачно', comparative: 'bewölkter', superlative: 'am bewölktesten', example: 'Der Himmel ist heute stark bewölkt.' },
@@ -670,6 +768,32 @@ export const curriculum: Curriculum = {
                     { type: 'adjective', german: 'windig', russian: 'ветрено', comparative: 'windiger', superlative: 'am windigsten', example: 'Am Meer ist es oft windig.' },
                     { type: 'noun', german: 'Sturm', russian: 'шторм', article: 'der', plural: 'Stürme', pluralArticle: 'die', exampleSingular: 'Ein starker Sturm kommt auf.', examplePlural: 'Die Stürme im Herbst können gefährlich sein.' },
                     { type: 'noun', german: 'Gewitter', russian: 'гроза', article: 'das', plural: 'Gewitter', pluralArticle: 'die', exampleSingular: 'Bei einem Gewitter sollte man drinnen bleiben.', examplePlural: 'Im Sommer gibt es oft kurze, aber heftige Gewitter.' },
+                    { type: 'noun', german: 'Kleidung', russian: 'одежда', article: 'die', plural: '(Pluralwort)', pluralArticle: '-', exampleSingular: 'Warme Kleidung ist im Winter wichtig.', examplePlural: 'Warme Kleidung ist im Winter wichtig.' },
+                    { type: 'verb', german: 'anprobieren', russian: 'примерять', conjugation: 'ich probiere an, du probierst an', example: 'Kann ich diese Hose anprobieren?' },
+                    { type: 'noun', german: 'Größe', russian: 'размер', article: 'die', plural: 'Größen', pluralArticle: 'die', exampleSingular: 'Welche Größe tragen Sie?', examplePlural: 'Wir haben das T-Shirt in allen Größen.' },
+                    { type: 'noun', german: 'Bluse', russian: 'блузка', article: 'die', plural: 'Blusen', pluralArticle: 'die', exampleSingular: 'Die Bluse ist aus Seide.', examplePlural: 'Sie hat viele weiße Blusen.' },
+                    { type: 'noun', german: 'Stiefel', russian: 'сапог', article: 'der', plural: 'Stiefel', pluralArticle: 'die', exampleSingular: 'Dieser Stiefel ist sehr warm.', examplePlural: 'Im Winter trage ich Stiefel.' },
+                    { type: 'noun', german: 'Tuch', russian: 'платок, шарф', article: 'das', plural: 'Tücher', pluralArticle: 'die', exampleSingular: 'Sie trägt ein elegantes Tuch um den Hals.', examplePlural: 'Die Tücher sind aus Wolle.' },
+                    { type: 'noun', german: 'Handschuhe', russian: 'перчатки', article: 'die', plural: '(Pluralwort)', pluralArticle: '-', exampleSingular: 'Ich habe meine Handschuhe verloren.', examplePlural: 'Ich habe meine Handschuhe verloren.' },
+                ]
+            },
+            {
+                theme: 'Общие глаголы и слова',
+                words: [
+                    { type: 'verb', german: 'besuchen', russian: 'посещать', conjugation: 'ich besuche, du besuchst, er besucht', example: 'Ich besuche meine Großeltern am Wochenende.' },
+                    { type: 'verb', german: 'suchen', russian: 'искать', conjugation: 'ich suche, du suchst, er sucht', example: 'Was suchst du?' },
+                    { type: 'verb', german: 'finden', russian: 'находить', conjugation: 'ich finde, du findest, er findet', example: 'Ich kann meine Schlüssel nicht finden.' },
+                    { type: 'verb', german: 'helfen', russian: 'помогать', conjugation: 'ich helfe, du hilfst, er hilft', example: 'Kannst du mir helfen?' },
+                    { type: 'verb', german: 'warten', russian: 'ждать', conjugation: 'ich warte, du wartest, er wartet', example: 'Ich warte auf den Bus.' },
+                    { type: 'verb', german: 'vergessen', russian: 'забывать', conjugation: 'ich vergesse, du vergisst, er vergisst', example: 'Ich habe seinen Namen vergessen.' },
+                    { type: 'verb', german: 'erinnern', russian: 'помнить, вспоминать', conjugation: 'ich erinnere mich, du erinnerst dich', example: 'Ich erinnere mich nicht an den Film.' },
+                    { type: 'other', german: 'überall', russian: 'везде', example: 'Ich habe überall gesucht.' },
+                    { type: 'other', german: 'nirgends', russian: 'нигде', example: 'Ich kann es nirgends finden.' },
+                    { type: 'other', german: 'also', russian: 'итак, значит', example: 'Also, was machen wir jetzt?' },
+                    { type: 'conjunction', german: 'denn', russian: 'потому что, так как', structure: 'Прямой порядок слов, не влияет на структуру предложения.', example: 'Ich bleibe zu Hause, denn ich bin müde.' },
+                    { type: 'conjunction', german: 'aber', russian: 'но', structure: 'Не влияет на порядок слов.', example: 'Ich möchte kommen, aber ich habe keine Zeit.' },
+                    { type: 'conjunction', german: 'oder', russian: 'или', structure: 'Не влияет на порядок слов.', example: 'Möchtest du Tee oder Kaffee?' },
+                    { type: 'conjunction', german: 'und', russian: 'и', structure: 'Не влияет на порядок слов.', example: 'Ich esse Pizza und trinke Cola.' },
                 ]
             }
           ],
@@ -716,7 +840,7 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Fähigkeit', russian: 'способность', article: 'die', plural: 'Fähigkeiten', pluralArticle: 'die', exampleSingular: 'Sprachenlernen ist eine wichtige Fähigkeit.', examplePlural: 'Er hat viele verborgene Fähigkeiten.' },
                 { type: 'noun', german: 'Entscheidung', russian: 'решение', article: 'die', plural: 'Entscheidungen', pluralArticle: 'die', exampleSingular: 'Das war eine schwere Entscheidung.', examplePlural: 'Man muss oft schnell Entscheidungen treffen.' },
                 { type: 'verb', german: 'planen', russian: 'планировать', conjugation: 'ich plane, du planst, er plant', example: 'Wir planen eine Reise nach Italien.' },
-                { type: 'verb', german: 'vorbereiten', russian: 'готовить, подготавливать', conjugation: 'ich bereite vor, du bereitest vor', example: 'Ich muss mich auf die Prüfung vorbereiten.' },
+                { type: 'verb', german: 'vorbereiten', russian: 'готовить, подготавливать', conjugation: 'ich bereite vor, du bereitest vor, er bereitet vor', example: 'Ich muss mich auf die Prüfung vorbereiten.' },
                 { type: 'noun', german: 'Beziehung', russian: 'отношение', article: 'die', plural: 'Beziehungen', pluralArticle: 'die', exampleSingular: 'Sie haben eine gute Beziehung.', examplePlural: 'Gute Beziehungen sind wichtig im Leben.' },
                 { type: 'noun', german: 'Freundschaft', russian: 'дружба', article: 'die', plural: 'Freundschaften', pluralArticle: 'die', exampleSingular: 'Unsere Freundschaft ist mir sehr wichtig.', examplePlural: 'Echte Freundschaften halten ein Leben lang.' },
                 { type: 'verb', german: 'heiraten', russian: 'жениться/выходить замуж', conjugation: 'ich heirate, du heiratest, er heiratet', example: 'Sie werden nächstes Jahr heiraten.' },
@@ -737,6 +861,12 @@ export const curriculum: Curriculum = {
                 { type: 'verb', german: 'ablehnen', russian: 'отказывать', conjugation: 'ich lehne ab, du lehnst ab', example: 'Er hat mein Angebot abgelehnt.' },
                 { type: 'verb', german: 'teilnehmen', russian: 'участвовать', conjugation: 'ich nehme teil, du nimmst teil', example: 'Nimmst du an dem Wettbewerb teil?' },
                 { type: 'verb', german: 'vereinbaren', russian: 'договариваться', conjugation: 'ich vereinbare, du vereinbarst', example: 'Wir haben einen Termin für nächste Woche vereinbart.' },
+                { type: 'noun', german: 'Single', russian: 'холостяк/незамужняя', article: 'der', plural: 'Singles', pluralArticle: 'die', exampleSingular: 'Er ist überzeugter Single.', examplePlural: 'Es gibt immer mehr Singles in Deutschland.'},
+                { type: 'noun', german: 'Kontakt', russian: 'контакт', article: 'der', plural: 'Kontakte', pluralArticle: 'die', exampleSingular: 'Ich habe den Kontakt zu ihm verloren.', examplePlural: 'Gute Kontakte sind im Berufsleben wichtig.'},
+                { type: 'verb', german: 'streiten', russian: 'ссориться', conjugation: 'ich streite, du streitest', example: 'Geschwister streiten oft.'},
+                { type: 'verb', german: 'vertrauen', russian: 'доверять', conjugation: 'ich vertraue, du vertraust', example: 'Ich vertraue dir.'},
+                { type: 'noun', german: 'Trennung', russian: 'расставание', article: 'die', plural: 'Trennungen', pluralArticle: 'die', exampleSingular: 'Die Trennung war für beide schwer.', examplePlural: 'Trennungen sind immer schmerzhaft.'},
+                { type: 'verb', german: 'sich verlieben', russian: 'влюбляться', conjugation: 'ich verliebe mich, du verliebst dich', example: 'Ich habe mich in sie verliebt.'},
               ]
             }
           ],
@@ -818,6 +948,11 @@ export const curriculum: Curriculum = {
                 { type: 'adjective', german: 'vegetarisch', russian: 'вегетарианский', comparative: '-', superlative: '-', example: 'Ich esse am liebsten vegetarisch.' },
                 { type: 'noun', german: 'Hunger', russian: 'голод', article: 'der', plural: '-', pluralArticle: '-', exampleSingular: 'Ich habe großen Hunger.', examplePlural: '-' },
                 { type: 'noun', german: 'Durst', russian: 'жажда', article: 'der', plural: '-', pluralArticle: '-', exampleSingular: 'Nach dem Sport habe ich immer Durst.', examplePlural: '-' },
+                 { type: 'adjective', german: 'günstig', 'russian': 'выгодный', 'comparative': 'günstiger', 'superlative': 'am günstigsten', 'example': 'Das Hotel war überraschend günstig.'},
+                { type: 'adjective', german: 'modern', 'russian': 'современный', 'comparative': 'moderner', 'superlative': 'am modernsten', 'example': 'Die Wohnung ist sehr modern eingerichtet.'},
+                { type: 'adjective', german: 'altmodisch', 'russian': 'старомодный', 'comparative': 'altmodischer', 'superlative': 'am altmodischsten', 'example': 'Seine Kleidung ist etwas altmodisch.'},
+                { type: 'noun', german: 'Wohnblock', 'russian': 'жилой блок', 'article': 'der', 'plural': 'Wohnblöcke', 'pluralArticle': 'die', 'exampleSingular': 'Er wohnt in einem großen Wohnblock am Stadtrand.', 'examplePlural': 'Die neuen Wohnblöcke haben alle einen Spielplatz.'},
+                { type: 'noun', german: 'Reihenhaus', 'russian': 'таунхаус', 'article': 'das', 'plural': 'Reihenhäuser', 'pluralArticle': 'die', 'exampleSingular': 'Ein Reihenhaus ist ein guter Kompromiss zwischen Wohnung und freistehendem Haus.', 'examplePlural': 'In dieser Straße gibt es nur Reihenhäuser.'},
               ]
             }
           ],
@@ -866,6 +1001,7 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Sommer', russian: 'лето', article: 'der', plural: 'Sommer', pluralArticle: 'die', exampleSingular: 'Im Sommer fahren wir ans Meer.', examplePlural: 'Die letzten Sommer waren sehr heiß.' },
                 { type: 'noun', german: 'Herbst', russian: 'осень', article: 'der', plural: 'Herbste', pluralArticle: 'die', exampleSingular: 'Im Herbst fallen die Blätter von den Bäumen.', examplePlural: 'Die Herbste sind oft neblig.' },
                 { type: 'noun', german: 'Winter', russian: 'зима', article: 'der', plural: 'Winter', pluralArticle: 'die', exampleSingular: 'Im Winter fahre ich gerne Ski.', examplePlural: 'Die Winter in Kanada sind sehr kalt.' },
+                { type: 'verb', german: 'erleben', russian: 'переживать, испытывать', conjugation: 'ich erlebe, du erlebst', example: 'Auf Reisen kann man viel erleben.'},
               ]
             },
             {
@@ -892,104 +1028,188 @@ export const curriculum: Curriculum = {
       description: 'Свободное общение. Вы сможете понимать сложные тексты, бегло общаться с носителями языка и ясно излагать свои мысли на широкий круг тем.', 
       topics: [
         {
-          id: 'plusquamperfekt',
-          title: 'Предпрошедшее время (Plusquamperfekt)',
+          id: 'persoenlichkeit-gesellschaft-politik',
+          title: 'Личность, общество и политика',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Plusquamperfekt: прошлое до прошлого</h2>
-            <p class="mb-4">Это время используется для описания действия, которое произошло <strong class="text-primary">раньше</strong> другого действия в прошлом. Оно образуется с помощью вспомогательных глаголов <strong class="text-accent">hatten</strong> или <strong class="text-accent">waren</strong> (формы Präteritum от haben/sein) + Partizip II.</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4">Nachdem ich die Hausaufgaben <strong class="text-primary">gemacht hatte</strong>, ging ich ins Kino. (После того как я сделал домашнее задание, я пошел в кино.)</div>
-            <p class="mt-2">Действие "сделал ДЗ" произошло раньше, чем "пошел в кино".</p>
-          `,
-          vocabulary: [
-            {
-              theme: 'Последовательность событий в прошлом',
-              words: [
-                { type: 'conjunction', 'german': 'nachdem', 'russian': 'после того как', 'structure': 'Придаточное предложение, глагол в конце. Требует согласования времен (Plusquamperfekt + Präteritum).', 'example': 'Nachdem er gegessen hatte, fühlte er sich besser.' },
-                { type: 'conjunction', 'german': 'bevor', 'russian': 'прежде чем', 'structure': 'Придаточное предложение, глагол в конце.', 'example': 'Bevor er die Prüfung schrieb, hatte er viel gelernt.' },
-                { type: 'verb', 'german': 'ankommen', 'russian': 'прибывать', 'conjugation': 'Perfekt: ist angekommen; Plusquamperfekt: war angekommen', 'example': 'Als ich ankam, war der Zug schon abgefahren.' },
-                { type: 'verb', 'german': 'einschlafen', 'russian': 'засыпать', 'conjugation': 'Perfekt: ist eingeschlafen; Plusquamperfekt: war eingeschlafen', 'example': 'Das Kind war schnell eingeschlafen, weil es sehr müde war.' },
-              ]
-            }
-          ],
-          exercises: []
-        },
-        {
-          id: 'passiv',
-          title: 'Пассивный залог (Passiv)',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Пассивный залог (Passiv): фокус на действии</h2>
-            <p class="mb-4">Пассив используется, когда важно само действие, а не тот, кто его выполняет. Образуется с помощью глагола <strong class="text-primary">werden</strong> + Partizip II.</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-              <li><strong>Präsens Passiv:</strong> Das Auto <strong class="text-primary">wird repariert</strong>. (Машину ремонтируют / Машина ремонтируется.)</li>
-              <li><strong>Präteritum Passiv:</strong> Das Auto <strong class="text-primary">wurde repariert</strong>. (Машину ремонтировали.)</li>
-              <li><strong>Perfekt Passiv:</strong> Das Auto <strong class="text-primary">ist repariert worden</strong>. (Машина была отремонтирована.)</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Выражение мнения и аргументация</h2>
+            <p class="mb-4">На уровне B2 ключевым навыком становится способность не просто общаться, а аргументированно выражать своё мнение, взвешивать "за" и "против", а также понимать чужую точку зрения. Для этого используются сложные союзы и речевые обороты.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Двусторонние союзы:</strong> <strong class="text-primary">einerseits ... andererseits</strong> (с одной стороны... с другой стороны), <strong class="text-primary">sowohl ... als auch</strong> (как..., так и...), <strong class="text-primary">entweder ... oder</strong> (или... или...), <strong class="text-primary">weder ... noch</strong> (ни... ни...).</li>
+              <li><strong>Выражение мнения:</strong> Meiner Meinung nach..., Ich bin der Ansicht, dass...</li>
+              <li><strong>Аргументация:</strong> Das Hauptargument dafür ist..., Dagegen spricht, dass...</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Пассив с модальными глаголами</h2>
+            <p class="mb-4">Конструкции пассива усложняются, позволяя выражать долженствование, возможность или невозможность совершения действия над объектом.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>Das Dokument <strong class="text-accent">muss</strong> heute noch <strong class="text-primary">unterschrieben werden</strong>. (Документ должен быть подписан ещё сегодня.)</li>
+              <li>Das Problem <strong class="text-accent">kann</strong> leicht <strong class="text-primary">gelöst werden</strong>. (Проблема может быть легко решена.)</li>
             </ul>
           `,
           vocabulary: [
             {
-              theme: 'Описание процессов и состояний',
+              theme: 'Личность и отношения',
               words: [
-                { type: 'verb', 'german': 'reparieren', 'russian': 'ремонтировать', 'conjugation': 'Passiv: wird repariert, wurde repariert, ist repariert worden', 'example': 'Mein Fahrrad wird morgen repariert.' },
-                { type: 'verb', 'german': 'bauen', 'russian': 'строить', 'conjugation': 'Passiv: wird gebaut, wurde gebaut, ist gebaut worden', 'example': 'Die Brücke wurde in nur einem Jahr gebaut.' },
-                { type: 'verb', 'german': 'informieren', 'russian': 'информировать', 'conjugation': 'Passiv: wird informiert, wurde informiert, ist informiert worden', 'example': 'Die Studenten wurden über die Änderungen informiert.' },
-                { type: 'verb', 'german': 'verkaufen', 'russian': 'продавать', 'conjugation': 'Passiv: wird verkauft, wurde verkauft, ist verkauft worden', 'example': 'Das Haus ist bereits verkauft worden.' },
+                { type: 'noun', german: 'Verhalten', russian: 'поведение', article: 'das', plural: 'Verhalten', pluralArticle: 'die', exampleSingular: 'Sein Verhalten war inakzeptabel.', examplePlural: 'Die verschiedenen Verhalten der Tiere wurden untersucht.' },
+                { type: 'noun', german: 'Einstellung', russian: 'отношение, позиция', article: 'die', plural: 'Einstellungen', pluralArticle: 'die', exampleSingular: 'Er hat eine positive Einstellung zum Leben.', examplePlural: 'Die Einstellungen zur Arbeit haben sich geändert.' },
+                { type: 'noun', german: 'Meinung', russian: 'мнение', article: 'die', plural: 'Meinungen', pluralArticle: 'die', exampleSingular: 'Meiner Meinung nach ist das eine gute Idee.', examplePlural: 'Die Meinungen zu diesem Thema sind geteilt.' },
+                { type: 'noun', german: 'Verantwortung', russian: 'ответственность', article: 'die', plural: 'Verantwortungen', pluralArticle: 'die', exampleSingular: 'Er übernimmt die volle Verantwortung.', examplePlural: 'Eltern haben viele Verantwortungen.' },
+                { type: 'noun', german: 'Motivation', russian: 'мотивация', article: 'die', plural: 'Motivationen', pluralArticle: 'die', exampleSingular: 'Geld ist nicht meine einzige Motivation.', examplePlural: 'Die Motivationen der Charaktere waren unklar.' },
+                { type: 'verb', german: 'sich vorstellen', russian: 'представлять себе', conjugation: 'ich stelle mir vor, du stellst dir vor', example: 'Ich kann mir ein Leben ohne Internet nicht vorstellen.' },
+                { type: 'noun', german: 'Selbstbewusstsein', russian: 'уверенность в себе', article: 'das', plural: '-', pluralArticle: '-', exampleSingular: 'Ihr mangelt es an Selbstbewusstsein.', examplePlural: '-' },
+                { type: 'adjective', german: 'selbstständig', russian: 'самостоятельный', comparative: 'selbstständiger', superlative: 'am selbstständigsten', example: 'Sie ist eine sehr selbstständige Frau.' },
+                { type: 'adjective', german: 'zuverlässig', russian: 'надёжный', comparative: 'zuverlässiger', superlative: 'am zuverlässigsten', example: 'Mein Auto ist sehr zuverlässig.' },
+                { type: 'adjective', german: 'verantwortungsbewusst', russian: 'ответственный', comparative: 'verantwortungsbewusster', superlative: 'am verantwortungsbewusstesten', example: 'Für diesen Job brauchen wir eine verantwortungsbewusste Person.' },
+                { type: 'noun', german: 'Konflikt', russian: 'конфликт', article: 'der', plural: 'Konflikte', pluralArticle: 'die', exampleSingular: 'Wir müssen eine Lösung für diesen Konflikt finden.', examplePlural: 'Konflikte gehören zum Leben dazu.' },
+                { type: 'adjective', german: 'unzufrieden', russian: 'недовольный', comparative: 'unzufriedener', superlative: 'am unzufriedensten', example: 'Er war mit dem Ergebnis unzufrieden.' },
+                { type: 'adjective', german: 'entspannt', russian: 'спокойный, расслабленный', comparative: 'entspannter', superlative: 'am entspanntesten', example: 'Nach dem Yoga fühle ich mich immer entspannt.' },
+                { type: 'adjective', german: 'gestresst', russian: 'в стрессовом состоянии', comparative: 'gestresster', superlative: 'am gestresstesten', example: 'Vor der Prüfung war sie sehr gestresst.' },
+                { type: 'adjective', german: 'ängstlich', russian: 'трусливый, боязливый', comparative: 'ängstlicher', superlative: 'am ängstlichsten', example: 'Als Kind war ich sehr ängstlich.' },
+                { type: 'adjective', german: 'höflich', russian: 'вежливый', comparative: 'höflicher', superlative: 'am höflichsten', example: 'Es ist wichtig, immer höflich zu sein.' },
+                { type: 'adjective', german: 'unhöflich', russian: 'невежливый', comparative: 'unhöflicher', superlative: 'am unhöflichsten', example: 'Sein unhöfliches Verhalten hat alle schockiert.' },
+              ]
+            },
+            {
+              theme: 'Политика и общество',
+              words: [
+                { type: 'noun', german: 'Gesellschaft', russian: 'общество', article: 'die', plural: 'Gesellschaften', pluralArticle: 'die', exampleSingular: 'Die Gesellschaft verändert sich ständig.', examplePlural: 'Wir leben in modernen Gesellschaften.' },
+                { type: 'noun', german: 'Tradition', russian: 'традиция', article: 'die', plural: 'Traditionen', pluralArticle: 'die', exampleSingular: 'Weihnachten ist eine wichtige Tradition in Deutschland.', examplePlural: 'Jede Familie hat ihre eigenen Traditionen.' },
+                { type: 'noun', german: 'Kultur', russian: 'культура', article: 'die', plural: 'Kulturen', pluralArticle: 'die', exampleSingular: 'Ich interessiere mich für fremde Kulturen.', examplePlural: 'Die Vielfalt der Kulturen bereichert die Welt.' },
+                { type: 'noun', german: 'Politik', russian: 'политика', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Ich interessiere mich nicht für Politik.', examplePlural: '-' },
+                { type: 'noun', german: 'Regierung', russian: 'правительство', article: 'die', plural: 'Regierungen', pluralArticle: 'die', exampleSingular: 'Die Regierung hat neue Gesetze beschlossen.', examplePlural: 'Die Regierungen verhandeln über ein Abkommen.' },
+                { type: 'noun', german: 'Demokratie', russian: 'демократия', article: 'die', plural: 'Demokratien', pluralArticle: 'die', exampleSingular: 'Die Demokratie ist eine wichtige Errungenschaft.', examplePlural: 'Es gibt verschiedene Formen von Demokratien.' },
+                { type: 'noun', german: 'Wahlen', russian: 'выборы', article: 'die', plural: '(Pluralwort)', pluralArticle: '-', exampleSingular: 'Die nächsten Wahlen finden in vier Jahren statt.', examplePlural: 'Die nächsten Wahlen finden in vier Jahren statt.' },
+                { type: 'verb', german: 'stimmen', russian: 'голосовать', conjugation: 'ich stimme, du stimmst', example: 'Ich stimme für diese Partei.' },
+                { type: 'noun', german: 'Partei', russian: 'партия', article: 'die', plural: 'Parteien', pluralArticle: 'die', exampleSingular: 'Welche Partei würdest du wählen?', examplePlural: 'In Deutschland gibt es viele politische Parteien.' },
+                { type: 'noun', german: 'Gesetz', russian: 'закон', article: 'das', plural: 'Gesetze', pluralArticle: 'die', exampleSingular: 'Das neue Gesetz tritt morgen in Kraft.', examplePlural: 'Die Gesetze müssen für alle gelten.' },
+                { type: 'noun', german: 'Rechte', russian: 'права', article: 'die', plural: '(Pluralwort)', pluralArticle: '-', exampleSingular: 'Die Menschenrechte sind unantastbar.', examplePlural: 'Die Menschenrechte sind unantastbar.' },
+                { type: 'noun', german: 'Pflicht', russian: 'обязанность', article: 'die', plural: 'Pflichten', pluralArticle: 'die', exampleSingular: 'Es ist meine Pflicht, Ihnen zu helfen.', examplePlural: 'Mit Rechten kommen auch Pflichten.' },
+                { type: 'noun', german: 'Integration', russian: 'интеграция', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Die Integration von Flüchtlingen ist eine große Herausforderung.', examplePlural: '-' },
+                { type: 'noun', german: 'Migration', russian: 'миграция', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Die Migration ist ein globales Phänomen.', examplePlural: '-' },
+                { type: 'noun', german: 'soziale Gerechtigkeit', russian: 'социальная справедливость', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Soziale Gerechtigkeit ist ein wichtiges politisches Ziel.', examplePlural: '-' },
               ]
             }
           ],
           exercises: []
         },
         {
-          id: 'relativsatze',
-          title: 'Относительные придаточные предложения',
+          id: 'arbeit-bildung-technologie',
+          title: 'Работа, образование и технологии',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Relativsätze: добавляем детали</h2>
-            <p class="mb-4">Эти предложения дают дополнительную информацию о существительном из главного предложения. Они вводятся относительными местоимениями (<strong class="text-primary">der, die, das</strong> и т.д.), которые согласуются в роде и числе с существительным, к которому относятся.</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4">Das ist der Mann, <strong class="text-primary">der mir geholfen hat</strong>. (Это тот мужчина, <strong class="text-accent">который мне помог</strong>.)</div>
-             <p class="mt-2">Глагол в Relativsatz, как и в других придаточных, стоит на последнем месте.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">Konjunktiv II: Нереальные желания и вежливость</h2>
+            <p class="mb-4">Konjunktiv II используется для выражения гипотетических ситуаций, нереальных желаний, советов и очень вежливых просьб. Часто образуется с помощью <strong class="text-primary">würde + Infinitiv</strong>.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Нереальное желание:</strong> Wenn ich mehr Geld <strong class="text-accent">hätte</strong>, <strong class="text-accent">würde</strong> ich eine Weltreise <strong class="text-accent">machen</strong>. (Если бы у меня было больше денег, я бы совершил кругосветное путешествие.)</li>
+              <li><strong>Совет:</strong> An deiner Stelle <strong class="text-accent">würde</strong> ich mehr <strong class="text-accent">lernen</strong>. (На твоём месте я бы больше учил.)</li>
+              <li><strong>Вежливая просьба:</strong> <strong class="text-accent">Würden</strong> Sie bitte das Fenster <strong class="text-accent">schließen</strong>? (Не могли бы вы закрыть окно, пожалуйста?)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Номинализация и вербализация</h2>
+            <p class="mb-4">На уровне B2 важно уметь гибко переходить от глагольных конструкций к существительным (Nominalisierung) и обратно (Verbalisierung). Это признак высокого стиля.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li><strong>Verbal:</strong> Man muss die Daten <strong class="text-accent">analysieren</strong>. → <strong>Nominal:</strong> <strong class="text-primary">Die Analyse</strong> der Daten ist notwendig.</li>
+              <li><strong>Nominal:</strong> <strong class="text-primary">Die Veröffentlichung</strong> des Artikels... → <strong>Verbal:</strong> Man <strong class="text-accent">veröffentlicht</strong> den Artikel...</li>
+            </ul>
           `,
           vocabulary: [
             {
-              theme: 'Описания и уточнения',
+              theme: 'Работа и карьера',
               words: [
-                { type: 'noun', 'german': 'Grund', 'russian': 'причина', 'article': 'der', 'plural': 'Gründe', 'pluralArticle': 'die', 'exampleSingular': 'Das ist der Grund, warum ich hier bin.', 'examplePlural': 'Er nannte mehrere Gründe für seine Entscheidung.' },
-                { type: 'verb', 'german': 'kennenlernen', 'russian': 'знакомиться', 'conjugation': 'ich lerne kennen, du lernst kennen', 'example': 'Die Leute, die ich kennengelernt habe, waren sehr nett.' },
-                { type: 'verb', 'german': 'sich erinnern an', 'russian': 'вспоминать о', 'conjugation': 'ich erinnere mich an, du erinnerst dich an (+Akk)', 'example': 'Das ist das Lied, an das ich mich erinnere.' },
+                { type: 'noun', german: 'Arbeitsplatz', russian: 'рабочее место', article: 'der', plural: 'Arbeitsplätze', pluralArticle: 'die', exampleSingular: 'Ich habe einen neuen Arbeitsplatz.', examplePlural: 'Die Firma schafft neue Arbeitsplätze.' },
+                { type: 'noun', german: 'Arbeitsbedingungen', russian: 'условия работы', article: 'die', plural: '(Pluralwort)', pluralArticle: '-', exampleSingular: 'Die Arbeitsbedingungen in dieser Firma sind sehr gut.', examplePlural: 'Die Arbeitsbedingungen in dieser Firma sind sehr gut.' },
+                { type: 'noun', german: 'Weiterbildung', russian: 'повышение квалификации', article: 'die', plural: 'Weiterbildungen', pluralArticle: 'die', exampleSingular: 'Ich mache eine Weiterbildung zum Projektmanager.', examplePlural: 'Weiterbildungen sind wichtig für die Karriere.' },
+                { type: 'noun', german: 'Berufseinstieg', russian: 'начало карьеры', article: 'der', plural: 'Berufseinstiege', pluralArticle: 'die', exampleSingular: 'Der Berufseinstieg ist oft schwierig.', examplePlural: 'Wir helfen Absolventen beim Berufseinstieg.' },
+                { type: 'noun', german: 'Arbeitsplatzverlust', russian: 'потеря работы', article: 'der', plural: '-', pluralArticle: '-', exampleSingular: 'Der Arbeitsplatzverlust war ein Schock für ihn.', examplePlural: '-' },
+                { type: 'verb', german: 'analysieren', russian: 'анализировать', conjugation: 'ich analysiere, du analysierst', example: 'Wir müssen die Daten genau analysieren.' },
+                { type: 'verb', german: 'diskutieren', russian: 'обсуждать', conjugation: 'ich diskutiere, du diskutierst', example: 'Lass uns das Problem diskutieren.' },
+                { type: 'verb', german: 'beobachten', russian: 'наблюдать', conjugation: 'ich beobachte, du beobachtest', example: 'Der Detektiv beobachtet den Verdächtigen.' },
+                { type: 'verb', german: 'überraschen', russian: 'удивлять', conjugation: 'ich überrasche, du überraschst', example: 'Das Ergebnis hat mich überrascht.' },
+              ]
+            },
+            {
+              theme: 'Образование и наука',
+              words: [
+                { type: 'noun', german: 'Universität', russian: 'университет', article: 'die', plural: 'Universitäten', pluralArticle: 'die', exampleSingular: 'Sie studiert an der Humboldt-Universität.', examplePlural: 'Deutsche Universitäten haben einen guten Ruf.' },
+                { type: 'noun', german: 'Studium', russian: 'обучение в вузе', article: 'das', plural: 'Studien', pluralArticle: 'die', exampleSingular: 'Das Studium dauert sechs Semester.', examplePlural: 'Es gibt viele interessante Studien.' },
+                { type: 'noun', german: 'Forschung', russian: 'исследование', article: 'die', plural: 'Forschungen', pluralArticle: 'die', exampleSingular: 'Die Forschung in diesem Bereich ist wichtig.', examplePlural: 'Die Forschungen wurden publiziert.' },
+                { type: 'noun', german: 'Experiment', russian: 'эксперимент', article: 'das', plural: 'Experimente', pluralArticle: 'die', exampleSingular: 'Das Experiment war erfolgreich.', examplePlural: 'Wissenschaftler machen viele Experimente.' },
+                { type: 'noun', german: 'Entdeckung', russian: 'открытие', article: 'die', plural: 'Entdeckungen', pluralArticle: 'die', exampleSingular: 'Die Entdeckung Amerikas war ein wichtiges Ereignis.', examplePlural: 'Es gibt immer wieder neue wissenschaftliche Entdeckungen.' },
+                { type: 'noun', german: 'Theorie', russian: 'теория', article: 'die', plural: 'Theorien', pluralArticle: 'die', exampleSingular: 'Das ist nur eine Theorie.', examplePlural: 'Es gibt verschiedene Theorien dazu.' },
+                { type: 'verb', german: 'veröffentlichen', russian: 'публиковать', conjugation: 'ich veröffentliche, du veröffentlichst', example: 'Der Wissenschaftler wird seine Ergebnisse bald veröffentlichen.' },
+              ]
+            },
+            {
+              theme: 'Технологии и цифровизация',
+              words: [
+                { type: 'noun', german: 'Technologie', russian: 'технология', article: 'die', plural: 'Technologien', pluralArticle: 'die', exampleSingular: 'Die moderne Technologie entwickelt sich schnell.', examplePlural: 'Es gibt viele neue Technologien.' },
+                { type: 'noun', german: 'Digitalisierung', russian: 'цифровизация', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Die Digitalisierung verändert unsere Arbeitswelt.', examplePlural: '-' },
+                { type: 'noun', german: 'Internet', russian: 'интернет', article: 'das', plural: '-', pluralArticle: '-', exampleSingular: 'Das Internet ist heute unverzichtbar.', examplePlural: '-' },
+                { type: 'noun', german: 'soziale Medien', russian: 'социальные сети', article: 'die', plural: '(Pluralwort)', pluralArticle: '-', exampleSingular: 'Ich nutze soziale Medien, um mit Freunden in Kontakt zu bleiben.', examplePlural: 'Ich nutze soziale Medien, um mit Freunden in Kontakt zu bleiben.' },
+                { type: 'noun', german: 'App', russian: 'приложение', article: 'die', plural: 'Apps', pluralArticle: 'die', exampleSingular: 'Es gibt eine App für fast alles.', examplePlural: 'Ich habe viele nützliche Apps auf meinem Handy.' },
+                { type: 'noun', german: 'Computer', russian: 'компьютер', article: 'der', plural: 'Computer', pluralArticle: 'die', exampleSingular: 'Mein Computer ist kaputt.', examplePlural: 'Moderne Computer sind sehr leistungsstark.' },
+                { type: 'verb', german: 'programmieren', russian: 'программировать', conjugation: 'ich programmiere, du programmierst', example: 'Er kann Webseiten programmieren.' },
+                { type: 'noun', german: 'Sicherheit', russian: 'безопасность', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Die Sicherheit der Daten ist sehr wichtig.', examplePlural: '-' },
+                { type: 'noun', german: 'Datenschutz', russian: 'защита данных', article: 'der', plural: '-', pluralArticle: '-', exampleSingular: 'Der Datenschutz ist ein wichtiges Thema.', examplePlural: '-' },
+                { type: 'noun', german: 'Hacker', russian: 'хакер', article: 'der', plural: 'Hacker', pluralArticle: 'die', exampleSingular: 'Ein Hacker hat das System angegriffen.', examplePlural: 'Hacker können großen Schaden anrichten.' },
+                { type: 'noun', german: 'künstliche Intelligenz', russian: 'искусственный интеллект', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Künstliche Intelligenz wird immer wichtiger.', examplePlural: '-' },
+                { type: 'verb', german: 'automatisieren', russian: 'автоматизировать', conjugation: 'ich automatisiere, du automatisierst', example: 'Viele Prozesse in der Fabrik sind automatisiert.' },
+                { type: 'noun', german: 'Innovation', russian: 'инновация', article: 'die', plural: 'Innovationen', pluralArticle: 'die', exampleSingular: 'Diese Erfindung ist eine echte Innovation.', examplePlural: 'Innovationen treiben die Wirtschaft an.' },
+                { type: 'noun', german: 'Robotertechnik', russian: 'робототехника', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Die Robotertechnik macht große Fortschritte.', examplePlural: '-' },
               ]
             }
           ],
           exercises: []
         },
         {
-          id: 'n-deklination',
-          title: 'N-склонение существительных',
+          id: 'leben-reisen-umwelt',
+          title: 'Жизнь, путешествия и окружающая среда',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">N-Deklination: "слабое" склонение</h2>
-            <p class="mb-4">Это особая группа существительных мужского рода (и одного среднего - das Herz), которые получают окончание <strong class="text-primary">-(e)n</strong> во всех падежах, кроме Nominativ единственного числа.</p>
-            <p class="mb-4">К этой группе относятся многие одушевленные существительные на -e (der Junge, der Kollege), а также некоторые другие (der Herr, der Mensch, der Präsident).</p>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse my-4">
-                  <tr class="bg-muted/50"><th class="border p-3">Падеж</th><th class="border p-3">Пример (der Kollege)</th></tr>
-                  <tr><td class="border p-3">Nominativ</td><td class="border p-3">der Kollege</td></tr>
-                  <tr><td class="border p-3">Akkusativ</td><td class="border p-3">den Kollege<strong class="text-primary">n</strong></td></tr>
-                  <tr><td class="border p-3">Dativ</td><td class="border p-3">dem Kollege<strong class="text-primary">n</strong></td></tr>
-                  <tr><td class="border p-3">Genitiv</td><td class="border p-3">des Kollege<strong class="text-primary">n</strong></td></tr>
-              </table>
-            </div>
+            <h2 class="font-headline text-2xl font-bold mb-4">Причастные обороты (Partizipialkonstruktionen)</h2>
+            <p class="mb-4">На уровне B2 причастные обороты используются для замены придаточных предложений, делая речь более элегантной и лаконичной. Это особенно характерно для письменного языка.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Partizip I:</strong> Das <strong class="text-accent">singende</strong> Mädchen (поющая девочка) → Das Mädchen, <strong class="text-primary">das singt</strong>.</li>
+              <li><strong>Partizip II:</strong> Das <strong class="text-accent">geschlossene</strong> Fenster (закрытое окно) → Das Fenster, <strong class="text-primary">das geschlossen wurde</strong>.</li>
+            </ul>
+             <p class="mb-4">Расширенные причастные обороты объединяют еще больше информации: "Der <strong class="text-accent">auf dem Sofa schlafende</strong> Hund..." (Собака, спящая на диване...)</p>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Глаголы с предлогами и Pronominaladverbien</h2>
+            <p class="mb-4">Мы не только учим связки "глагол + предлог", но и активно используем Pronominaladverbien (da- + предлог, wo- + предлог) для формулирования вопросов и ссылок на ранее сказанное.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>"Wartest du <strong class="text-primary">auf</strong> den Bus?" – "Ja, ich warte <strong class="text-accent">darauf</strong>."</li>
+              <li>"<strong class="text-accent">Woran</strong> denkst du?" – "Ich denke <strong class="text-primary">an</strong> meinen Urlaub."</li>
+            </ul>
           `,
           vocabulary: [
-            {
-              theme: 'Существительные N-склонения',
+             {
+              theme: 'Дом, быт и питание',
               words: [
-                { type: 'noun', 'german': 'Junge', 'russian': 'мальчик', 'article': 'der', 'plural': 'Jungen', 'pluralArticle': 'die', 'exampleSingular': 'Ich sehe den Jungen.', 'examplePlural': 'Ich spreche mit den Jungen.' },
-                { type: 'noun', 'german': 'Kollege', 'russian': 'коллега', 'article': 'der', 'plural': 'Kollegen', 'pluralArticle': 'die', 'exampleSingular': 'Ich spreche mit dem Kollegen.', 'examplePlural': 'Ich kenne meine Kollegen gut.' },
-                { type: 'noun', 'german': 'Kunde', 'russian': 'клиент', 'article': 'der', 'plural': 'Kunden', 'pluralArticle': 'die', 'exampleSingular': 'Der Berater hilft dem Kunden.', 'examplePlural': 'Wir haben viele zufriedene Kunden.' },
-                { type: 'noun', 'german': 'Mensch', 'russian': 'человек', 'article': 'der', 'plural': 'Menschen', 'pluralArticle': 'die', 'exampleSingular': 'Jeder Mensch ist einzigartig.', 'examplePlural': 'Das ist ein Problem für viele Menschen.' },
-                { type: 'noun', 'german': 'Herr', 'russian': 'господин', 'article': 'der', 'plural': 'Herren', 'pluralArticle': 'die', 'exampleSingular': 'Guten Tag, Herr Schmidt.', 'examplePlural': 'Sehr geehrte Damen und Herren.' },
-                { type: 'noun', 'german': 'Experte', 'russian': 'эксперт', 'article': 'der', 'plural': 'Experten', 'pluralArticle': 'die', 'exampleSingular': 'Wir haben einen Experten gefragt.', 'examplePlural': 'Die Meinung der Experten ist wichtig.' },
-                { type: 'noun', 'german': 'Präsident', 'russian': 'президент', 'article': 'der', 'plural': 'Präsidenten', 'pluralArticle': 'die', 'exampleSingular': 'Die Rede des Präsidenten war lang.', 'examplePlural': 'Die Präsidenten trafen sich zur Konferenz.' },
-                { type: 'noun', 'german': 'Name', 'russian': 'имя', 'article': 'der', 'plural': 'Namen', 'pluralArticle': 'die', 'exampleSingular': 'Ich habe seinen Namen vergessen.', 'examplePlural': 'Die Namen standen auf der Liste.', isIrregular: true },
-                { type: 'noun', 'german': 'Herz', 'russian': 'сердце', 'article': 'das', 'plural': 'Herzen', 'pluralArticle': 'die', 'exampleSingular': 'Er hat ein gutes Herz.', 'examplePlural': 'Er schenkte ihr die Herzen aus Schokolade.', isIrregular: true },
+                { type: 'noun', german: 'Einrichtung', russian: 'обстановка, меблировка', article: 'die', plural: 'Einrichtungen', pluralArticle: 'die', exampleSingular: 'Die Einrichtung der Wohnung ist sehr modern.', examplePlural: 'Öffentliche Einrichtungen sind für alle da.' },
+                { type: 'noun', german: 'Gericht', russian: 'блюдо', article: 'das', plural: 'Gerichte', pluralArticle: 'die', exampleSingular: 'Was ist dein Lieblingsgericht?', examplePlural: 'Die Speisekarte bietet viele vegetarische Gerichte.' },
+                { type: 'noun', german: 'Ernährung', russian: 'питание', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Eine gesunde Ernährung ist wichtig.', examplePlural: '-' },
+                { type: 'adjective', german: 'ungesund', russian: 'нездоровый', comparative: 'ungesünder', superlative: 'am ungesündesten', example: 'Fast Food ist oft ungesund.' },
               ]
+            },
+            {
+              theme: 'Путешествия и окружающая среда',
+              words: [
+                { type: 'noun', german: 'Landschaft', russian: 'пейзаж, ландшафт', article: 'die', plural: 'Landschaften', pluralArticle: 'die', exampleSingular: 'Die Landschaft hier ist wunderschön.', examplePlural: 'Es gibt verschiedene Arten von Landschaften.' },
+                { type: 'noun', german: 'Umwelt', russian: 'окружающая среда', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Wir müssen unsere Umwelt schützen.', examplePlural: '-' },
+                { type: 'noun', german: 'Umweltschutz', russian: 'защита окружающей среды', article: 'der', plural: '-', pluralArticle: '-', exampleSingular: 'Umweltschutz ist ein wichtiges Thema.', examplePlural: '-' },
+                { type: 'noun', german: 'Therapie', russian: 'терапия', article: 'die', plural: 'Therapien', pluralArticle: 'die', exampleSingular: 'Er macht eine Therapie.', examplePlural: 'Es gibt verschiedene Therapien für diese Krankheit.' },
+                { type: 'noun', german: 'Prävention', russian: 'профилактика', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Prävention ist besser als Heilen.', examplePlural: '-' },
+              ]
+            },
+            {
+                theme: 'Союзы и наречия',
+                words: [
+                    { type: 'conjunction', german: 'daher', russian: 'поэтому', structure: 'Порядок слов как в главном предложении (глагол на 2-м месте).', example: 'Das Wetter war schlecht, daher blieben wir zu Hause.' },
+                    { type: 'conjunction', german: 'sowohl … als auch', russian: 'как … так и', structure: 'Соединяет однородные члены предложения.', example: 'Er mag sowohl Kaffee als auch Tee.' },
+                    { type: 'conjunction', german: 'entweder … oder', russian: 'либо … либо', structure: 'Соединяет альтернативные члены предложения или предложения.', example: 'Wir fahren entweder nach Berlin oder nach Hamburg.' },
+                    { type: 'conjunction', german: 'weder … noch', russian: 'ни … ни', structure: 'Соединяет отрицаемые члены предложения.', example: 'Er trinkt weder Kaffee noch Tee.' },
+                    { type: 'adverb', german: 'möglicherweise', russian: 'возможно', structure: 'Обычно стоит после глагола или в начале предложения.', example: 'Möglicherweise kommt er später.' },
+                    { type: 'adverb', german: 'einerseits', russian: 'с одной стороны', structure: 'Часто используется в паре с andererseits.', example: 'Einerseits möchte ich reisen, andererseits habe ich wenig Geld.' },
+                    { type: 'adverb', german: 'andererseits', russian: 'с другой стороны', structure: 'Часто используется в паре с einerseits.', example: 'Andererseits ist es auch schön, zu Hause zu bleiben.' },
+                ]
             }
           ],
           exercises: []
@@ -1105,3 +1325,6 @@ export const curriculum: Curriculum = {
 
     
 
+
+
+    
