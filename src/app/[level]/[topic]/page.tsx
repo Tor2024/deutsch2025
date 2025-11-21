@@ -3,19 +3,10 @@ import { curriculum } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Book, Sparkles, Sprout } from 'lucide-react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { SpacedRepetitionWrapper } from '@/components/spaced-repetition-wrapper';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import type { VocabularyWord } from '@/lib/types';
-import { Badge } from '@/components/ui/badge';
+import { SpacedRepetitionWrapper } from '@/components/spaced-repetition-wrapper';
+import { WordCard } from '@/components/word-card';
 
 type TopicPageProps = {
   params: {
@@ -33,74 +24,6 @@ export async function generateStaticParams() {
     });
     return paths;
 }
-
-const WordCard = ({ word }: { word: VocabularyWord }) => {
-  const renderDetails = () => {
-    switch (word.type) {
-      case 'noun':
-        return (
-          <>
-            <p><span className="font-semibold">Ед. число:</span> {word.article} {word.german}</p>
-            <p><span className="font-semibold">Мн. число:</span> {word.pluralArticle} {word.plural}</p>
-            <p className="mt-2 italic text-muted-foreground">Пример (ед.ч.): {word.exampleSingular}</p>
-            <p className="italic text-muted-foreground">Пример (мн.ч.): {word.examplePlural}</p>
-          </>
-        );
-      case 'verb':
-        return (
-          <>
-            <p className="italic text-muted-foreground">{word.conjugation}</p>
-            <p className="mt-2 italic text-muted-foreground">Пример: {word.example}</p>
-          </>
-        );
-      case 'adjective':
-        return (
-          <>
-            <p>{word.german} → {word.comparative} → {word.superlative}</p>
-            <p className="mt-2 italic text-muted-foreground">Пример: {word.example}</p>
-          </>
-        );
-      case 'conjunction':
-        return (
-          <>
-            <p className="italic text-muted-foreground">{word.structure}</p>
-            <p className="mt-2 italic text-muted-foreground">Пример: {word.example}</p>
-          </>
-        );
-      default:
-        // This logic ensures that if the word has an 'article' property, it will be displayed.
-        // This handles cases where a word might be a noun but not fit the detailed 'noun' type structure.
-        if ('article' in word && (word as any).article) {
-          return <p>{(word as any).article} {word.german}</p>;
-        }
-        return <p className="italic text-muted-foreground">{word.example}</p>;
-    }
-  };
-
-  const getGermanDisplay = () => {
-    if (word.type === 'noun') {
-      return `${word.article} ${word.german}`;
-    }
-    return word.german;
-  }
-
-  return (
-    <div className="rounded-lg border bg-card p-4 text-card-foreground">
-        <div className="flex justify-between items-start">
-            <div>
-                <p className="text-xl font-bold">{getGermanDisplay()}</p>
-                <p className="text-md text-muted-foreground">{word.russian}</p>
-            </div>
-            <Badge variant="outline">{word.type}</Badge>
-        </div>
-        <Separator className="my-3" />
-        <div className="text-sm space-y-1">
-            {renderDetails()}
-        </div>
-    </div>
-  );
-};
-
 
 export default async function TopicPage({ params }: TopicPageProps) {
   const level = curriculum.levels.find((l) => l.id === params.level);

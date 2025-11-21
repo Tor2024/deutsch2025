@@ -37,7 +37,8 @@ type Step = 'vocab-learning' | 'vocab-practicing' | 'reading' | 'comprehension' 
 
 type ExerciseHistoryItem = {
     exercise: string;
-    correct: boolean;
+    userAnswer: string;
+    isCorrect: boolean;
 };
 
 type ExerciseEngineProps = {
@@ -109,7 +110,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       const response = await generateAdaptiveExercise({
         grammarConcept: topic.title,
         userLevel: 'A1', // This should be dynamic based on topic.id or user profile
-        pastErrors: exerciseHistory.filter(e => !e.correct).map(e => e.exercise).join(', '),
+        pastErrors: exerciseHistory.filter(e => !e.isCorrect).map(e => e.exercise).join(', '),
+        exerciseHistory: exerciseHistory, // Pass current session history
         vocabulary: allWords.map(word => ({
           german: word.german,
           russian: word.russian,
@@ -139,8 +141,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   }, [topic.title, exerciseHistory, toast, allWords]);
 
-  const addHistoryAndProficiency = (question: string, isCorrect: boolean) => {
-    setExerciseHistory(prev => [...prev, { exercise: question, correct: isCorrect }]);
+  const addHistoryAndProficiency = (question: string, userAnswer: string, isCorrect: boolean) => {
+    setExerciseHistory(prev => [...prev, { exercise: question, userAnswer, isCorrect }]);
     if(isCorrect) {
         setTopicProficiency(proficiency + 5);
     } else {
@@ -205,7 +207,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
 
       const isCorrect = verification.isCorrect;
       setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: verification.explanation });
-      addHistoryAndProficiency(question, isCorrect);
+      addHistoryAndProficiency(question, userAnswer, isCorrect);
       
       if (isCorrect) {
         setTimeout(() => {
@@ -248,26 +250,29 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
             const masteryResponse = await assessSubjectMastery({
                 subject: topic.title,
                 userProficiency: (proficiency) / 100,
-                exerciseHistory,
+                exerciseHistory: exerciseHistory.map(h => ({ exercise: h.exercise, correct: h.isCorrect })),
             });
             
             const feedbackResponse = await generateFeedback({
                 topicTitle: topic.title,
-                exerciseHistory: exerciseHistory,
+                exerciseHistory: exerciseHistory.map(h => ({ exercise: h.exercise, correct: h.isCorrect })),
             });
             setFinalFeedback(feedbackResponse.feedback);
-            setExerciseHistory([]);
+            
 
             if (masteryResponse.isMastered) {
                 setTopicProficiency(100);
                 setCurrentStep('mastered');
                 onMastered();
+                setExerciseHistory([]); // Clear history after mastering
             } else {
+                // Don't clear history, so the next cycle can use it
                 startExerciseCycle();
             }
         } catch (error) {
             console.error("Error in post-cycle phase:", error);
-            // Fallback to just restart the cycle
+            // Fallback to just restart the cycle, but clear history to avoid loops
+            setExerciseHistory([]);
             startExerciseCycle();
         } finally {
             setIsSubmitting(false);
