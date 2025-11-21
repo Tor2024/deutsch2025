@@ -11,15 +11,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { BookOpen, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import {
   getLevelImage,
 } from '@/lib/placeholder-images';
 import { useUserProgress } from '@/hooks/use-user-progress';
 import { useEffect, useState } from 'react';
+import { ProgressCircle } from '@/components/progress-circle';
 
 export default function DashboardPage() {
   const { getTopicProficiency } = useUserProgress();
@@ -50,10 +50,10 @@ export default function DashboardPage() {
           Ваш персональный путь к овладению немецким языком
         </p>
       </header>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {curriculum.levels.map((level) => {
           const levelImage = getLevelImage(level.id);
-          const levelProgress = calculateLevelProgress(level.id);
+          const levelProgress = isClient ? calculateLevelProgress(level.id) : 0;
           return (
             <Card
               key={level.id}
@@ -76,17 +76,13 @@ export default function DashboardPage() {
                   </CardTitle>
                 </div>
               </CardHeader>
-              <CardContent className="flex-grow p-6">
-                <CardDescription>{level.description}</CardDescription>
-              </CardContent>
-              <CardFooter className="flex flex-col items-start gap-4 p-6 pt-0">
-                <div className="w-full">
-                  <div className="mb-2 flex justify-between text-sm text-muted-foreground">
-                    <span>Прогресс</span>
-                    {isClient ? <span>{levelProgress}%</span> : <span>0%</span>}
-                  </div>
-                  <Progress value={isClient ? levelProgress : 0} />
+              <CardContent className="flex flex-grow flex-col p-6">
+                <CardDescription className="flex-grow">{level.description}</CardDescription>
+                <div className="mt-6 flex items-center justify-center">
+                  <ProgressCircle value={levelProgress} />
                 </div>
+              </CardContent>
+              <CardFooter className="p-6 pt-0">
                 <Button asChild className="w-full" variant="default">
                   <Link href={`/${level.id}`}>
                     <BookOpen className="mr-2 h-4 w-4" />
