@@ -14,6 +14,8 @@ import {
 import { SpacedRepetitionWrapper } from '@/components/spaced-repetition-wrapper';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import type { VocabularyWord } from '@/lib/types';
+import { Badge } from '@/components/ui/badge';
 
 type TopicPageProps = {
   params: {
@@ -32,6 +34,61 @@ export async function generateStaticParams() {
     return paths;
 }
 
+const WordCard = ({ word }: { word: VocabularyWord }) => {
+  const renderDetails = () => {
+    switch (word.type) {
+      case 'noun':
+        return (
+          <>
+            <p><span className="font-semibold">Ед. число:</span> {word.article} {word.german}</p>
+            <p><span className="font-semibold">Мн. число:</span> {word.pluralArticle} {word.plural}</p>
+            <p className="mt-2 italic text-muted-foreground">Пример (ед.ч.): {word.exampleSingular}</p>
+            <p className="italic text-muted-foreground">Пример (мн.ч.): {word.examplePlural}</p>
+          </>
+        );
+      case 'verb':
+        return (
+          <>
+            <p className="italic text-muted-foreground">{word.conjugation}</p>
+            <p className="mt-2 italic text-muted-foreground">Пример: {word.example}</p>
+          </>
+        );
+      case 'adjective':
+        return (
+          <>
+            <p>{word.german} → {word.comparative} → {word.superlative}</p>
+            <p className="mt-2 italic text-muted-foreground">Пример: {word.example}</p>
+          </>
+        );
+      case 'conjunction':
+        return (
+          <>
+            <p className="italic text-muted-foreground">{word.structure}</p>
+            <p className="mt-2 italic text-muted-foreground">Пример: {word.example}</p>
+          </>
+        );
+      default:
+        return <p className="italic text-muted-foreground">{word.example}</p>;
+    }
+  };
+
+  return (
+    <div className="rounded-lg border bg-card p-4 text-card-foreground">
+        <div className="flex justify-between items-start">
+            <div>
+                <p className="text-xl font-bold">{word.german}</p>
+                <p className="text-md text-muted-foreground">{word.russian}</p>
+            </div>
+            <Badge variant="outline">{word.type}</Badge>
+        </div>
+        <Separator className="my-3" />
+        <div className="text-sm space-y-1">
+            {renderDetails()}
+        </div>
+    </div>
+  );
+};
+
 
 export default async function TopicPage({ params }: TopicPageProps) {
   const level = curriculum.levels.find((l) => l.id === params.level);
@@ -41,6 +98,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
     notFound();
   }
   
+  const allWords = topic.vocabulary.flatMap(v => v.words);
+
   return (
     <div className="container mx-auto max-w-4xl py-8">
       <div className="mb-8">
@@ -65,32 +124,12 @@ export default async function TopicPage({ params }: TopicPageProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {topic.vocabulary.length > 0 ? (
-              topic.vocabulary.map((vocabTheme, index) => (
-                <div key={index} className="mb-6 last:mb-0">
-                    <h3 className="mb-4 text-xl font-semibold">{vocabTheme.theme}</h3>
-                    <div className="overflow-hidden rounded-md border">
-                      <Table>
-                          <TableHeader>
-                          <TableRow>
-                              <TableHead className="w-[30%]">Немецкий</TableHead>
-                              <TableHead className="w-[30%]">Русский</TableHead>
-                              <TableHead>Пример</TableHead>
-                          </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                          {vocabTheme.words.map((word, i) => (
-                              <TableRow key={i}>
-                                  <TableCell className="font-medium">{word.german}</TableCell>
-                                  <TableCell>{word.russian}</TableCell>
-                                  <TableCell className="italic text-muted-foreground">{word.example}</TableCell>
-                              </TableRow>
-                          ))}
-                          </TableBody>
-                      </Table>
-                    </div>
+            {allWords.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {allWords.map((word, i) => (
+                        <WordCard key={i} word={word} />
+                    ))}
                 </div>
-              ))
             ) : (
                 <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/20 p-12 text-center">
                     <h2 className="text-xl font-semibold text-muted-foreground">Словарь пуст</h2>
