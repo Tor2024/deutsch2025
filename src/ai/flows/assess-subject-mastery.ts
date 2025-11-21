@@ -22,7 +22,6 @@ const AssessSubjectMasteryInputSchema = z.object({
 export type AssessSubjectMasteryInput = z.infer<typeof AssessSubjectMasteryInputSchema>;
 
 const AssessSubjectMasteryOutputSchema = z.object({
-  exercise: z.string().describe('The generated exercise.'),
   isMastered: z.boolean().describe('Whether the user has demonstrated mastery of the subject.'),
 });
 export type AssessSubjectMasteryOutput = z.infer<typeof AssessSubjectMasteryOutputSchema>;
@@ -48,13 +47,12 @@ Here is the user's history of exercises and their correctness:
 {{/each}}
 {{/if}}
 
-Generate a new exercise to assess the user's understanding of the subject.
+Based on the user's proficiency and exercise history, determine if the user has demonstrated mastery of the subject. The user has demonstrated mastery if their proficiency is above 0.8 and they have answered at least 3 consecutive exercises correctly.
 
-Based on the user's proficiency and exercise history, determine if the user has demonstrated mastery of the subject. The user has demonstrated mastery if their proficiency is above 0.8 and they have answered at least 3 consecutive exercises correctly. Return the new exercise and whether the user has mastered the subject.
+Return only whether the user has mastered the subject.
 
 Output in JSON format:
 {
-  "exercise": "...",
   "isMastered": true | false
 }
 `,

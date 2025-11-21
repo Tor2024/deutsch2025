@@ -4,6 +4,7 @@
 import type { Topic } from "@/lib/types";
 import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
 import { generateAdaptiveExercise } from "@/ai/flows/adaptive-exercise-generation";
+import { verifyAnswer } from "@/ai/flows/verify-answer";
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -17,6 +18,7 @@ import { useUserProgress } from "@/hooks/use-user-progress";
 type ExerciseState = {
   exercise: string;
   isMastered: boolean;
+  correctAnswer: string;
 };
 
 type Feedback = {
@@ -45,12 +47,16 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     setTopicProficiency(0);
     setExerciseHistory([]);
     try {
-      const response = await assessSubjectMastery({
-        subject: topic.title,
-        userProficiency: 0,
-        exerciseHistory: [],
+      const response = await generateAdaptiveExercise({
+        grammarConcept: topic.title,
+        userLevel: 'A1', // This should be dynamic
+        pastErrors: "N/A",
       });
-      setExerciseState(response);
+      setExerciseState({
+          exercise: response.exerciseText,
+          correctAnswer: response.correctAnswer,
+          isMastered: false,
+      });
     } catch (error) {
       console.error("Error starting exercise:", error);
       toast({
@@ -74,41 +80,59 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     setIsLoading(true);
     setFeedback(null);
 
-    // This is a simplified check. In a real app, you'd need a more robust way to evaluate answers.
-    // For now, we'll call an AI to get a more targeted exercise upon wrong answer.
-    const isCorrect = userAnswer.toLowerCase().trim() === 'placeholder_correct'; // We'll let the AI decide correctness mostly
-
     try {
-        let response;
-        const newHistoryItem = { exercise: exerciseState.exercise, correct: isCorrect };
+        const verification = await verifyAnswer({
+            question: exerciseState.exercise,
+            userAnswer: userAnswer,
+            correctAnswer: exerciseState.correctAnswer,
+        });
 
-        if (!isCorrect) {
-            const adaptiveResponse = await generateAdaptiveExercise({
-                grammarConcept: topic.title,
-                userLevel: 'A1', // This should be dynamic
-                pastErrors: `User answered '${userAnswer}' to the question: '${exerciseState.exercise}'`,
-            });
-            setFeedback({ type: 'incorrect', message: adaptiveResponse.explanation });
-            
-            // The new exercise is the adaptive one
-            response = { exercise: adaptiveResponse.exerciseText, isMastered: false };
-            setExerciseHistory(prev => [...prev, { exercise: exerciseState.exercise, correct: false }]);
-        } else {
-             setFeedback({ type: 'correct', message: 'Отлично! Следующий вопрос.' });
-             setExerciseHistory(prev => [...prev, newHistoryItem]);
-        }
+        const isCorrect = verification.isCorrect;
+        const explanation = verification.explanation;
+
+        const newHistoryItem = { exercise: exerciseState.exercise, correct: isCorrect };
+        setExerciseHistory(prev => [...prev, newHistoryItem]);
 
         const newProficiency = proficiency + (isCorrect ? 10 : -5);
         setTopicProficiency(newProficiency);
+
+        if (!isCorrect) {
+            setFeedback({ type: 'incorrect', message: explanation });
+            const adaptiveResponse = await generateAdaptiveExercise({
+                grammarConcept: topic.title,
+                userLevel: 'A1', // This should be dynamic
+                pastErrors: `User answered '${userAnswer}' to the question: '${exerciseState.exercise}'. The explanation for the error was: ${explanation}`,
+            });
+            setExerciseState({
+                exercise: adaptiveResponse.exerciseText,
+                correctAnswer: adaptiveResponse.correctAnswer,
+                isMastered: false, // isMastered will be checked below
+            });
+        } else {
+             setFeedback({ type: 'correct', message: explanation });
+        }
 
         const nextExerciseResponse = await assessSubjectMastery({
             subject: topic.title,
             userProficiency: newProficiency / 100,
             exerciseHistory: [...exerciseHistory, newHistoryItem],
         });
-
-        setExerciseState(nextExerciseResponse);
-
+        
+        // If mastered, show completion screen. Otherwise, get a new question.
+        if (nextExerciseResponse.isMastered) {
+             setExerciseState(prev => prev ? {...prev, isMastered: true} : { exercise: '', correctAnswer: '', isMastered: true });
+        } else {
+            const newExercise = await generateAdaptiveExercise({
+                grammarConcept: topic.title,
+                userLevel: 'A1',
+                pastErrors: JSON.stringify(exerciseHistory)
+            });
+            setExerciseState({
+                exercise: newExercise.exerciseText,
+                correctAnswer: newExercise.correctAnswer,
+                isMastered: false
+            });
+        }
 
     } catch (error) {
         console.error("Error submitting answer:", error);
