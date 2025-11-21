@@ -17,9 +17,21 @@ export function WordCard({ word }: { word: VocabularyWord }) {
   const handleSpeak = useCallback(async (text: string) => {
     if (isSpeaking || !text) return;
     setIsSpeaking(true);
+
     try {
-      const { audio } = await generateAudio({ text });
-      const audioEl = new Audio(audio);
+      const cacheKey = `audio_cache_${text}`;
+      let audioData = sessionStorage.getItem(cacheKey);
+
+      if (!audioData) {
+        console.log(`Audio for "${text}" not in cache. Generating...`);
+        const { audio } = await generateAudio({ text });
+        audioData = audio;
+        sessionStorage.setItem(cacheKey, audioData);
+      } else {
+        console.log(`Audio for "${text}" found in cache.`);
+      }
+      
+      const audioEl = new Audio(audioData);
       audioEl.play();
       audioEl.onended = () => setIsSpeaking(false);
       audioEl.onerror = () => {
@@ -30,9 +42,7 @@ export function WordCard({ word }: { word: VocabularyWord }) {
     } catch(e) {
       console.error(e)
       toast({title: "Ошибка", description: "Не удалось воспроизвести аудио.", variant: "destructive"})
-    } finally {
-        // A timeout to prevent button spamming in case of an error
-        setTimeout(() => setIsSpeaking(false), 1000);
+      setIsSpeaking(false);
     }
   }, [isSpeaking, toast]);
 

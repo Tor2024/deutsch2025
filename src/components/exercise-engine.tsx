@@ -101,6 +101,38 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const currentStepIndex = useMemo(() => steps.findIndex(s => s.id === currentStep), [steps, currentStep]);
   const currentVocabWord = shuffledVocabulary[vocabIndex];
 
+  const handleSpeak = useCallback(async (text: string) => {
+    if (isSpeaking || !text) return;
+    setIsSpeaking(true);
+    try {
+      const cacheKey = `audio_cache_${text}`;
+      let audioData = sessionStorage.getItem(cacheKey);
+
+      if (!audioData) {
+        console.log(`Audio for "${text}" not in cache. Generating...`);
+        const { audio } = await generateAudio({ text });
+        audioData = audio;
+        sessionStorage.setItem(cacheKey, audioData);
+      } else {
+        console.log(`Audio for "${text}" found in cache.`);
+      }
+
+      if (audioRef.current) {
+        audioRef.current.src = audioData;
+        audioRef.current.play();
+        audioRef.current.onended = () => setIsSpeaking(false);
+        audioRef.current.onerror = () => {
+            console.error("Audio playback error");
+            setIsSpeaking(false);
+        }
+      }
+    } catch(e) {
+      console.error(e)
+      toast({title: "Ошибка", description: "Не удалось воспроизвести аудио.", variant: "destructive"})
+      setIsSpeaking(false);
+    }
+  }, [isSpeaking, toast]);
+
   const startExerciseCycle = useCallback(async () => {
     setCurrentStep('loading');
     setFeedback(null);
@@ -129,12 +161,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       setSentenceConstructionExercises(response.sentenceConstructionExercises || []);
       setCurrentStep('reading');
 
-      // Generate audio in parallel
-      generateAudio({ text: response.readingText }).then(({ audio }) => {
-        setAudioData(audio);
-      }).catch(err => {
-        console.error("Could not generate audio for reading text", err);
-      });
+      // Generate audio in parallel, check cache first
+      handleSpeak(response.readingText);
 
     } catch (error) {
       console.error("Error starting exercise cycle:", error);
@@ -144,7 +172,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         variant: "destructive",
       });
     }
-  }, [topic.id, topic.title, exerciseHistory, toast, allWords]);
+  }, [topic.id, topic.title, exerciseHistory, toast, allWords, handleSpeak]);
 
   const addHistoryAndProficiency = (question: string, userAnswer: string, isCorrect: boolean) => {
     setExerciseHistory(prev => [...prev, { exercise: question, userAnswer, isCorrect }]);
@@ -155,28 +183,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   }
   
-  const handleSpeak = useCallback(async (text: string) => {
-    if (isSpeaking || !text) return;
-    setIsSpeaking(true);
-    try {
-      const { audio } = await generateAudio({ text });
-      if (audioRef.current) {
-        audioRef.current.src = audio;
-        audioRef.current.play();
-        audioRef.current.onended = () => setIsSpeaking(false);
-        audioRef.current.onerror = () => {
-            console.error("Audio playback error");
-            setIsSpeaking(false);
-        }
-      }
-    } catch(e) {
-      console.error(e)
-      toast({title: "Ошибка", description: "Не удалось воспроизвести аудио.", variant: "destructive"})
-    } finally {
-        setIsSpeaking(false);
-    }
-  }, [isSpeaking, toast]);
-
   const handleSubmitExercise = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!exerciseData || !userAnswer || isSubmitting) return;
