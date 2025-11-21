@@ -2,174 +2,218 @@
 "use client";
 
 import type { Topic } from "@/lib/types";
-import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
-import { generateAdaptiveExercise } from "@/ai/flows/adaptive-exercise-generation";
+import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
-import { personalizedSpacedRepetition } from "@/ai/flows/personalized-spaced-repetition";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { CheckCircle, Loader2, RefreshCw, Sparkles, ThumbsUp, XCircle } from "lucide-react";
+import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, Mic, Pencil, BrainCircuit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useUserProgress } from "@/hooks/use-user-progress";
-
-type ExerciseState = {
-  exercise: string;
-  isMastered: boolean;
-  correctAnswer: string;
-};
 
 type Feedback = {
   type: "correct" | "incorrect";
   message: string;
 } | null;
 
-type ExerciseHistoryItem = {
-  exercise: string;
-  correct: boolean;
-};
+type Step = 'reading' | 'comprehension' | 'grammar' | 'explanation' | 'mastered' | 'loading';
 
 export function ExerciseEngine({ topic }: { topic: Topic }) {
-  const [exerciseState, setExerciseState] = useState<ExerciseState | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [exerciseData, setExerciseData] = useState<AdaptiveExerciseOutput | null>(null);
+  const [currentStep, setCurrentStep] = useState<Step>('loading');
   const [userAnswer, setUserAnswer] = useState("");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const { proficiency, setTopicProficiency } = useUserProgress(topic.id);
-  const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
-  const [startTime, setStartTime] = useState<number>(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const steps: { id: Step, name: string, icon: React.ElementType }[] = useMemo(() => [
+    { id: 'reading', name: 'Чтение', icon: BookOpen },
+    { id: 'comprehension', name: 'Понимание', icon: BrainCircuit },
+    { id: 'grammar', name: 'Грамматика', icon: Pencil },
+    { id: 'explanation', name: 'Объяснение', icon: BookOpen },
+  ], []);
 
-  const startFirstExercise = async () => {
-    setIsLoading(true);
+  const currentStepIndex = useMemo(() => steps.findIndex(s => s.id === currentStep), [steps, currentStep]);
+
+  const startExerciseCycle = async () => {
+    setCurrentStep('loading');
     setFeedback(null);
-    setExerciseState(null);
-    setTopicProficiency(0);
-    setExerciseHistory([]);
+    setUserAnswer('');
+    setExerciseData(null);
+    setIsSubmitting(false);
+
     try {
       const response = await generateAdaptiveExercise({
         grammarConcept: topic.title,
-        userLevel: 'A1', // This should be dynamic
-        pastErrors: "N/A",
+        userLevel: 'A1', // This should be dynamic based on topic.id or user profile
+        pastErrors: "N/A", // This could be populated from user history
       });
-      setExerciseState({
-          exercise: response.exerciseText,
-          correctAnswer: response.correctAnswer,
-          isMastered: false,
-      });
-      setStartTime(Date.now());
+      setExerciseData(response);
+      setCurrentStep('reading');
     } catch (error) {
-      console.error("Error starting exercise:", error);
+      console.error("Error starting exercise cycle:", error);
       toast({
         title: "Ошибка",
         description: "Не удалось загрузить упражнение. Попробуйте снова.",
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    startFirstExercise();
+    startExerciseCycle();
   }, [topic.id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!exerciseState || !userAnswer) return;
+    if (!exerciseData || !userAnswer || isSubmitting) return;
 
-    setIsLoading(true);
+    setIsSubmitting(true);
     setFeedback(null);
 
-    const responseTime = (Date.now() - startTime) / 1000;
+    let question = '';
+    let correctAnswer = '';
+
+    if (currentStep === 'comprehension') {
+      question = exerciseData.comprehensionQuestion;
+      correctAnswer = exerciseData.comprehensionAnswer;
+    } else if (currentStep === 'grammar') {
+      question = exerciseData.fillInTheBlankExercise;
+      correctAnswer = exerciseData.fillInTheBlankAnswer;
+    }
 
     try {
-        const verification = await verifyAnswer({
-            question: exerciseState.exercise,
-            userAnswer: userAnswer,
-            correctAnswer: exerciseState.correctAnswer,
-        });
+      const verification = await verifyAnswer({
+        question,
+        userAnswer,
+        correctAnswer,
+      });
 
-        const isCorrect = verification.isCorrect;
-        const explanation = verification.explanation;
-        setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: explanation });
+      const isCorrect = verification.isCorrect;
+      setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: verification.explanation });
 
-        const newHistoryItem = { exercise: exerciseState.exercise, correct: isCorrect };
-        const updatedHistory = [...exerciseHistory, newHistoryItem];
-        setExerciseHistory(updatedHistory);
-
-        const newProficiency = proficiency + (isCorrect ? 10 : -5);
-        setTopicProficiency(newProficiency);
-
-        // Call spaced repetition flow
-        await personalizedSpacedRepetition({
-          itemId: `${topic.id}-${exerciseState.exercise.slice(0, 10)}`,
-          userResponse: isCorrect ? 'correct' : 'incorrect',
-          responseTime: responseTime,
-          currentInterval: 1, // This should be stored and retrieved
-          difficulty: 5, // This could be dynamic
-        });
-        
-        const masteryAssessment = await assessSubjectMastery({
-          subject: topic.title,
-          userProficiency: newProficiency / 100,
-          exerciseHistory: updatedHistory,
-        });
-
-        if (masteryAssessment.isMastered) {
-          setExerciseState(prev => prev ? {...prev, isMastered: true} : null);
-        } else {
-            // If not mastered, generate a new exercise
-            const adaptiveResponse = await generateAdaptiveExercise({
-                grammarConcept: topic.title,
-                userLevel: 'A1', // This should be dynamic
-                pastErrors: `User answered '${userAnswer}' to the question: '${exerciseState.exercise}'. The explanation for the error was: ${explanation}`,
-            });
-            setExerciseState({
-                exercise: adaptiveResponse.exerciseText,
-                correctAnswer: adaptiveResponse.correctAnswer,
-                isMastered: false,
-            });
-            setStartTime(Date.now());
-        }
-
+      if (isCorrect) {
+        setTopicProficiency(proficiency + 25);
+        // Wait for a moment to show feedback, then move to next step
+        setTimeout(() => {
+            setFeedback(null);
+            setUserAnswer('');
+            if (currentStep === 'comprehension') {
+                setCurrentStep('grammar');
+            } else if (currentStep === 'grammar') {
+                setCurrentStep('explanation');
+            }
+        }, 2000);
+      } else {
+        setTopicProficiency(proficiency - 10);
+      }
     } catch (error) {
-        console.error("Error submitting answer:", error);
-        toast({
-            title: "Ошибка",
-            description: "Не удалось проверить ответ. Попробуйте снова.",
-            variant: "destructive",
-        });
+      console.error("Error submitting answer:", error);
+      toast({
+        title: "Ошибка",
+        description: "Не удалось проверить ответ. Попробуйте снова.",
+        variant: "destructive",
+      });
     } finally {
-        setUserAnswer("");
-        setIsLoading(false);
+      setIsSubmitting(false);
+    }
+  };
+  
+  const handleContinue = () => {
+    setFeedback(null);
+    setUserAnswer('');
+    if (currentStep === 'reading') {
+        setCurrentStep('comprehension');
+    } else if (currentStep === 'explanation') {
+        if(proficiency >= 100) {
+            setCurrentStep('mastered');
+        } else {
+            startExerciseCycle();
+        }
     }
   };
 
+  const renderContent = () => {
+    if (!exerciseData) return null;
 
-  if (isLoading && !exerciseState) {
+    switch (currentStep) {
+      case 'reading':
+        return (
+          <Card>
+            <CardHeader><CardTitle>1. Прочитайте текст</CardTitle></CardHeader>
+            <CardContent>
+              <p className="text-lg leading-relaxed">{exerciseData.readingText}</p>
+              <Button onClick={handleContinue} className="mt-4">Продолжить</Button>
+            </CardContent>
+          </Card>
+        );
+      case 'comprehension':
+      case 'grammar':
+        const isComprehension = currentStep === 'comprehension';
+        const title = isComprehension ? '2. Ответьте на вопрос' : '3. Заполните пропуск';
+        const question = isComprehension ? exerciseData.comprehensionQuestion : exerciseData.fillInTheBlankExercise;
+        return (
+          <Card>
+            <CardHeader><CardTitle>{title}</CardTitle></CardHeader>
+            <CardContent>
+              <p className="text-lg text-foreground mb-4">{question}</p>
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+                <Input
+                  type="text"
+                  value={userAnswer}
+                  onChange={(e) => setUserAnswer(e.target.value)}
+                  placeholder="Введите ваш ответ..."
+                  className="flex-grow"
+                  disabled={isSubmitting}
+                />
+                <Button type="submit" disabled={isSubmitting || !userAnswer}>
+                  {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Проверить'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        );
+      case 'explanation':
+          return (
+            <Card>
+              <CardHeader><CardTitle>4. Объяснение правила</CardTitle></CardHeader>
+              <CardContent>
+                <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: exerciseData.explanation }} />
+                <Button onClick={handleContinue} className="mt-4">
+                  {proficiency >= 100 ? 'Завершить тему' : 'Следующее упражнение'}
+                </Button>
+              </CardContent>
+            </Card>
+          );
+      default:
+        return null;
+    }
+  };
+
+  if (currentStep === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center text-center p-8">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
-        <p className="mt-4 text-muted-foreground">ИИ-тренер готовит ваше первое задание...</p>
+        <p className="mt-4 text-muted-foreground">ИИ-тренер готовит ваше задание...</p>
       </div>
     );
   }
 
-  if (exerciseState?.isMastered) {
+  if (currentStep === 'mastered') {
     return (
       <Card className="bg-gradient-to-br from-primary/10 to-transparent">
         <CardContent className="p-6 text-center">
-            <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4"/>
-            <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
-            <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы. <br/> Можно переходить к следующей или повторить материал.</p>
-            <Button onClick={startFirstExercise} className="mt-6">
-                <RefreshCw className="mr-2 h-4 w-4" />
-                Пройти заново
-            </Button>
+          <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4" />
+          <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
+          <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы. <br /> Можно переходить к следующей или повторить материал.</p>
+          <Button onClick={() => { setTopicProficiency(0); startExerciseCycle(); }} className="mt-6">
+            <RefreshCw className="mr-2 h-4 w-4" />
+            Пройти заново
+          </Button>
         </CardContent>
       </Card>
     )
@@ -177,42 +221,37 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
 
   return (
     <div className="space-y-6">
-        <div>
-            <div className="flex justify-between items-center mb-2">
-                <label htmlFor="mastery" className="text-sm font-medium text-muted-foreground">Уровень освоения</label>
-                <span className="text-sm font-bold text-primary">{proficiency}%</span>
-            </div>
-            <Progress value={proficiency} id="mastery" />
+      <div>
+        <ol className="flex items-center w-full">
+          {steps.map((step, index) => (
+            <li key={step.id} className={`flex w-full items-center ${index < steps.length - 1 ? "after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block" : ""} ${index <= currentStepIndex ? 'text-primary after:border-primary' : 'text-muted-foreground after:border-muted'}`}>
+                <span className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0 ${index <= currentStepIndex ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                    <step.icon className="w-5 h-5 lg:w-6 lg:h-6" />
+                </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <label htmlFor="mastery" className="text-sm font-medium text-muted-foreground">Уровень освоения</label>
+          <span className="text-sm font-bold text-primary">{proficiency}%</span>
         </div>
+        <Progress value={proficiency} id="mastery" />
+      </div>
 
-        <Card>
-            <CardContent className="p-6">
-                <p className="text-lg text-foreground mb-4">{exerciseState?.exercise}</p>
-                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-                    <Input
-                        type="text"
-                        value={userAnswer}
-                        onChange={(e) => setUserAnswer(e.target.value)}
-                        placeholder="Введите ваш ответ..."
-                        className="flex-grow"
-                        disabled={isLoading}
-                    />
-                    <Button type="submit" disabled={isLoading || !userAnswer}>
-                        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Проверить'}
-                    </Button>
-                </form>
-            </CardContent>
-        </Card>
+      {renderContent()}
 
-        {feedback && (
-            <Alert variant={feedback.type === 'incorrect' ? 'destructive' : 'default'}>
-                {feedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-                <AlertTitle className="font-headline">
-                    {feedback.type === 'correct' ? 'Правильно!' : 'Обратите внимание'}
-                </AlertTitle>
-                <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: feedback.message }} />
-            </Alert>
-        )}
+      {feedback && (
+        <Alert variant={feedback.type === 'incorrect' ? 'destructive' : 'default'}>
+          {feedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
+          <AlertTitle className="font-headline">
+            {feedback.type === 'correct' ? 'Правильно!' : 'Обратите внимание'}
+          </AlertTitle>
+          <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: feedback.message }} />
+        </Alert>
+      )}
     </div>
   );
 }
