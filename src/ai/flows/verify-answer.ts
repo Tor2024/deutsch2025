@@ -51,16 +51,19 @@ const verifyAnswerPrompt = ai.definePrompt({
   Correct Answer: "{{correctAnswer}}"
   User's Answer: "{{userAnswer}}"
 
-  1.  **Analyze the answer:** Determine if the user's answer is correct. Be flexible with minor typos if the meaning is clear, but strict on grammatical correctness.
+  1.  **Analyze the answer:** Determine if the user's answer is correct. Be flexible with minor typos (one wrong/missing/extra letter) or capitalization if the meaning is clear and it's not a noun, but be strict on grammatical correctness (wrong articles, endings).
+        - If the user answer is very close (e.g., "der Tish" instead of "der Tisch"), consider it incorrect but acknowledge the closeness.
+        - If the question involves a noun, and the user provided the word but the wrong article, the answer is incorrect. Your explanation should focus on the article.
+
   2.  **Set 'isCorrect' flag:** Set the boolean flag to 'true' or 'false'.
   3.  **Generate Explanation in Russian (HTML format):**
       *   **If correct:** Provide positive and encouraging feedback. For example: "<p>Отлично! Всё верно!</p><p>Вы правильно использовали грамматическую конструкцию.</p>"
       *   **If incorrect:**
-          a. Start with a gentle correction, like "<p>Почти, но есть небольшая ошибка.</p>"
-          b. Clearly state what the mistake was. Example: "Вы использовали не тот артикль." or "Неправильное окончание у глагола."
+          a. Start with a gentle correction, like "<p>Почти, но есть небольшая ошибка.</p>" or "<p>Не совсем так.</p>"
+          b. Clearly state what the mistake was. Example: "Вы использовали не тот артикль." or "Неправильное окончание у глагола." or "Вы пропустили букву 'c'."
           c. Explicitly state the correct answer. Use a strong tag for emphasis: "Правильный ответ: <strong class="text-primary">{{correctAnswer}}</strong>."
-          d. Explain *why* it's correct. Example: "Мы используем винительный падеж (Akkusativ) после глагола 'sehen', поэтому 'der' меняется на 'den'."
-          e. Provide one or two additional, different examples of the correct grammar rule in use to reinforce the concept.
+          d. Explain *why* it's correct. Example: "Мы используем винительный падеж (Akkusativ) после глагола 'sehen', поэтому 'der' меняется на 'den'." or "Слово 'Tisch' мужского рода, поэтому с ним используется артикль 'der'."
+          e. Provide one or two additional, different examples of the correct grammar rule or word usage to reinforce the concept.
 
   Your entire response must be a single, valid JSON object.
   `,

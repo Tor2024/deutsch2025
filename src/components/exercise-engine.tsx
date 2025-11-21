@@ -1,7 +1,7 @@
 
 "use client";
 
-import type { Topic } from "@/lib/types";
+import type { Topic, VocabularyWord } from "@/lib/types";
 import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
 import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
@@ -16,12 +16,6 @@ import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCirc
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
 import { useUserProgress } from "@/hooks/use-user-progress";
-
-type Vocabulary = {
-  german: string;
-  russian: string;
-  example: string;
-};
 
 type Feedback = {
   type: "correct" | "incorrect";
@@ -68,9 +62,9 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
 
   // Vocabulary state
   const allWords = useMemo(() => topic.vocabulary.flatMap(v => v.words), [topic.vocabulary]);
-  const [shuffledVocabulary, setShuffledVocabulary] = useState<Vocabulary[]>([]);
+  const [shuffledVocabulary, setShuffledVocabulary] = useState<VocabularyWord[]>([]);
   const [vocabIndex, setVocabIndex] = useState(0);
-  const [incorrectVocab, setIncorrectVocab] = useState<Vocabulary[]>([]);
+  const [incorrectVocab, setIncorrectVocab] = useState<VocabularyWord[]>([]);
   const [vocabFeedback, setVocabFeedback] = useState<{type: 'correct' | 'incorrect', message: string} | null>(null);
 
 
@@ -116,7 +110,11 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         grammarConcept: topic.title,
         userLevel: 'A1', // This should be dynamic based on topic.id or user profile
         pastErrors: exerciseHistory.filter(e => !e.correct).map(e => e.exercise).join(', '),
-        vocabulary: allWords,
+        vocabulary: allWords.map(word => ({
+          german: word.german,
+          russian: word.russian,
+          example: word.type === 'noun' ? word.exampleSingular : word.example,
+        })),
       });
       setExerciseData(response);
       setComprehensionExercises(response.comprehensionExercises);
@@ -301,11 +299,16 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     setIsSubmitting(true);
     setVocabFeedback(null);
 
+    let correctAnswer = currentVocabWord.german;
+    if (currentVocabWord.type === 'noun') {
+      correctAnswer = `${currentVocabWord.article} ${currentVocabWord.german}`;
+    }
+
     try {
         const verification = await verifyAnswer({
-            question: `Как перевести "${currentVocabWord.russian}"?`,
+            question: `Как перевести "${currentVocabWord.russian}"? Если это существительное, укажите артикль.`,
             userAnswer: userAnswer,
-            correctAnswer: currentVocabWord.german,
+            correctAnswer: correctAnswer,
         });
 
         setVocabFeedback({
@@ -348,6 +351,13 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const renderContent = () => {
     if (currentStep === 'loading') return null;
 
+    const getGermanDisplay = (word: VocabularyWord) => {
+      if (word.type === 'noun') {
+        return `${word.article} ${word.german}`;
+      }
+      return word.german;
+    }
+
     switch (currentStep) {
       case 'vocab-learning':
         if (!currentVocabWord) return null;
@@ -355,7 +365,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
             <Card className="min-h-[250px] flex flex-col">
                 <CardHeader>
                     <CardTitle className="text-4xl font-bold text-center flex items-center justify-center gap-4">
-                        {currentVocabWord.german}
+                        {getGermanDisplay(currentVocabWord)}
                         <Button variant="ghost" size="icon" onClick={() => handleSpeak(currentVocabWord.german)} disabled={isSpeaking}>
                             {isSpeaking ? <Loader2 className="animate-spin" /> : <Volume2 />}
                         </Button>
@@ -363,7 +373,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                     <CardDescription className="text-center text-lg">{currentVocabWord.russian}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow flex items-center justify-center">
-                    <p className="text-center text-muted-foreground italic text-lg">«{currentVocabWord.example}»</p>
+                    <p className="text-center text-muted-foreground italic text-lg">«{currentVocabWord.type === 'noun' ? currentVocabWord.exampleSingular : currentVocabWord.example}»</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button variant="outline" onClick={handleVocabPrev} disabled={vocabIndex === 0}>
@@ -393,6 +403,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                             onChange={(e) => setUserAnswer(e.target.value)}
                             disabled={!!vocabFeedback || isSubmitting}
                             className="text-lg h-12"
+                            autoCapitalize="none"
+                            autoCorrect="off"
                         />
                         <Button type="submit" size="lg" disabled={!!vocabFeedback || !userAnswer.trim() || isSubmitting}>
                             {isSubmitting ? <Loader2 className="animate-spin" /> : 'Проверить'}
@@ -471,6 +483,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                   placeholder="Введите ваш ответ на немецком..."
                   className="flex-grow"
                   disabled={isSubmitting || !!feedback}
+                  autoCapitalize="none"
+                  autoCorrect="off"
                 />
                 <Button type="submit" disabled={isSubmitting || !userAnswer || !!feedback}>
                   {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Проверить'}
