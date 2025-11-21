@@ -2,7 +2,7 @@
 'use client';
 
 import { curriculum } from '@/lib/data';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import {
   Accordion,
   AccordionContent,
@@ -16,14 +16,8 @@ import { useUserProgress } from '@/hooks/use-user-progress';
 import { cn } from '@/lib/utils';
 
 
-type LevelPageProps = {
-  params: {
-    level: string;
-  };
-};
-
-
-export default function LevelPage({ params }: LevelPageProps) {
+export default function LevelPage() {
+  const params = useParams<{ level: string }>();
   const level = curriculum.levels.find((l) => l.id === params.level);
   const { getTopicProficiency } = useUserProgress();
 
