@@ -5,12 +5,13 @@ import type { Topic } from "@/lib/types";
 import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
 import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { generateAudio } from "@/ai/flows/text-to-speech";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil } from "lucide-react";
+import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useUserProgress } from "@/hooks/use-user-progress";
@@ -41,6 +42,10 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [audioData, setAudioData] = useState<string | null>(null);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
 
   const steps: { id: Step, name: string, icon: React.ElementType }[] = useMemo(() => [
     { id: 'reading', name: 'Чтение', icon: BookOpen },
@@ -57,6 +62,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     setUserAnswer('');
     setExerciseData(null);
     setIsSubmitting(false);
+    setAudioData(null);
 
     try {
       const response = await generateAdaptiveExercise({
@@ -66,6 +72,14 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       });
       setExerciseData(response);
       setCurrentStep('reading');
+
+      // Generate audio in parallel
+      generateAudio({ text: response.readingText }).then(({ audio }) => {
+        setAudioData(audio);
+      }).catch(err => {
+        console.error("Could not generate audio for reading text", err);
+      });
+
     } catch (error) {
       console.error("Error starting exercise cycle:", error);
       toast({
@@ -88,6 +102,18 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         setTopicProficiency(proficiency - 10);
     }
   }
+  
+  const handleSpeak = useCallback(() => {
+    if (isSpeaking || !audioData || !audioRef.current) return;
+    setIsSpeaking(true);
+    audioRef.current.src = audioData;
+    audioRef.current.play();
+    audioRef.current.onended = () => setIsSpeaking(false);
+    audioRef.current.onerror = () => {
+        console.error("Audio playback error");
+        setIsSpeaking(false);
+    }
+  }, [audioData, isSpeaking]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,7 +180,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         try {
             const masteryResponse = await assessSubjectMastery({
                 subject: topic.title,
-                userProficiency: (proficiency + 15) / 100, // check with new proficiency
+                userProficiency: (proficiency) / 100,
                 exerciseHistory,
             });
 
@@ -181,10 +207,16 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       case 'reading':
         return (
           <Card>
-            <CardHeader><CardTitle>1. Прочитайте текст</CardTitle></CardHeader>
+            <CardHeader><CardTitle>1. Прочитайте и прослушайте текст</CardTitle></CardHeader>
             <CardContent>
               <p className="text-lg leading-relaxed">{exerciseData.readingText}</p>
-              <Button onClick={handleContinue} className="mt-4">Продолжить</Button>
+              <div className="mt-4 flex gap-4">
+                <Button onClick={handleSpeak} disabled={isSpeaking || !audioData}>
+                    {isSpeaking ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Volume2 className="mr-2 h-4 w-4" />}
+                    Прослушать
+                </Button>
+                <Button onClick={handleContinue}>Продолжить</Button>
+              </div>
             </CardContent>
           </Card>
         );
@@ -254,6 +286,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
 
   return (
     <div className="space-y-6">
+      <audio ref={audioRef} className="hidden" />
       <div>
         <ol className="flex items-center w-full">
           {steps.map((step, index) => (
@@ -288,3 +321,5 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     </div>
   );
 }
+
+    
