@@ -4,12 +4,13 @@
 import type { Topic } from "@/lib/types";
 import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
+import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
 import { useState, useEffect, useMemo } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, Mic, Pencil, BrainCircuit } from "lucide-react";
+import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useUserProgress } from "@/hooks/use-user-progress";
@@ -21,12 +22,18 @@ type Feedback = {
 
 type Step = 'reading' | 'comprehension' | 'grammar' | 'explanation' | 'mastered' | 'loading';
 
+type ExerciseHistoryItem = {
+    exercise: string;
+    correct: boolean;
+};
+
 export function ExerciseEngine({ topic }: { topic: Topic }) {
   const [exerciseData, setExerciseData] = useState<AdaptiveExerciseOutput | null>(null);
   const [currentStep, setCurrentStep] = useState<Step>('loading');
   const [userAnswer, setUserAnswer] = useState("");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const { proficiency, setTopicProficiency } = useUserProgress(topic.id);
+  const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,7 +57,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
       const response = await generateAdaptiveExercise({
         grammarConcept: topic.title,
         userLevel: 'A1', // This should be dynamic based on topic.id or user profile
-        pastErrors: "N/A", // This could be populated from user history
+        pastErrors: exerciseHistory.filter(e => !e.correct).map(e => e.exercise).join(', '),
       });
       setExerciseData(response);
       setCurrentStep('reading');
@@ -67,6 +74,15 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
   useEffect(() => {
     startExerciseCycle();
   }, [topic.id]);
+
+  const addHistoryAndProficiency = (question: string, isCorrect: boolean) => {
+    setExerciseHistory(prev => [...prev, { exercise: question, correct: isCorrect }]);
+    if(isCorrect) {
+        setTopicProficiency(proficiency + 15);
+    } else {
+        setTopicProficiency(proficiency - 10);
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -95,9 +111,9 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
 
       const isCorrect = verification.isCorrect;
       setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: verification.explanation });
-
+      addHistoryAndProficiency(question, isCorrect);
+      
       if (isCorrect) {
-        setTopicProficiency(proficiency + 25);
         // Wait for a moment to show feedback, then move to next step
         setTimeout(() => {
             setFeedback(null);
@@ -108,8 +124,6 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
                 setCurrentStep('explanation');
             }
         }, 2000);
-      } else {
-        setTopicProficiency(proficiency - 10);
       }
     } catch (error) {
       console.error("Error submitting answer:", error);
@@ -123,13 +137,20 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     }
   };
   
-  const handleContinue = () => {
+  const handleContinue = async () => {
     setFeedback(null);
     setUserAnswer('');
     if (currentStep === 'reading') {
         setCurrentStep('comprehension');
     } else if (currentStep === 'explanation') {
-        if(proficiency >= 100) {
+        const masteryResponse = await assessSubjectMastery({
+            subject: topic.title,
+            userProficiency: (proficiency + 15) / 100, // check with new proficiency
+            exerciseHistory,
+        });
+
+        if (masteryResponse.isMastered) {
+            setTopicProficiency(100);
             setCurrentStep('mastered');
         } else {
             startExerciseCycle();
@@ -168,9 +189,9 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
                   onChange={(e) => setUserAnswer(e.target.value)}
                   placeholder="Введите ваш ответ..."
                   className="flex-grow"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !!feedback}
                 />
-                <Button type="submit" disabled={isSubmitting || !userAnswer}>
+                <Button type="submit" disabled={isSubmitting || !userAnswer || !!feedback}>
                   {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Проверить'}
                 </Button>
               </form>
@@ -183,8 +204,8 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
               <CardHeader><CardTitle>4. Объяснение правила</CardTitle></CardHeader>
               <CardContent>
                 <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: exerciseData.explanation }} />
-                <Button onClick={handleContinue} className="mt-4">
-                  {proficiency >= 100 ? 'Завершить тему' : 'Следующее упражнение'}
+                <Button onClick={handleContinue} className="mt-4" disabled={isSubmitting}>
+                   {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Продолжить'}
                 </Button>
               </CardContent>
             </Card>
@@ -210,7 +231,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
           <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4" />
           <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
           <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы. <br /> Можно переходить к следующей или повторить материал.</p>
-          <Button onClick={() => { setTopicProficiency(0); startExerciseCycle(); }} className="mt-6">
+          <Button onClick={() => { setTopicProficiency(0); setExerciseHistory([]); startExerciseCycle(); }} className="mt-6">
             <RefreshCw className="mr-2 h-4 w-4" />
             Пройти заново
           </Button>
@@ -255,3 +276,5 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     </div>
   );
 }
+
+    
