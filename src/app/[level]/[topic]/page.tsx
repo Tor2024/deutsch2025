@@ -2,7 +2,7 @@
 import { curriculum } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Book, Sparkles, Sprout } from 'lucide-react';
+import { Book, Sparkles, Sprout, Files } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -12,6 +12,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { ExerciseEngine } from '@/components/exercise-engine';
+import { VocabularyTrainer } from '@/components/vocabulary-trainer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
@@ -40,6 +41,8 @@ export default async function TopicPage({ params }: TopicPageProps) {
   if (!level || !topic) {
     notFound();
   }
+  
+  const allWords = topic.vocabulary.flatMap(v => v.words);
 
   return (
     <div className="container mx-auto max-w-4xl py-8">
@@ -60,7 +63,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
               </div>
               <div>
                 <h2 className="text-2xl font-bold font-headline">1. Словарь темы</h2>
-                <p className="text-sm font-normal text-muted-foreground">Начните с изучения основных слов и фраз</p>
+                <p className="text-sm font-normal text-muted-foreground">Слова и фразы, которые понадобятся для освоения темы</p>
               </div>
             </CardTitle>
           </CardHeader>
@@ -101,6 +104,28 @@ export default async function TopicPage({ params }: TopicPageProps) {
         </Card>
 
         <Separator />
+        
+        {/* Vocabulary Trainer */}
+        {allWords.length > 0 && (
+          <Card className="bg-gradient-to-br from-card to-muted/30">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                <div className="flex-shrink-0 rounded-full bg-primary/10 p-3 text-primary">
+                    <Files className="h-6 w-6" />
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold font-headline">2. Тренировка слов</h2>
+                    <p className="text-sm font-normal text-muted-foreground">Закрепите новые слова с помощью интерактивных карточек</p>
+                </div>
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                <VocabularyTrainer vocabulary={allWords} />
+            </CardContent>
+          </Card>
+        )}
+
+        <Separator />
 
         {/* Theory Section */}
         <Card>
@@ -110,7 +135,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                     <Book className="h-6 w-6" />
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold font-headline">2. Теория и правила</h2>
+                    <h2 className="text-2xl font-bold font-headline">3. Теория и правила</h2>
                     <p className="text-sm font-normal text-muted-foreground">Поймите, как использовать слова и грамматику</p>
                 </div>
                 </CardTitle>
@@ -130,7 +155,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
                     <Sparkles className="h-6 w-6" />
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold font-headline">3. Адаптивная тренировка</h2>
+                    <h2 className="text-2xl font-bold font-headline">4. Адаптивная тренировка</h2>
                     <p className="text-sm font-normal text-muted-foreground">Закрепите знания с помощью ИИ-тренера</p>
                 </div>
                 </CardTitle>
