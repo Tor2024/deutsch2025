@@ -1,8 +1,8 @@
+
 import { curriculum } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Book, Bot, Sparkles, Sprout } from 'lucide-react';
+import { Book, Bot, Sparkles, Sprout, GraduationCap } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -12,6 +12,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { ExerciseEngine } from '@/components/exercise-engine';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 type TopicPageProps = {
   params: {
@@ -48,38 +50,45 @@ export default function TopicPage({ params }: TopicPageProps) {
         <h1 className="mt-2 text-4xl font-bold font-headline">{topic.title}</h1>
       </div>
 
-      <Tabs defaultValue="theory" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="theory"><Book className="mr-2 h-4 w-4" />Теория</TabsTrigger>
-          <TabsTrigger value="vocabulary"><Sprout className="mr-2 h-4 w-4" />Словарь</TabsTrigger>
-          <TabsTrigger value="practice"><Sparkles className="mr-2 h-4 w-4" />Практика</TabsTrigger>
-        </TabsList>
-        <TabsContent value="theory" className="mt-6 rounded-lg border bg-card p-6">
-          <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: topic.explanation }} />
-        </TabsContent>
-        <TabsContent value="vocabulary" className="mt-6">
+      <div className="space-y-12">
+        {/* Vocabulary Section */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <div className="flex-shrink-0 rounded-full bg-primary/10 p-3 text-primary">
+                <Sprout className="h-6 w-6" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold font-headline">1. Словарь темы</h2>
+                <p className="text-sm font-normal text-muted-foreground">Начните с изучения основных слов и фраз</p>
+              </div>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
             {topic.vocabulary.length > 0 ? (
               topic.vocabulary.map((vocabTheme, index) => (
-                <div key={index} className="mb-6 rounded-lg border bg-card p-6">
-                    <h3 className="mb-4 text-2xl font-semibold font-headline">{vocabTheme.theme}</h3>
-                    <Table>
-                        <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[30%]">Немецкий</TableHead>
-                            <TableHead className="w-[30%]">Русский</TableHead>
-                            <TableHead>Пример</TableHead>
-                        </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                        {vocabTheme.words.map((word, i) => (
-                            <TableRow key={i}>
-                                <TableCell className="font-medium">{word.german}</TableCell>
-                                <TableCell>{word.russian}</TableCell>
-                                <TableCell className="italic text-muted-foreground">{word.example}</TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
+                <div key={index} className="mb-6 last:mb-0">
+                    <h3 className="mb-4 text-xl font-semibold">{vocabTheme.theme}</h3>
+                    <div className="overflow-hidden rounded-md border">
+                      <Table>
+                          <TableHeader>
+                          <TableRow>
+                              <TableHead className="w-[30%]">Немецкий</TableHead>
+                              <TableHead className="w-[30%]">Русский</TableHead>
+                              <TableHead>Пример</TableHead>
+                          </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                          {vocabTheme.words.map((word, i) => (
+                              <TableRow key={i}>
+                                  <TableCell className="font-medium">{word.german}</TableCell>
+                                  <TableCell>{word.russian}</TableCell>
+                                  <TableCell className="italic text-muted-foreground">{word.example}</TableCell>
+                              </TableRow>
+                          ))}
+                          </TableBody>
+                      </Table>
+                    </div>
                 </div>
               ))
             ) : (
@@ -88,20 +97,49 @@ export default function TopicPage({ params }: TopicPageProps) {
                     <p className="mt-2 text-sm text-muted-foreground">Для этой темы пока нет словарного запаса.</p>
                 </div>
             )}
-        </TabsContent>
-        <TabsContent value="practice" className="mt-6 rounded-lg border bg-card p-6">
-          <div className="mb-4 flex items-center gap-3">
-              <div className="flex-shrink-0 rounded-full bg-primary/10 p-3 text-primary">
-                <Bot className="h-6 w-6" />
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold font-headline">Адаптивная тренировка</h2>
-                <p className="text-muted-foreground">ИИ-тренер будет давать задания, пока вы не освоите тему.</p>
-              </div>
-          </div>
-          <ExerciseEngine topic={topic} />
-        </TabsContent>
-      </Tabs>
+          </CardContent>
+        </Card>
+
+        <Separator />
+
+        {/* Theory Section */}
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                <div className="flex-shrink-0 rounded-full bg-primary/10 p-3 text-primary">
+                    <Book className="h-6 w-6" />
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold font-headline">2. Теория и правила</h2>
+                    <p className="text-sm font-normal text-muted-foreground">Поймите, как использовать слова и грамматику</p>
+                </div>
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                 <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: topic.explanation }} />
+            </CardContent>
+        </Card>
+
+        <Separator />
+
+        {/* Practice Section */}
+        <Card className="bg-gradient-to-br from-card to-muted/30">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-3">
+                <div className="flex-shrink-0 rounded-full bg-primary/10 p-3 text-primary">
+                    <Sparkles className="h-6 w-6" />
+                </div>
+                <div>
+                    <h2 className="text-2xl font-bold font-headline">3. Адаптивная тренировка</h2>
+                    <p className="text-sm font-normal text-muted-foreground">Закрепите знания с помощью ИИ-тренера</p>
+                </div>
+                </CardTitle>
+            </CardHeader>
+            <CardContent>
+                <ExerciseEngine topic={topic} />
+            </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
