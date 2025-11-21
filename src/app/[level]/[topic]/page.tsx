@@ -2,7 +2,7 @@
 import { curriculum } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Book, Bot, Sparkles, Sprout, GraduationCap } from 'lucide-react';
+import { Book, Sparkles, Sprout } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -33,7 +33,7 @@ export async function generateStaticParams() {
 }
 
 
-export default function TopicPage({ params }: TopicPageProps) {
+export default async function TopicPage({ params }: TopicPageProps) {
   const level = curriculum.levels.find((l) => l.id === params.level);
   const topic = level?.topics.find((t) => t.id === params.topic);
 
