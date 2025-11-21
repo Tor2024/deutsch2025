@@ -74,8 +74,8 @@ const generateAudioFlow = ai.defineFlow(
         speechConfig: {
           voiceConfig: {
             prebuiltVoiceConfig: { voiceName: 'Algenib' },
-            languageCode: 'de-DE',
           },
+          languageCode: 'de-DE',
         },
       },
       prompt: text,
