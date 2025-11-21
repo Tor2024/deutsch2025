@@ -5,6 +5,7 @@ import type { Topic } from "@/lib/types";
 import { assessSubjectMastery } from "@/ai/flows/assess-subject-mastery";
 import { generateAdaptiveExercise } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
+import { personalizedSpacedRepetition } from "@/ai/flows/personalized-spaced-repetition";
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -39,6 +40,8 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
   const { proficiency, setTopicProficiency } = useUserProgress(topic.id);
   const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
+  const [startTime, setStartTime] = useState<number>(0);
+
 
   const startFirstExercise = async () => {
     setIsLoading(true);
@@ -57,6 +60,7 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
           correctAnswer: response.correctAnswer,
           isMastered: false,
       });
+      setStartTime(Date.now());
     } catch (error) {
       console.error("Error starting exercise:", error);
       toast({
@@ -80,6 +84,8 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
     setIsLoading(true);
     setFeedback(null);
 
+    const responseTime = (Date.now() - startTime) / 1000;
+
     try {
         const verification = await verifyAnswer({
             question: exerciseState.exercise,
@@ -89,15 +95,34 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
 
         const isCorrect = verification.isCorrect;
         const explanation = verification.explanation;
+        setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: explanation });
 
         const newHistoryItem = { exercise: exerciseState.exercise, correct: isCorrect };
-        setExerciseHistory(prev => [...prev, newHistoryItem]);
+        const updatedHistory = [...exerciseHistory, newHistoryItem];
+        setExerciseHistory(updatedHistory);
 
         const newProficiency = proficiency + (isCorrect ? 10 : -5);
         setTopicProficiency(newProficiency);
 
-        if (!isCorrect) {
-            setFeedback({ type: 'incorrect', message: explanation });
+        // Call spaced repetition flow
+        await personalizedSpacedRepetition({
+          itemId: `${topic.id}-${exerciseState.exercise.slice(0, 10)}`,
+          userResponse: isCorrect ? 'correct' : 'incorrect',
+          responseTime: responseTime,
+          currentInterval: 1, // This should be stored and retrieved
+          difficulty: 5, // This could be dynamic
+        });
+        
+        const masteryAssessment = await assessSubjectMastery({
+          subject: topic.title,
+          userProficiency: newProficiency / 100,
+          exerciseHistory: updatedHistory,
+        });
+
+        if (masteryAssessment.isMastered) {
+          setExerciseState(prev => prev ? {...prev, isMastered: true} : null);
+        } else {
+            // If not mastered, generate a new exercise
             const adaptiveResponse = await generateAdaptiveExercise({
                 grammarConcept: topic.title,
                 userLevel: 'A1', // This should be dynamic
@@ -106,32 +131,9 @@ export function ExerciseEngine({ topic }: { topic: Topic }) {
             setExerciseState({
                 exercise: adaptiveResponse.exerciseText,
                 correctAnswer: adaptiveResponse.correctAnswer,
-                isMastered: false, // isMastered will be checked below
+                isMastered: false,
             });
-        } else {
-             setFeedback({ type: 'correct', message: explanation });
-        }
-
-        const nextExerciseResponse = await assessSubjectMastery({
-            subject: topic.title,
-            userProficiency: newProficiency / 100,
-            exerciseHistory: [...exerciseHistory, newHistoryItem],
-        });
-        
-        // If mastered, show completion screen. Otherwise, get a new question.
-        if (nextExerciseResponse.isMastered) {
-             setExerciseState(prev => prev ? {...prev, isMastered: true} : { exercise: '', correctAnswer: '', isMastered: true });
-        } else {
-            const newExercise = await generateAdaptiveExercise({
-                grammarConcept: topic.title,
-                userLevel: 'A1',
-                pastErrors: JSON.stringify(exerciseHistory)
-            });
-            setExerciseState({
-                exercise: newExercise.exerciseText,
-                correctAnswer: newExercise.correctAnswer,
-                isMastered: false
-            });
+            setStartTime(Date.now());
         }
 
     } catch (error) {
