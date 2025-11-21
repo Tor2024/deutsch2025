@@ -28,28 +28,25 @@ const AdaptiveExerciseInputSchema = z.object({
 
 export type AdaptiveExerciseInput = z.infer<typeof AdaptiveExerciseInputSchema>;
 
+const ExerciseSchema = z.object({
+    question: z.string().describe('The question or fill-in-the-blank sentence.'),
+    answer: z.string().describe('The correct answer.')
+});
+
 const AdaptiveExerciseOutputSchema = z.object({
   readingText: z
     .string()
     .describe(
       'A short, engaging German text (3-5 sentences) for reading practice, relevant to the grammar concept and user level.'
     ),
-  comprehensionQuestion: z
-    .string()
+  comprehensionExercises: z.array(ExerciseSchema).length(3)
     .describe(
-      'A question in German based on the reading text to check understanding.'
+      'An array of 3 questions in German based on the reading text to check understanding, each with a correct answer.'
     ),
-  comprehensionAnswer: z
-    .string()
-    .describe('The correct answer to the comprehension question.'),
-  fillInTheBlankExercise: z
-    .string()
+  grammarExercises: z.array(ExerciseSchema).length(3)
     .describe(
-      'A fill-in-the-blank sentence exercise targeting the specific grammar concept. Use underscores for the blank (e.g., "Ich ___ nach Hause.").'
+      'An array of 3 fill-in-the-blank sentence exercises targeting the specific grammar concept. Use underscores for the blank (e.g., "Ich ___ nach Hause."). Each exercise should have a question and the correct answer.'
     ),
-  fillInTheBlankAnswer: z
-    .string()
-    .describe('The correct word(s) for the fill-in-the-blank exercise.'),
   explanation: z
     .string()
     .describe(
@@ -78,11 +75,9 @@ const adaptiveExercisePrompt = ai.definePrompt({
   Your task is to create a comprehensive, multi-part exercise set to help the user practice this concept.
 
   1.  **Reading Practice:** Write a short, engaging German text (3-5 sentences) that is relevant to the user's level and naturally incorporates the '{{grammarConcept}}'.
-  2.  **Comprehension Check:** Based on the text you just wrote, create one comprehension question in German.
-  3.  **Comprehension Answer:** Provide the correct answer to the comprehension question.
-  4.  **Targeted Exercise:** Create one fill-in-the-blank sentence that directly and obviously tests the '{{grammarConcept}}'. Use underscores for the blank space (e.g., "Ich ___ ins Kino.").
-  5.  **Targeted Answer:** Provide the exact word(s) that should go in the blank.
-  6.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
+  2.  **Comprehension Check:** Based on the text you just wrote, create an array of 3 comprehension questions in German. For each, provide the question and the correct answer.
+  3.  **Targeted Grammar Exercises:** Create an array of 3 fill-in-the-blank sentences that directly and obviously test the '{{grammarConcept}}'. Use underscores for the blank space (e.g., "Ich ___ ins Kino."). For each, provide the full sentence as the question and the exact word(s) for the blank as the answer.
+  4.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
 
   Ensure the output is parsable JSON and follows the specified schema.
   `,

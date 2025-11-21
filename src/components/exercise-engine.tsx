@@ -21,6 +21,11 @@ type Feedback = {
   message: string;
 } | null;
 
+type Exercise = {
+    question: string;
+    answer: string;
+}
+
 type Step = 'reading' | 'comprehension' | 'grammar' | 'explanation' | 'mastered' | 'loading';
 
 type ExerciseHistoryItem = {
@@ -46,6 +51,10 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const [comprehensionExercises, setComprehensionExercises] = useState<Exercise[]>([]);
+  const [grammarExercises, setGrammarExercises] = useState<Exercise[]>([]);
+  const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
+
 
   const steps: { id: Step, name: string, icon: React.ElementType }[] = useMemo(() => [
     { id: 'reading', name: 'Чтение', icon: BookOpen },
@@ -63,6 +72,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     setExerciseData(null);
     setIsSubmitting(false);
     setAudioData(null);
+    setCurrentExerciseIndex(0);
 
     try {
       const response = await generateAdaptiveExercise({
@@ -71,6 +81,8 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         pastErrors: exerciseHistory.filter(e => !e.correct).map(e => e.exercise).join(', '),
       });
       setExerciseData(response);
+      setComprehensionExercises(response.comprehensionExercises);
+      setGrammarExercises(response.grammarExercises);
       setCurrentStep('reading');
 
       // Generate audio in parallel
@@ -97,9 +109,9 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const addHistoryAndProficiency = (question: string, isCorrect: boolean) => {
     setExerciseHistory(prev => [...prev, { exercise: question, correct: isCorrect }]);
     if(isCorrect) {
-        setTopicProficiency(proficiency + 15);
+        setTopicProficiency(proficiency + 5); // Reduced points per question as there are more questions
     } else {
-        setTopicProficiency(proficiency - 10);
+        setTopicProficiency(proficiency - 7);
     }
   }
   
@@ -122,39 +134,42 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     setIsSubmitting(true);
     setFeedback(null);
 
-    let question = '';
-    let correctAnswer = '';
-
+    let currentExercises: Exercise[] = [];
     if (currentStep === 'comprehension') {
-      question = exerciseData.comprehensionQuestion;
-      correctAnswer = exerciseData.comprehensionAnswer;
+        currentExercises = comprehensionExercises;
     } else if (currentStep === 'grammar') {
-      question = exerciseData.fillInTheBlankExercise;
-      correctAnswer = exerciseData.fillInTheBlankAnswer;
+        currentExercises = grammarExercises;
     }
+    
+    const currentExercise = currentExercises[currentExerciseIndex];
 
     try {
       const verification = await verifyAnswer({
-        question,
+        question: currentExercise.question,
         userAnswer,
-        correctAnswer,
+        correctAnswer: currentExercise.answer,
       });
 
       const isCorrect = verification.isCorrect;
       setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: verification.explanation });
-      addHistoryAndProficiency(question, isCorrect);
+      addHistoryAndProficiency(currentExercise.question, isCorrect);
       
       if (isCorrect) {
-        // Wait for a moment to show feedback, then move to next step
         setTimeout(() => {
             setFeedback(null);
             setUserAnswer('');
-            if (currentStep === 'comprehension') {
-                setCurrentStep('grammar');
-            } else if (currentStep === 'grammar') {
-                setCurrentStep('explanation');
+            if (currentExerciseIndex < currentExercises.length - 1) {
+                setCurrentExerciseIndex(prev => prev + 1);
+            } else {
+                // Move to next step
+                setCurrentExerciseIndex(0);
+                if (currentStep === 'comprehension') {
+                    setCurrentStep('grammar');
+                } else if (currentStep === 'grammar') {
+                    setCurrentStep('explanation');
+                }
             }
-        }, 2000);
+        }, 3000); // Increased timeout to read detailed feedback
       }
     } catch (error) {
       console.error("Error submitting answer:", error);
@@ -171,12 +186,11 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const handleContinue = async () => {
     setFeedback(null);
     setUserAnswer('');
-    setIsSubmitting(true);
-
+    
     if (currentStep === 'reading') {
         setCurrentStep('comprehension');
-        setIsSubmitting(false);
     } else if (currentStep === 'explanation') {
+        setIsSubmitting(true);
         try {
             const masteryResponse = await assessSubjectMastery({
                 subject: topic.title,
@@ -223,13 +237,21 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       case 'comprehension':
       case 'grammar':
         const isComprehension = currentStep === 'comprehension';
-        const title = isComprehension ? '2. Ответьте на вопрос' : '3. Заполните пропуск';
-        const question = isComprehension ? exerciseData.comprehensionQuestion : exerciseData.fillInTheBlankExercise;
+        const currentExercises = isComprehension ? comprehensionExercises : grammarExercises;
+        const currentExercise = currentExercises[currentExerciseIndex];
+        const title = isComprehension ? '2. Ответьте на вопрос' : '3. Заполните пропуск (на немецком)';
         return (
           <Card>
-            <CardHeader><CardTitle>{title}</CardTitle></CardHeader>
+            <CardHeader>
+                <div className="flex justify-between items-center">
+                    <CardTitle>{title}</CardTitle>
+                    <span className="text-sm font-medium text-muted-foreground">
+                        {currentExerciseIndex + 1} / {currentExercises.length}
+                    </span>
+                </div>
+            </CardHeader>
             <CardContent>
-              <p className="text-lg text-foreground mb-4">{question}</p>
+              <p className="text-lg text-foreground mb-4">{currentExercise.question}</p>
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
                 <Input
                   type="text"
@@ -253,7 +275,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
               <CardContent>
                 <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: exerciseData.explanation }} />
                 <Button onClick={handleContinue} className="mt-4" disabled={isSubmitting}>
-                   {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Продолжить'}
+                   {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Следующий цикл'}
                 </Button>
               </CardContent>
             </Card>
@@ -310,7 +332,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       {renderContent()}
 
       {feedback && (
-        <Alert variant={feedback.type === 'incorrect' ? 'destructive' : 'default'}>
+        <Alert variant={feedback.type === 'incorrect' ? 'destructive' : 'default'} className="mt-4">
           {feedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
           <AlertTitle className="font-headline">
             {feedback.type === 'correct' ? 'Правильно!' : 'Обратите внимание'}
@@ -321,5 +343,3 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     </div>
   );
 }
-
-    
