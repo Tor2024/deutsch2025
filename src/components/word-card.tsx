@@ -114,3 +114,5 @@ export function WordCard({ word }: { word: VocabularyWord }) {
     </div>
   );
 };
+
+    

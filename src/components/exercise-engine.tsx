@@ -58,9 +58,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [audioData, setAudioData] = useState<string | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [finalFeedback, setFinalFeedback] = useState<string | null>(null);
   const router = useRouter();
 
@@ -117,14 +115,12 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         console.log(`Audio for "${text}" found in cache.`);
       }
 
-      if (audioRef.current) {
-        audioRef.current.src = audioData;
-        audioRef.current.play();
-        audioRef.current.onended = () => setIsSpeaking(false);
-        audioRef.current.onerror = () => {
-            console.error("Audio playback error");
-            setIsSpeaking(false);
-        }
+      const audioEl = new Audio(audioData);
+      audioEl.play();
+      audioEl.onended = () => setIsSpeaking(false);
+      audioEl.onerror = () => {
+        console.error("Audio playback error");
+        setIsSpeaking(false);
       }
     } catch(e) {
       console.error(e)
@@ -139,7 +135,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     setUserAnswer('');
     setExerciseData(null);
     setIsSubmitting(false);
-    setAudioData(null);
     setCurrentExerciseIndex(0);
 
     try {
@@ -161,7 +156,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       setSentenceConstructionExercises(response.sentenceConstructionExercises || []);
       setCurrentStep('reading');
 
-      // Generate audio in parallel, check cache first
+      // Generate audio in parallel
       handleSpeak(response.readingText);
 
     } catch (error) {
@@ -596,7 +591,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
 
   return (
     <div className="space-y-6">
-      <audio ref={audioRef} className="hidden" />
       <div>
         <ol className="flex items-center w-full">
           {steps.map((step, index) => (
@@ -631,3 +625,5 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     </div>
   );
 }
+
+    
