@@ -824,102 +824,12 @@ export const curriculum: Curriculum = {
       id: 'c2', 
       title: 'Уровень C2: Владение в совершенстве', 
       description: 'Владение на уровне носителя. Вы будете понимать практически все, выражая свои мысли спонтанно, точно и без усилий.', 
-      topics: [
-        {
-          id: 'stilistik',
-          title: 'Стилистика и оттенки значений',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Стилистика: искусство выбора слов</h2>
-            <p class="mb-4">На этом уровне фокус смещается с "правильно" на "точно и уместно". Это включает:</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-              <li>Глубокое понимание <strong class="text-primary">синонимических рядов</strong> (z.B. sagen, äußern, behaupten, mitteilen).</li>
-              <li>Свободное использование <strong class="text-primary">идиом и устойчивых выражений</strong>.</li>
-              <li>Умение переключаться между <strong class="text-primary">разными регистрами речи</strong>: от формального до сленга.</li>
-            </ul>
-          `,
-          vocabulary: [
-            {
-              theme: 'Синонимы и идиомы',
-              words: [
-                { german: 'sagen / äußern / behaupten', russian: 'сказать / высказать / утверждать', example: 'Er behauptete, die Erde sei eine Scheibe.' },
-                { german: 'gehen / schlendern / eilen', russian: 'идти / бродить / спешить', example: 'Wir schlenderten durch die Altstadt.' },
-                { german: 'schön / herrlich / atemberaubend', russian: 'красивый / великолепный / захватывающий дух', example: 'Die Aussicht war atemberaubend.' },
-                { german: 'den Nagel auf den Kopf treffen', russian: 'попасть в яблочко (идиома)', example: 'Mit dieser Bemerkung hast du den Nagel auf den Kopf getroffen.' },
-                { german: 'Tomaten auf den Augen haben', russian: 'не видеть очевидного (идиома)', example: 'Siehst du das nicht? Du hast wohl Tomaten auf den Augen.' },
-                { german: 'aus einer Mücke einen Elefanten machen', russian: 'делать из мухи слона (идиома)', example: 'Reg dich nicht auf, du machst aus einer Mücke einen Elefanten.' },
-                { german: 'gehoben (Stil)', russian: 'возвышенный, высокий (стиль)', example: 'In seiner Rede benutzte er einen gehobenen Stil.' },
-                { german: 'umgangssprachlich', russian: 'разговорный', example: 'Das ist ein umgangssprachlicher Ausdruck.' },
-                { german: 'die Nuance, -n', russian: 'нюанс, оттенок', example: 'Es gibt feine Nuancen in der Bedeutung.' },
-                { german: 'der Kontext, -e', russian: 'контекст', example: 'Das Wort hat in diesem Kontext eine andere Bedeutung.' },
-              ]
-            }
-          ],
-          exercises: []
-        },
-        {
-          id: 'komplexe-satze',
-          title: 'Сложные синтаксические структуры',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Сложный синтаксис</h2>
-            <p class="mb-4">Свободное владение сложными и многоуровневыми предложениями, включая редкие грамматические конструкции, для выражения самых тонких нюансов мысли. Например, использование распространенных причастных оборотов, инфинитивных конструкций и сложных союзов.</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4">Пример: Der Mann, <strong class="text-primary">dessen Hund gestern entlaufen war</strong>, suchte ihn den ganzen Tag. (Мужчина, <strong class="text-accent">чья собака вчера убежала</strong>, искал ее весь день.)</div>
-          `,
-          vocabulary: [
-            {
-              theme: 'Продвинутые союзы и конструкции',
-              words: [
-                { german: 'je ... desto', russian: 'чем ... тем', example: 'Je mehr man lernt, desto mehr weiß man.' },
-                { german: 'einerseits ... andererseits', russian: 'с одной стороны ... с другой стороны', example: 'Einerseits möchte ich reisen, andererseits habe ich wenig Geld.' },
-                { german: 'sowohl ... als auch', russian: 'как ... так и', example: 'Er spricht sowohl Englisch als auch Deutsch.' },
-                { german: 'weder ... noch', russian: 'ни ... ни', example: 'Sie isst weder Fleisch noch Fisch.' },
-                { german: 'zwar ... aber', russian: 'хотя ... но', example: 'Er ist zwar reich, aber nicht glücklich.' },
-                { german: 'um ... zu + Inf.', russian: 'для того, чтобы', example: 'Ich lerne Deutsch, um in Deutschland zu studieren.' },
-                { german: 'ohne ... zu + Inf.', russian: 'не делая чего-либо', example: 'Er verließ das Haus, ohne ein Wort zu sagen.' },
-                { german: 'anstatt ... zu + Inf.', russian: 'вместо того, чтобы', example: 'Anstatt zu arbeiten, schaut er fern.' },
-                { german: 'der Satzbau', russian: 'построение предложения, синтаксис', example: 'Der deutsche Satzbau ist manchmal kompliziert.' },
-                { german: 'das Satzgefüge, -', russian: 'сложноподчиненное предложение', example: 'Sie analysierte das komplexe Satzgefüge.' },
-              ]
-            }
-          ],
-          exercises: []
-        },
-        {
-          id: 'fachsprache',
-          title: 'Язык для профессиональных целей (Fachsprache)',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Профессиональный язык (Fachsprache)</h2>
-            <p class="mb-4">На уровне C2 ожидается способность осваивать и использовать терминологию и языковые конструкции, специфичные для определенной профессиональной области, будь то:</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-              <li>Медицина</li>
-              <li>Юриспруденция</li>
-              <li>Информационные технологии</li>
-              <li>Наука и исследования</li>
-            </ul>
-            <p class="mt-4">Это подразумевает не только знание терминов, но и понимание стиля общения в данной сфере.</p>
-          `,
-          vocabulary: [
-            {
-              theme: 'Общая академическая и деловая лексика',
-              words: [
-                { german: 'die These, -n', russian: 'тезис', example: 'In seiner Dissertation stellt er eine kühne These auf.' },
-                { german: 'die Hypothese, -n', russian: 'гипотеза', example: 'Die Hypothese muss durch Experimente bestätigt werden.' },
-                { german: 'analysieren', russian: 'анализировать', example: 'Wir müssen die Ergebnisse sorgfältig analysieren.' },
-                { german: 'implementieren', russian: 'внедрять, реализовывать', example: 'Die neue Software wurde erfolgreich implementiert.' },
-                { german: 'der Aspekt, -e', russian: 'аспект', example: 'Wir sollten alle Aspekte des Problems berücksichtigen.' },
-                { german: 'die Komponente, -n', russian: 'компонент, составляющая', example: 'Jede Komponente spielt eine wichtige Rolle.' },
-                { german: 'die Struktur, -en', russian: 'структура', example: 'Die Struktur des Unternehmens wurde reorganisiert.' },
-                { german: 'der Prozess, -e', russian: 'процесс', example: 'Der kreative Prozess ist oft unvorhersehbar.' },
-                { german: 'die Ressource, -n', russian: 'ресурс', example: 'Wir müssen unsere Ressourcen effizient nutzen.' },
-                { german: 'die Strategie, -n', russian: 'стратегия', example: 'Die Firma hat eine neue Marketingstrategie entwickelt.' },
-              ]
-            }
-          ],
-          exercises: []
-        }
-      ] 
+      topics: [] 
     }
   ]
 };
 
+
+    
 
     
