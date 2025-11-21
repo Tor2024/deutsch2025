@@ -58,16 +58,20 @@ export const curriculum: Curriculum = {
             {
               theme: 'Знакомство и семья',
               words: [
+                { type: 'verb', german: 'heißen', russian: 'называться', conjugation: 'ich heiße, du heißt, er/sie/es heißt', example: 'Wie heißt du?' },
+                { type: 'verb', german: 'kommen', russian: 'приходить, быть родом', conjugation: 'ich komme, du kommst, er/sie/es kommt', example: 'Woher kommen Sie?' },
+                { type: 'verb', german: 'wohnen', russian: 'проживать', conjugation: 'ich wohne, du wohnst, er/sie/es wohnt', example: 'Ich wohne in Berlin.' },
+                { type: 'verb', german: 'sprechen', russian: 'говорить', conjugation: 'ich spreche, du sprichst, er/sie/es spricht', example: 'Welche Sprachen sprichst du?' },
                 { type: 'noun', german: 'Name', russian: 'имя', article: 'der', plural: 'Namen', pluralArticle: 'die', exampleSingular: 'Mein Name ist Klaus.', examplePlural: 'Die Namen der Schüler stehen auf der Liste.' },
-                { type: 'verb', german: 'heißen', russian: 'называться', conjugation: 'ich heiße, du heißt, er/sie/es heißt', example: 'Ich heiße Anna.' },
-                { type: 'verb', german: 'kommen aus', russian: 'быть родом из', conjugation: 'ich komme, du kommst, er/sie/es kommt', example: 'Er kommt aus Deutschland.' },
-                { type: 'verb', german: 'wohnen in', russian: 'проживать в', conjugation: 'ich wohne, du wohnst, er/sie/es wohnt', example: 'Sie wohnt in Berlin.' },
                 { type: 'noun', german: 'Sprache', russian: 'язык', article: 'die', plural: 'Sprachen', pluralArticle: 'die', exampleSingular: 'Deutsch ist eine schwere Sprache.', examplePlural: 'Welche Sprachen sprichst du?' },
                 { type: 'noun', german: 'Familie', russian: 'семья', article: 'die', plural: 'Familien', pluralArticle: 'die', exampleSingular: 'Das ist meine Familie.', examplePlural: 'In Deutschland gibt es viele kleine Familien.' },
                 { type: 'noun', german: 'Vater', russian: 'отец', article: 'der', plural: 'Väter', pluralArticle: 'die', exampleSingular: 'Mein Vater ist Arzt.', examplePlural: 'Die Väter treffen sich am Spielplatz.' },
                 { type: 'noun', german: 'Mutter', russian: 'мать', article: 'die', plural: 'Mütter', pluralArticle: 'die', exampleSingular: 'Meine Mutter ist Lehrerin.', examplePlural: 'Die Mütter unterhalten sich.' },
                 { type: 'noun', german: 'Sohn', russian: 'сын', article: 'der', plural: 'Söhne', pluralArticle: 'die', exampleSingular: 'Das ist mein Sohn.', examplePlural: 'Unsere Söhne gehen in dieselbe Klasse.' },
                 { type: 'noun', german: 'Tochter', russian: 'дочь', article: 'die', plural: 'Töchter', pluralArticle: 'die', exampleSingular: 'Ihre Tochter ist 5 Jahre alt.', examplePlural: 'Er hat zwei Töchter.' },
+                { type: 'noun', german: 'Bruder', russian: 'брат', article: 'der', plural: 'Brüder', pluralArticle: 'die', exampleSingular: 'Mein Bruder studiert in München.', examplePlural: 'Ich habe zwei Brüder.' },
+                { type: 'noun', german: 'Schwester', russian: 'сестра', article: 'die', plural: 'Schwestern', pluralArticle: 'die', exampleSingular: 'Meine Schwester arbeitet als Ärztin.', examplePlural: 'Ihre Schwestern sind sehr nett.' },
+                { type: 'noun', german: 'Hobby', russian: 'хобби', article: 'das', plural: 'Hobbys', pluralArticle: 'die', exampleSingular: 'Mein Hobby ist Lesen.', examplePlural: 'Was sind deine Hobbys?' },
                 { type: 'adjective', german: 'verheiratet', russian: 'женат/замужем', comparative: '-', superlative: '-', example: 'Bist du verheiratet?' },
                 { type: 'adjective', german: 'ledig', russian: 'холост/незамужняя', comparative: '-', superlative: '-', example: 'Nein, ich bin ledig.' },
               ]
@@ -92,8 +96,9 @@ export const curriculum: Curriculum = {
             <p class="mb-4">Говорим о том, что мы делаем в течение дня. Здесь важны глаголы с отделяемыми приставками.</p>
             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
               <li><strong>Время:</strong> Wie spät ist es? Es ist zehn Uhr. (10:00). Es ist halb elf (10:30).</li>
+              <li><strong>Части дня:</strong> der Morgen (утро), der Abend (вечер). Am Morgen trinke ich Kaffee.</li>
               <li><strong>Дни недели:</strong> Montag, Dienstag, Mittwoch...</li>
-              <li><strong>Распорядок:</strong> Ich <strong class="text-primary">stehe</strong> um 7 Uhr <strong class="text-primary">auf</strong>. Dann frühstücke ich. Ich <strong class="text-primary">kaufe</strong> im Supermarkt <strong class="text-primary">ein</strong>.</li>
+              <li><strong>Распорядок:</strong> Ich <strong class="text-primary">stehe</strong> um 7 Uhr <strong class="text-primary">auf</strong>. Dann <strong class="text-primary">frühstücke</strong> ich. Ich <strong class="text-primary">kaufe</strong> im Supermarkt <strong class="text-primary">ein</strong>.</li>
             </ul>
             
             <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Грамматика: Глаголы с отделяемыми приставками (Trennbare Verben)</h3>
@@ -108,12 +113,18 @@ export const curriculum: Curriculum = {
                 { type: 'noun', german: 'Zimmer', russian: 'комната', article: 'das', plural: 'Zimmer', pluralArticle: 'die', exampleSingular: 'Mein Zimmer ist gemütlich.', examplePlural: 'Das Hotel hat 100 Zimmer.' },
                 { type: 'noun', german: 'Küche', russian: 'кухня', article: 'die', plural: 'Küchen', pluralArticle: 'die', exampleSingular: 'Wir essen in der Küche.', examplePlural: 'Moderne Küchen sind sehr praktisch.' },
                 { type: 'noun', german: 'Bett', russian: 'кровать', article: 'das', plural: 'Betten', pluralArticle: 'die', exampleSingular: 'Das Bett steht im Schlafzimmer.', examplePlural: 'Wir brauchen neue Betten für die Kinder.' },
+                { type: 'noun', german: 'Tisch', russian: 'стол', article: 'der', plural: 'Tische', pluralArticle: 'die', exampleSingular: 'Der Tisch ist aus Holz.', examplePlural: 'Die Tische sind schon besetzt.' },
+                { type: 'noun', german: 'Stuhl', russian: 'стул', article: 'der', plural: 'Stühle', pluralArticle: 'die', exampleSingular: 'Dieser Stuhl ist sehr bequem.', examplePlural: 'Wir brauchen noch zwei Stühle.' },
+                { type: 'noun', german: 'Schrank', russian: 'шкаф', article: 'der', plural: 'Schränke', pluralArticle: 'die', exampleSingular: 'Der Schrank ist voll.', examplePlural: 'Die Schränke sind neu.' },
                 { type: 'noun', german: 'Uhr', russian: 'час, часы', article: 'die', plural: 'Uhren', pluralArticle: 'die', exampleSingular: 'Es ist 8 Uhr.', examplePlural: 'Er sammelt alte Uhren.' },
-                { type: 'noun', german: 'Tag', russian: 'день', article: 'der', plural: 'Tage', pluralArticle: 'die', exampleSingular: 'Was machst du heute den ganzen Tag?', examplePlural: 'Die Tage werden kürzer.' },
-                { type: 'verb', german: 'aufstehen', russian: 'вставать', conjugation: 'ich stehe auf, du stehst auf, er/sie/es steht auf', example: 'Wann stehst du auf?' },
-                { type: 'verb', german: 'einkaufen', russian: 'делать покупки', conjugation: 'ich kaufe ein, du kaufst ein, er/sie/es kauft ein', example: 'Ich kaufe am Samstag ein.' },
-                { type: 'verb', german: 'anrufen', russian: 'звонить по телефону', conjugation: 'ich rufe an, du rufst an, er/sie/es ruft an', example: 'Rufst du mich an?' },
-                { type: 'verb', german: 'fernsehen', russian: 'смотреть телевизор', conjugation: 'ich sehe fern, du siehst fern, er/sie/es sieht fern', example: 'Sie sieht abends fern.' },
+                { type: 'noun', german: 'Morgen', russian: 'утро', article: 'der', plural: 'Morgen', pluralArticle: 'die', exampleSingular: 'Guten Morgen!', examplePlural: 'Die Morgen sind hier immer kühl.' },
+                { type: 'noun', german: 'Abend', russian: 'вечер', article: 'der', plural: 'Abende', pluralArticle: 'die', exampleSingular: 'Was machst du heute Abend?', examplePlural: 'Wir verbringen die Abende oft zusammen.' },
+                { type: 'verb', german: 'aufstehen', russian: 'вставать', conjugation: 'ich stehe auf, du stehst auf, er/sie/es steht auf', example: 'Wann stehst du normalerweise auf?' },
+                { type: 'verb', german: 'einkaufen', russian: 'делать покупки', conjugation: 'ich kaufe ein, du kaufst ein, er/sie/es kauft ein', example: 'Am Samstag kaufe ich für die Woche ein.' },
+                { type: 'verb', german: 'anrufen', russian: 'звонить по телефону', conjugation: 'ich rufe an, du rufst an, er/sie/es ruft an', example: 'Kannst du mich später anrufen?' },
+                { type: 'verb', german: 'fernsehen', russian: 'смотреть телевизор', conjugation: 'ich sehe fern, du siehst fern, er/sie/es sieht fern', example: 'Abends sieht meine Familie oft fern.' },
+                { type: 'verb', german: 'frühstücken', russian: 'завтракать', conjugation: 'ich frühstücke, du frühstückst, er/sie/es frühstückt', example: 'Wir frühstücken immer um 8 Uhr.' },
+                { type: 'verb', german: 'arbeiten', russian: 'работать', conjugation: 'ich arbeite, du arbeitest, er/sie/es arbeitet', example: 'Mein Vater arbeitet bei Siemens.' },
               ]
             }
           ],
@@ -154,16 +165,21 @@ export const curriculum: Curriculum = {
              {
               theme: 'Еда, напитки и покупки',
               words: [
-                { type: 'noun', german: 'Apfel', russian: 'яблоко', article: 'der', plural: 'Äpfel', pluralArticle: 'die', exampleSingular: 'Ich esse einen Apfel.', examplePlural: 'Diese Äpfel sind sehr saftig.' },
-                { type: 'noun', german: 'Brot', russian: 'хлеб', article: 'das', plural: 'Brote', pluralArticle: 'die', exampleSingular: 'Ich kaufe ein Brot.', examplePlural: 'Es gibt viele verschiedene Brote in Deutschland.' },
-                { type: 'noun', german: 'Milch', russian: 'молоко', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Trinkst du Milch?', examplePlural: '-' },
-                { type: 'verb', german: 'kaufen', russian: 'покупать', conjugation: 'ich kaufe, du kaufst, er kauft', example: 'Sie kauft einen Rock.' },
-                { type: 'verb', german: 'kosten', russian: 'стоить', conjugation: 'es kostet, sie kosten', example: 'Was kostet die Hose?' },
-                { type: 'noun', german: 'Preis', russian: 'цена', article: 'der', plural: 'Preise', pluralArticle: 'die', exampleSingular: 'Der Preis ist zu hoch.', examplePlural: 'Die Preise sind gestiegen.' },
+                { type: 'noun', german: 'Apfel', russian: 'яблоко', article: 'der', plural: 'Äpfel', pluralArticle: 'die', exampleSingular: 'Ich esse jeden Tag einen Apfel.', examplePlural: 'Diese Äpfel sind sehr saftig.' },
+                { type: 'noun', german: 'Brot', russian: 'хлеб', article: 'das', plural: 'Brote', pluralArticle: 'die', exampleSingular: 'Ich kaufe ein frisches Brot.', examplePlural: 'Es gibt viele verschiedene Brote in Deutschland.' },
+                { type: 'noun', german: 'Milch', russian: 'молоко', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Trinkst du deinen Kaffee mit Milch?', examplePlural: '-' },
+                { type: 'noun', german: 'Käse', russian: 'сыр', article: 'der', plural: 'Käse', pluralArticle: 'die', exampleSingular: 'Ich esse gern Käse zum Frühstück.', examplePlural: 'Es gibt viele Sorten Käse.' },
+                { type: 'noun', german: 'Fisch', russian: 'рыба', article: 'der', plural: 'Fische', pluralArticle: 'die', exampleSingular: 'Am Freitag essen wir oft Fisch.', examplePlural: 'Im See schwimmen viele Fische.' },
+                { type: 'noun', german: 'Supermarkt', russian: 'супермаркет', article: 'der', plural: 'Supermärkte', pluralArticle: 'die', exampleSingular: 'Der Supermarkt ist um die Ecke.', examplePlural: 'Die Supermärkte sind am Sonntag geschlossen.' },
                 { type: 'noun', german: 'Restaurant', russian: 'ресторан', article: 'das', plural: 'Restaurants', pluralArticle: 'die', exampleSingular: 'Wir gehen heute ins Restaurant.', examplePlural: 'In dieser Straße gibt es viele gute Restaurants.' },
+                { type: 'noun', german: 'Preis', russian: 'цена', article: 'der', plural: 'Preise', pluralArticle: 'die', exampleSingular: 'Der Preis ist zu hoch.', examplePlural: 'Die Preise sind gestiegen.' },
+                { type: 'verb', german: 'kaufen', russian: 'покупать', conjugation: 'ich kaufe, du kaufst, er kauft', example: 'Wo kaufst du dein Gemüse?' },
+                { type: 'verb', german: 'kosten', russian: 'стоить', conjugation: 'es kostet, sie kosten', example: 'Was kostet die Hose?' },
                 { type: 'verb', german: 'bestellen', russian: 'заказывать', conjugation: 'ich bestelle, du bestellst, er bestellt', example: 'Ich möchte einen Salat bestellen.' },
                 { type: 'verb', german: 'bezahlen', russian: 'платить', conjugation: 'ich bezahle, du bezahlst, er bezahlt', example: 'Ich bezahle mit Karte.' },
-                { type: 'verb', german: 'mögen', russian: 'любить, нравиться', conjugation: 'ich mag, du magst, er mag', example: 'Ich mag Käse.' },
+                { type: 'verb', german: 'mögen', russian: 'любить, нравиться', conjugation: 'ich mag, du magst, er mag', example: 'Ich mag Käse, aber ich mag keinen Fisch.' },
+                { type: 'verb', german: 'essen', russian: 'есть, кушать', conjugation: 'ich esse, du isst, er/sie/es isst', example: 'Was isst du zu Mittag?' },
+                { type: 'verb', german: 'trinken', russian: 'пить', conjugation: 'ich trinke, du trinkst, er/sie/es trinkt', example: 'Ich trinke jeden Morgen Kaffee.' },
               ]
             }
           ],
@@ -207,14 +223,17 @@ export const curriculum: Curriculum = {
               words: [
                 { type: 'noun', german: 'Hobby', russian: 'хобби', article: 'das', plural: 'Hobbys', pluralArticle: 'die', exampleSingular: 'Mein Hobby ist Lesen.', examplePlural: 'Was sind deine Hobbys?' },
                 { type: 'noun', german: 'Freizeit', russian: 'свободное время', article: 'die', plural: '-', pluralArticle: '-', exampleSingular: 'Was machst du in der Freizeit?', examplePlural: '-' },
+                { type: 'noun', german: 'Buch', russian: 'книга', article: 'das', plural: 'Bücher', pluralArticle: 'die', exampleSingular: 'Ich lese ein spannendes Buch.', examplePlural: 'Sie hat viele Bücher.' },
+                { type: 'noun', german: 'Kino', russian: 'кинотеатр', article: 'das', plural: 'Kinos', pluralArticle: 'die', exampleSingular: 'Gehen wir heute Abend ins Kino?', examplePlural: 'In Berlin gibt es viele alte Kinos.' },
+                { type: 'noun', german: 'Termin', russian: 'встреча, запись', article: 'der', plural: 'Termine', pluralArticle: 'die', exampleSingular: 'Ich habe einen Termin um 14 Uhr.', examplePlural: 'Mein Kalender ist voller Termine.' },
+                { type: 'noun', german: 'Einladung', russian: 'приглашение', article: 'die', plural: 'Einladungen', pluralArticle: 'die', exampleSingular: 'Danke für die Einladung.', examplePlural: 'Wir haben viele Einladungen bekommen.' },
+                { type: 'noun', german: 'Idee', russian: 'идея', article: 'die', plural: 'Ideen', pluralArticle: 'die', exampleSingular: 'Das ist eine gute Idee.', examplePlural: 'Wir brauchen neue Ideen.' },
                 { type: 'verb', german: 'können', russian: 'мочь, уметь', conjugation: 'ich kann, du kannst, er kann', example: 'Er kann gut kochen.' },
                 { type: 'verb', german: 'wollen', russian: 'хотеть', conjugation: 'ich will, du willst, er will', example: 'Ich will Deutsch lernen.' },
                 { type: 'verb', german: 'müssen', russian: 'быть должным', conjugation: 'ich muss, du musst, er muss', example: 'Wir müssen jetzt gehen.' },
                 { type: 'verb', german: 'lesen', russian: 'читать', conjugation: 'ich lese, du liest, er liest', example: 'Ich lese gern Bücher.' },
-                { type: 'noun', german: 'Termin', russian: 'встреча, запись', article: 'der', plural: 'Termine', pluralArticle: 'die', exampleSingular: 'Ich habe einen Termin um 14 Uhr.', examplePlural: 'Mein Kalender ist voller Termine.' },
+                { type: 'verb', german: 'schwimmen', russian: 'плавать', conjugation: 'ich schwimme, du schwimmst, er schwimmt', example: 'Im Sommer schwimme ich oft im See.' },
                 { type: 'verb', german: 'Zeit haben', russian: 'иметь время', conjugation: '-', example: 'Hast du morgen Zeit?' },
-                { type: 'noun', german: 'Einladung', russian: 'приглашение', article: 'die', plural: 'Einladungen', pluralArticle: 'die', exampleSingular: 'Danke für die Einladung.', examplePlural: 'Wir haben viele Einladungen bekommen.' },
-                { type: 'noun', german: 'Idee', russian: 'идея', article: 'die', plural: 'Ideen', pluralArticle: 'die', exampleSingular: 'Das ist eine gute Idee.', examplePlural: 'Wir brauchen neue Ideen.' },
               ]
             }
           ],
@@ -258,15 +277,18 @@ export const curriculum: Curriculum = {
              {
               theme: 'Путешествия и ориентация',
               words: [
-                { type: 'noun', german: 'Bahnhof', russian: 'вокзал', article: 'der', plural: 'Bahnhöfe', pluralArticle: 'die', exampleSingular: 'Wo ist der Bahnhof?', examplePlural: 'Große Städte haben oft mehrere Bahnhöfe.' },
+                { type: 'noun', german: 'Bahnhof', russian: 'вокзал', article: 'der', plural: 'Bahnhöfe', pluralArticle: 'die', exampleSingular: 'Wo ist der nächste Bahnhof?', examplePlural: 'Große Städte haben oft mehrere Bahnhöfe.' },
                 { type: 'noun', german: 'Flughafen', russian: 'аэропорт', article: 'der', plural: 'Flughäfen', pluralArticle: 'die', exampleSingular: 'Wir fahren zum Flughafen.', examplePlural: 'Die Flughäfen sind heute sehr modern.' },
                 { type: 'noun', german: 'Zug', russian: 'поезд', article: 'der', plural: 'Züge', pluralArticle: 'die', exampleSingular: 'Der Zug fährt um 10 Uhr ab.', examplePlural: 'Alle Züge haben Verspätung.' },
-                { type: 'noun', german: 'Fahrkarte', russian: 'билет', article: 'die', plural: 'Fahrkarten', pluralArticle: 'die', exampleSingular: 'Ich brauche eine Fahrkarte.', examplePlural: 'Zeigen Sie bitte Ihre Fahrkarten.' },
-                { type: 'adjective', german: 'links', russian: 'налево, слева', comparative: '-', superlative: '-', example: 'Gehen Sie hier links.' },
-                { type: 'adjective', german: 'rechts', russian: 'направо, справа', comparative: '-', superlative: '-', example: 'Die Apotheke ist rechts.' },
-                { type: 'adjective', german: 'geradeaus', russian: 'прямо', comparative: '-', superlative: '-', example: 'Immer geradeaus.' },
-                { type: 'verb', german: 'buchen', russian: 'бронировать', conjugation: 'ich buche, du buchst, er bucht', example: 'Hast du das Ticket gebucht?' },
-                { type: 'verb', german: 'reisen', russian: 'путешествовать', conjugation: 'ich reise, du reist, er reist', example: 'Ich reise gern.' },
+                { type: 'noun', german: 'Fahrkarte', russian: 'билет', article: 'die', plural: 'Fahrkarten', pluralArticle: 'die', exampleSingular: 'Ich brauche eine Fahrkarte nach Hamburg.', examplePlural: 'Zeigen Sie bitte Ihre Fahrkarten.' },
+                { type: 'noun', german: 'Hotel', russian: 'отель', article: 'das', plural: 'Hotels', pluralArticle: 'die', exampleSingular: 'Wir haben ein Hotel im Zentrum gebucht.', examplePlural: 'Die Hotels sind oft ausgebucht.' },
+                { type: 'noun', german: 'Straße', russian: 'улица', article: 'die', plural: 'Straßen', pluralArticle: 'die', exampleSingular: 'Diese Straße ist sehr bekannt.', examplePlural: 'Die Straßen sind am Morgen voll.' },
+                { type: 'adjective', german: 'links', russian: 'налево, слева', comparative: '-', superlative: '-', example: 'Gehen Sie an der Kreuzung links.' },
+                { type: 'adjective', german: 'rechts', russian: 'направо, справа', comparative: '-', superlative: '-', example: 'Die Apotheke befindet sich auf der rechten Seite.' },
+                { type: 'adjective', german: 'geradeaus', russian: 'прямо', comparative: '-', superlative: '-', example: 'Fahren Sie immer geradeaus.' },
+                { type: 'verb', german: 'buchen', russian: 'бронировать', conjugation: 'ich buche, du buchst, er bucht', example: 'Ich habe ein Zimmer für zwei Nächte gebucht.' },
+                { type: 'verb', german: 'reisen', russian: 'путешествовать', conjugation: 'ich reise, du reist, er reist', example: 'Ich reise sehr gern.' },
+                { type: 'verb', german: 'fragen', russian: 'спрашивать', conjugation: 'ich frage, du fragst, er fragt', example: 'Entschuldigung, darf ich Sie etwas fragen?' },
               ]
             }
           ],
@@ -742,5 +764,9 @@ export const curriculum: Curriculum = {
 
 
     
+
+    
+
+
 
     
