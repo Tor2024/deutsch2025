@@ -9,149 +9,269 @@ export const curriculum: Curriculum = {
       description: 'Основы для уверенного старта. Вы научитесь представляться, вести простые диалоги, понимать базовые фразы и строить предложения в настоящем времени.',
       topics: [
         {
-          id: 'personal-info',
-          title: 'Знакомство и личная информация',
+          id: 'personal-info-und-familie',
+          title: 'Знакомство, личная информация и семья',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Представление себя</h2>
-            <p class="mb-4">Это самые первые и важные фразы, которые вам понадобятся для знакомства. Обратите внимание на формальное (<strong class="text-primary">Sie</strong>) и неформальное (<strong class="text-primary">du</strong>) обращение.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">Основы общения</h2>
+            <p class="mb-4">Самые первые и важные фразы для любого разговора. Учимся здороваться, прощаться и представляться.</p>
             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
-              <li><strong>Wie heißen Sie?</strong> - Как Вас зовут? (Формально)</li>
-              <li><strong>Wie heißt du?</strong> - Как тебя зовут? (Неформально)</li>
-              <li><strong>Ich heiße...</strong> - Меня зовут...</li>
-              <li><strong>Mein Name ist...</strong> - Моё имя...</li>
+              <li><strong>Приветствия:</strong> Hallo, Guten Morgen, Guten Tag, Guten Abend</li>
+              <li><strong>Прощания:</strong> Tschüss, Auf Wiedersehen</li>
+              <li><strong>Вопросы о самочувствии:</strong> Wie geht es Ihnen? / Wie geht's? - Gut, danke.</li>
             </ul>
-            <h2 class="font-headline text-2xl font-bold mb-4">Происхождение и место жительства</h2>
-            <p class="mb-4">Учимся говорить, откуда мы и где живем.</p>
-            <ul class="list-disc list-inside space-y-2 bg-muted p-4 rounded-lg">
-                <li><strong>Woher kommen Sie? / Woher kommst du?</strong> - Откуда Вы? / Откуда ты?</li>
-                <li><strong>Ich komme aus...</strong> - Я из... (страна/город)</li>
-                <li><strong>Wo wohnen Sie? / Wo wohnst du?</strong> - Где Вы живете? / Где ты живешь?</li>
-                <li><strong>Ich wohne in...</strong> - Я живу в... (город/улица)</li>
-            </ul>
-          `,
-          exercises: [],
-          vocabulary: [
-            {
-              theme: 'Личная информация',
-              words: [
-                { german: 'der Name, -n', russian: 'имя', example: 'Mein Name ist Klaus.' },
-                { german: 'heißen', russian: 'называться', example: 'Ich heiße Anna.' },
-                { german: 'kommen', russian: 'приходить, быть родом', example: 'Ich komme aus Deutschland.' },
-                { german: 'wohnen', russian: 'жить, проживать', example: 'Er wohnt in Berlin.' },
-                { german: 'das Land, "-er', russian: 'страна', example: 'Aus welchem Land kommst du?' },
-                { german: 'die Stadt, "-e', russian: 'город', example: 'Ich wohne in der Stadt München.' },
-                { german: 'die Adresse, -n', russian: 'адрес', example: 'Was ist deine Adresse?' },
-                { german: 'die Telefonnummer, -n', russian: 'номер телефона', example: 'Meine Telefonnummer ist ...' },
-                { german: 'sprechen', russian: 'говорить', example: 'Welche Sprachen sprichst du?' },
-                { german: 'die Sprache, -n', russian: 'язык', example: 'Ich lerne die deutsche Sprache.' },
-              ]
-            }
-          ]
-        },
-        {
-          id: 'nominativ-akkusativ',
-          title: 'Падежи: Nominativ и Akkusativ',
-          explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Nominativ (Именительный падеж)</h2>
-            <p class="mb-4">Это падеж <strong class="text-primary">подлежащего</strong>. Он отвечает на вопросы "Кто?" (<strong class="text-primary">Wer?</strong>) и "Что?" (<strong class="text-primary">Was?</strong>). В предложении это главный герой, который выполняет действие.</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4"><strong>Der Hund</strong> schläft. (<strong>Собака</strong> спит.) - Кто спит? Собака.</div>
 
-            <h2 class="font-headline text-2xl font-bold mt-6 mb-4">Akkusativ (Винительный падеж)</h2>
-            <p class="mb-4">Это падеж <strong class="text-primary">прямого дополнения</strong>. Он отвечает на вопросы "Кого?" (<strong class="text-primary">Wen?</strong>) и "Что?" (<strong class="text-primary">Was?</strong>). Это объект, над которым совершается действие.</p>
-            <div class="bg-muted p-3 rounded-lg italic my-4">Ich sehe <strong>den Hund</strong>. (Я вижу <strong>собаку</strong>.) - Кого я вижу? Собаку.</div>
-            
-            <h2 class="font-headline text-2xl font-bold mt-6 mb-4">Артикли в Nominativ и Akkusativ</h2>
-            <p class="mb-4">Самое важное правило на этом этапе: <strong class="text-primary">в Akkusativ меняется только артикль мужского рода</strong>. Остальные остаются такими же, как в Nominativ.</p>
+            <h2 class="font-headline text-2xl font-bold mb-4">Представление себя и других</h2>
+            <p class="mb-4">Учимся говорить, как нас зовут, откуда мы и на каком языке говорим. Здесь мы впервые сталкиваемся с падежом <strong class="text-primary">Nominativ</strong> (Именительный), который отвечает на вопросы "Кто? Что?" (<strong class="text-primary">Wer? Was?</strong>) и обозначает подлежащее.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Wie heißen Sie? / Wie heißt du?</strong> - Как Вас/тебя зовут?</li>
+              <li><strong>Ich heiße... / Mein Name ist...</strong> - Меня зовут... / Моё имя...</li>
+              <li><strong>Woher kommen Sie? / Woher kommst du?</strong> - Откуда Вы/ты?</li>
+              <li><strong>Ich komme aus Russland.</strong> - Я из России.</li>
+              <li><strong>Welche Sprachen sprechen Sie?</strong> - На каких языках Вы говорите?</li>
+              <li><strong>Ich spreche Russisch und ein bisschen Deutsch.</strong> - Я говорю по-русски и немного по-немецки.</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Семья и личные данные</h2>
+            <p class="mb-4">Рассказываем о своей семье. Здесь нам понадобятся притяжательные местоимения.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 p-4 bg-muted rounded-lg">
+              <li><strong>Das ist meine Familie.</strong> - Это моя семья.</li>
+              <li><strong>Mein Vater, meine Mutter, mein Bruder, meine Schwester.</strong> - Мой отец, моя мать, мой брат, моя сестра.</li>
+              <li><strong>Sind Sie verheiratet?</strong> - Вы женаты/замужем? - Ja, ich bin verheiratet. / Nein, ich bin ledig.</li>
+              <li><strong>Haben Sie Kinder?</strong> - У Вас есть дети? - Ja, ich habe einen Sohn und eine Tochter.</li>
+            </ul>
+
+            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Грамматика: Притяжательные местоимения</h3>
+            <p class="mb-4">Притяжательные местоимения (мой, твой, его...) показывают принадлежность и согласуются с родом существительного.</p>
             <div class="overflow-x-auto">
               <table class="w-full text-left border-collapse my-4">
-                <thead>
-                  <tr class="bg-muted/50">
-                    <th class="border p-3">Падеж</th>
-                    <th class="border p-3">Мужской род (m)</th>
-                    <th class="border p-3">Женский род (f)</th>
-                    <th class="border p-3">Средний род (n)</th>
-                  </tr>
-                </thead>
+                <thead><tr class="bg-muted/50"><th class="border p-3"></th><th class="border p-3">муж.р. (der)</th><th class="border p-3">жен.р. (die)</th><th class="border p-3">сред.р. (das)</th></tr></thead>
                 <tbody>
-                  <tr>
-                    <td class="border p-3 font-medium">Nominativ</td>
-                    <td class="border p-3">der / ein</td>
-                    <td class="border p-3">die / eine</td>
-                    <td class="border p-3">das / ein</td>
-                  </tr>
-                  <tr>
-                    <td class="border p-3 font-medium">Akkusativ</td>
-                    <td class="border p-3"><strong class="text-primary">den / einen</strong></td>
-                    <td class="border p-3">die / eine</td>
-                    <td class="border p-3">das / ein</td>
-                  </tr>
+                  <tr><td class="border p-3 font-medium">ich</td><td class="border p-3">mein</td><td class="border p-3">meine</td><td class="border p-3">mein</td></tr>
+                  <tr><td class="border p-3 font-medium">du</td><td class="border p-3">dein</td><td class="border p-3">deine</td><td class="border p-3">dein</td></tr>
+                  <tr><td class="border p-3 font-medium">er/es</td><td class="border p-3">sein</td><td class="border p-3">seine</td><td class="border p-3">sein</td></tr>
+                  <tr><td class="border p-3 font-medium">sie</td><td class="border p-3">ihr</td><td class="border p-3">ihre</td><td class="border p-3">ihr</td></tr>
                 </tbody>
               </table>
             </div>
           `,
-          exercises: [],
           vocabulary: [
-             {
-              theme: 'Артикли и существительные',
+            {
+              theme: 'Знакомство и семья',
               words: [
-                { german: 'der Tisch, -e', russian: 'стол', example: 'Ich sehe den Tisch.' },
-                { german: 'das Buch, "-er', russian: 'книга', example: 'Sie liest ein Buch.' },
-                { german: 'die Tasche, -n', russian: 'сумка', example: 'Er kauft eine Tasche.' },
-                { german: 'der Stuhl, "-e', russian: 'стул', example: 'Der Stuhl ist alt.' },
-                { german: 'haben', russian: 'иметь', example: 'Ich habe einen Hund.' },
-                { german: 'sehen', russian: 'видеть', example: 'Siehst du den Vogel?' },
-                { german: 'kaufen', russian: 'покупать', example: 'Wir kaufen das Brot.' },
-                { german: 'lesen', russian: 'читать', example: 'Er liest eine Zeitung.' },
-                { german: 'brauchen', russian: 'нуждаться', example: 'Ich brauche einen Stift.' },
-                { german: 'suchen', russian: 'искать', example: 'Sie sucht den Schlüssel.' },
+                { german: 'der Name, -n', russian: 'имя', example: 'Mein Name ist Klaus.' },
+                { german: 'heißen', russian: 'называться', example: 'Ich heiße Anna.' },
+                { german: 'kommen aus', russian: 'быть родом из', example: 'Er kommt aus Deutschland.' },
+                { german: 'wohnen in', russian: 'проживать в', example: 'Sie wohnt in Berlin.' },
+                { german: 'die Sprache, -n', russian: 'язык', example: 'Welche Sprachen sprichst du?' },
+                { german: 'die Familie, -n', russian: 'семья', example: 'Das ist meine Familie.' },
+                { german: 'der Vater, "-', russian: 'отец', example: 'Mein Vater ist Arzt.' },
+                { german: 'die Mutter, "-', russian: 'мать', example: 'Meine Mutter ist Lehrerin.' },
+                { german: 'der Sohn, "-e', russian: 'сын', example: 'Das ist mein Sohn.' },
+                { german: 'die Tochter, "-', russian: 'дочь', example: 'Ihre Tochter ist 5 Jahre alt.' },
+                { german: 'verheiratet', russian: 'женат/замужем', example: 'Bist du verheiratet?' },
+                { german: 'ledig', russian: 'холост/незамужняя', example: 'Nein, ich bin ledig.' },
               ]
             }
           ]
         },
         {
-          id: 'prasens',
-          title: 'Настоящее время (Präsens)',
+          id: 'alltag-und-wohnen',
+          title: 'Быт, дом и распорядок дня',
           explanation: `
-            <h2 class="font-headline text-2xl font-bold mb-4">Спряжение глаголов в настоящем времени</h2>
-            <p class="mb-4">В немецком языке глаголы меняют свои окончания в зависимости от того, кто выполняет действие (т.е. спрягаются). Это основа для построения любого предложения.</p>
-            
-            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Слабые (правильные) глаголы</h3>
-            <p class="mb-4">Это самая простая группа. Они спрягаются по стандартным правилам, добавляя к основе глагола определенные окончания. Возьмем глагол <strong class="text-primary">machen</strong> (делать).</p>
-            <ul class="list-disc list-inside space-y-2 mb-6 p-4 bg-muted rounded-lg">
-              <li>ich mach<strong class="text-primary">e</strong> (я делаю)</li>
-              <li>du mach<strong class="text-primary">st</strong> (ты делаешь)</li>
-              <li>er/sie/es mach<strong class="text-primary">t</strong> (он/она/оно делает)</li>
-              <li>wir mach<strong class="text-primary">en</strong> (мы делаем)</li>
-              <li>ihr mach<strong class="text-primary">t</strong> (вы делаете)</li>
-              <li>sie/Sie mach<strong class="text-primary">en</strong> (они/Вы делаете)</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Дом и квартира</h2>
+            <p class="mb-4">Учимся описывать, где мы живем, и называть комнаты и мебель. Используем предлоги места.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Типы жилья:</strong> das Haus (дом), die Wohnung (квартира), das Zimmer (комната).</li>
+              <li><strong>Комнаты:</strong> die Küche (кухня), das Bad (ванная), das Schlafzimmer (спальня), das Wohnzimmer (гостиная).</li>
+              <li><strong>Мебель:</strong> der Tisch (стол), der Stuhl (стул), das Bett (кровать), der Schrank (шкаф).</li>
+              <li><strong>Описание:</strong> Meine Wohnung ist groß/klein. Das Zimmer hat ein Fenster.</li>
             </ul>
 
-            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Сильные (неправильные) глаголы</h3>
-            <p class="mb-4">У этих глаголов во 2-м и 3-м лице единственного числа (<strong class="text-primary">du, er/sie/es</strong>) меняется корневая гласная. Например, <strong>e → i/ie</strong>, <strong>a → ä</strong>. Окончания при этом такие же, как у слабых глаголов. Рассмотрим <strong class="text-primary">sprechen</strong> (говорить).</p>
-            <ul class="list-disc list-inside space-y-2 p-4 bg-muted rounded-lg">
-                <li>ich spreche</li>
-                <li>du <strong class="text-primary">sprichst</strong></li>
-                <li>er/sie/es <strong class="text-primary">spricht</strong></li>
-                <li>wir sprechen</li>
-                <li>ihr sprecht</li>
-                <li>sie/Sie sprechen</li>
+            <h2 class="font-headline text-2xl font-bold mb-4">Распорядок дня и время</h2>
+            <p class="mb-4">Говорим о том, что мы делаем в течение дня. Здесь важны глаголы с отделяемыми приставками.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Время:</strong> Wie spät ist es? Es ist zehn Uhr. (10:00). Es ist halb elf (10:30).</li>
+              <li><strong>Дни недели:</strong> Montag, Dienstag, Mittwoch...</li>
+              <li><strong>Распорядок:</strong> Ich <strong class="text-primary">stehe</strong> um 7 Uhr <strong class="text-primary">auf</strong>. Dann frühstücke ich. Ich <strong class="text-primary">kaufe</strong> im Supermarkt <strong class="text-primary">ein</strong>.</li>
             </ul>
+            
+            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Грамматика: Глаголы с отделяемыми приставками (Trennbare Verben)</h3>
+            <p class="mb-4">У некоторых глаголов есть приставка, которая в простом предложении в Präsens "отделяется" и уходит в самый конец. Например: <strong class="text-primary">auf</strong>stehen, <strong class="text-primary">ein</strong>kaufen, <strong class="text-primary">an</strong>rufen.</p>
+            <div class="bg-muted p-3 rounded-lg italic my-4">Ich <strong class="text-accent">rufe</strong> meine Freundin <strong class="text-primary">an</strong>. (Я звоню моей подруге.)</div>
           `,
-          exercises: [],
           vocabulary: [
              {
-              theme: 'Часто используемые глаголы',
+              theme: 'Дом и повседневность',
               words: [
-                { german: 'machen', russian: 'делать', example: 'Was machst du?' },
-                { german: 'lernen', russian: 'учить', example: 'Wir lernen Deutsch.' },
-                { german: 'gehen', russian: 'идти', example: 'Ich gehe ins Kino.' },
-                { german: 'essen', russian: 'есть, кушать', example: 'Er isst einen Apfel.' },
-                { german: 'trinken', russian: 'пить', example: 'Was trinkst du?' },
-                { german: 'schlafen', russian: 'спать', example: 'Das Baby schläft.' },
-                { german: 'fahren', russian: 'ехать', example: 'Sie fährt mit dem Bus.' },
-                { german: 'geben', russian: 'давать', example: 'Gib mir bitte das Buch.' },
-                { german: 'helfen', russian: 'помогать', example: 'Er hilft seiner Mutter.' },
-                { german: 'nehmen', russian: 'брать', example: 'Ich nehme den Kaffee.' },
+                { german: 'die Wohnung, -en', russian: 'квартира', example: 'Ich suche eine Wohnung.' },
+                { german: 'das Zimmer, -', russian: 'комната', example: 'Mein Zimmer ist gemütlich.' },
+                { german: 'die Küche, -n', russian: 'кухня', example: 'Wir essen in der Küche.' },
+                { german: 'das Bett, -en', russian: 'кровать', example: 'Das Bett steht im Schlafzimmer.' },
+                { german: 'die Uhr, -en', russian: 'час, часы', example: 'Es ist 8 Uhr.' },
+                { german: 'der Tag, -e', russian: 'день', example: 'Was machst du heute den ganzen Tag?' },
+                { german: 'der Morgen, -', russian: 'утро', example: 'Am Morgen trinke ich Kaffee.' },
+                { german: 'der Abend, -e', russian: 'вечер', example: 'Am Abend sehe ich fern.' },
+                { german: 'aufstehen', russian: 'вставать', example: 'Wann stehst du auf?' },
+                { german: 'einkaufen', russian: 'делать покупки', example: 'Ich kaufe am Samstag ein.' },
+                { german: 'anrufen', russian: 'звонить по телефону', example: 'Rufst du mich an?' },
+                { german: 'fernsehen', russian: 'смотреть телевизор', example: 'Sie sieht abends fern.' },
+              ]
+            }
+          ]
+        },
+        {
+          id: 'essen-und-einkaufen',
+          title: 'Покупки, еда и напитки',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">В магазине</h2>
+            <p class="mb-4">Учимся покупать продукты и одежду. Здесь нам понадобится падеж <strong class="text-primary">Akkusativ</strong> (Винительный), который отвечает на вопросы "Кого? Что?" (<strong class="text-primary">Wen? Was?</strong>). Он используется для обозначения прямого объекта действия.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Что вы хотите?</strong> - Was möchten Sie?</li>
+              <li><strong>Я хотел бы...</strong> - Ich möchte <strong class="text-accent">einen Apfel</strong>, <strong class="text-accent">eine Banane</strong> und <strong class="text-accent">ein Brot</strong>.</li>
+              <li><strong>Вам нужно что-то еще?</strong> - Brauchen Sie noch etwas?</li>
+              <li><strong>Сколько это стоит?</strong> - Was kostet das? / Wie viel kostet das?</li>
+              <li><strong>Это стоит...</strong> - Das kostet 2 Euro 50.</li>
+            </ul>
+
+            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Грамматика: Akkusativ</h3>
+            <p class="mb-4">Самое важное правило на этом этапе: <strong class="text-primary">в Akkusativ меняется только артикль мужского рода (der → den, ein → einen)</strong>. Остальные остаются такими же, как в Nominativ.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>Nominativ: <strong class="text-primary">Der</strong> Apfel ist rot. (Яблоко - красное.)</li>
+              <li>Akkusativ: Ich esse <strong class="text-accent">den</strong> Apfel. (Я ем яблоко.)</li>
+              <li>Nominativ: <strong class="text-primary">Die</strong> Banane ist gelb. (Банан - желтый.)</li>
+              <li>Akkusativ: Ich esse <strong class="text-accent">die</strong> Banane. (Я ем банан.)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">В ресторане</h2>
+            <p class="mb-4">Заказываем еду и напитки. Глагол <strong class="text-primary">mögen</strong> (нравиться) и его вежливая форма <strong class="text-primary">möchten</strong> (хотел бы) очень важны здесь.</p>
+             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Ich möchte</strong> bitte einen Kaffee bestellen. - Я хотел бы заказать кофе.</li>
+              <li><strong>Ich mag</strong> Pizza, aber ich <strong class="text-primary">mag keinen</strong> Fisch. - Я люблю пиццу, но не люблю рыбу. (Отрицание с <strong class="text-primary">kein</strong>)</li>
+              <li>Zahlen, bitte! - Счет, пожалуйста!</li>
+            </ul>
+          `,
+          vocabulary: [
+             {
+              theme: 'Еда, напитки и покупки',
+              words: [
+                { german: 'das Essen', russian: 'еда', example: 'Das Essen ist lecker.' },
+                { german: 'das Getränk, -e', russian: 'напиток', example: 'Was ist dein Lieblingsgetränk?' },
+                { german: 'der Apfel, "-', russian: 'яблоко', example: 'Ich esse einen Apfel.' },
+                { german: 'das Brot, -e', russian: 'хлеб', example: 'Ich kaufe ein Brot.' },
+                { german: 'die Milch', russian: 'молоко', example: 'Trinkst du Milch?' },
+                { german: 'kaufen', russian: 'покупать', example: 'Sie kauft einen Rock.' },
+                { german: 'kosten', russian: 'стоить', example: 'Was kostet die Hose?' },
+                { german: 'der Preis, -e', russian: 'цена', example: 'Der Preis ist zu hoch.' },
+                { german: 'das Restaurant, -s', russian: 'ресторан', example: 'Wir gehen heute ins Restaurant.' },
+                { german: 'bestellen', russian: 'заказывать', example: 'Ich möchte einen Salat bestellen.' },
+                { german: 'bezahlen', russian: 'платить', example: 'Ich bezahle mit Karte.' },
+                { german: 'mögen', russian: 'любить, нравиться', example: 'Ich mag Käse.' },
+              ]
+            }
+          ]
+        },
+        {
+          id: 'freizeit-und-termine',
+          title: 'Свободное время и встречи',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">Хобби и интересы</h2>
+            <p class="mb-4">Учимся говорить о своих увлечениях и интересах. Здесь нам помогут модальные глаголы.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Was machst du in deiner Freizeit?</strong> - Что ты делаешь в свободное время?</li>
+              <li>Ich <strong class="text-primary">kann</strong> gut schwimmen. - Я умею хорошо плавать.</li>
+              <li>Ich <strong class="text-primary">will</strong> am Wochenende ins Kino gehen. - Я хочу пойти в кино на выходных.</li>
+              <li>Ich <strong class="text-primary">muss</strong> heute arbeiten. - Я должен сегодня работать.</li>
+            </ul>
+
+            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Грамматика: Модальные глаголы</h3>
+            <p class="mb-4">Модальные глаголы (<strong class="text-primary">können, wollen, müssen</strong> и др.) изменяют значение основного глагола. В предложении модальный глагол стоит на втором месте и спрягается, а основной глагол уходит в конец в инфинитиве.</p>
+            <div class="bg-muted p-3 rounded-lg italic my-4">Ich <strong class="text-accent">kann</strong> nicht <strong class="text-primary">kommen</strong>. (Я не могу прийти.)</div>
+            <p class="mb-4">Спряжение у них особенное: в формах <strong>ich</strong> и <strong>er/sie/es</strong> они часто меняют гласную и не имеют окончания.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+              <li>ich <strong class="text-primary">kann</strong>, du kannst, er/sie/es <strong class="text-primary">kann</strong></li>
+              <li>ich <strong class="text-primary">will</strong>, du willst, er/sie/es <strong class="text-primary">will</strong></li>
+              <li>ich <strong class="text-primary">muss</strong>, du musst, er/sie/es <strong class="text-primary">muss</strong></li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Назначение встреч (Termine)</h2>
+            <p class="mb-4">Учимся договариваться о встрече, предлагать, соглашаться и отказываться.</p>
+             <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Hast du am Montag Zeit?</strong> - У тебя есть время в понедельник?</li>
+              <li><strong>Wollen wir ins Café gehen?</strong> - Пойдем в кафе?</li>
+              <li><strong>Ja, gute Idee!</strong> - Да, хорошая идея!</li>
+              <li><strong>Nein, leider kann ich nicht.</strong> - Нет, к сожалению, я не могу.</li>
+            </ul>
+          `,
+          vocabulary: [
+             {
+              theme: 'Хобби и встречи',
+              words: [
+                { german: 'das Hobby, -s', russian: 'хобби', example: 'Mein Hobby ist Lesen.' },
+                { german: 'die Freizeit', russian: 'свободное время', example: 'Was machst du in der Freizeit?' },
+                { german: 'können', russian: 'мочь, уметь', example: 'Er kann gut kochen.' },
+                { german: 'wollen', russian: 'хотеть', example: 'Ich will Deutsch lernen.' },
+                { german: 'müssen', russian: 'быть должным', example: 'Wir müssen jetzt gehen.' },
+                { german: 'der Sport', russian: 'спорт', example: 'Machst du gern Sport?' },
+                { german: 'lesen', russian: 'читать', example: 'Ich lese gern Bücher.' },
+                { german: 'Freunde treffen', russian: 'встречаться с друзьями', example: 'Am Freitag treffe ich Freunde.' },
+                { german: 'der Termin, -e', russian: 'встреча, запись (к врачу)', example: 'Ich habe einen Termin um 14 Uhr.' },
+                { german: 'Zeit haben', russian: 'иметь время', example: 'Hast du morgen Zeit?' },
+                { german: 'die Einladung, -en', russian: 'приглашение', example: 'Danke für die Einladung.' },
+                { german: 'die Idee, -n', russian: 'идея', example: 'Das ist eine gute Idee.' },
+              ]
+            }
+          ]
+        },
+        {
+          id: 'reisen-und-orientierung',
+          title: 'Путешествия и ориентация в городе',
+          explanation: `
+            <h2 class="font-headline text-2xl font-bold mb-4">Транспорт и билеты</h2>
+            <p class="mb-4">Говорим о видах транспорта и покупаем билеты.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Виды транспорта:</strong> der Zug (поезд), der Bus (автобус), die U-Bahn (метро), das Flugzeug (самолет).</li>
+              <li><strong>Покупка билета:</strong> Eine Fahrkarte nach Berlin, bitte. (Один билет до Берлина, пожалуйста.)</li>
+              <li><strong>Вопросы о расписании:</strong> Wann fährt der nächste Zug? (Когда отправляется следующий поезд?)</li>
+            </ul>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Ориентация в городе</h2>
+            <p class="mb-4">Учимся спрашивать и объяснять дорогу. Здесь нам нужны предлоги места и падеж <strong class="text-primary">Dativ</strong>.</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li><strong>Entschuldigung, wie komme ich zum Bahnhof?</strong> - Извините, как мне добраться до вокзала?</li>
+              <li>Gehen Sie <strong class="text-accent">geradeaus</strong>. - Идите прямо.</li>
+              <li>Dann die erste Straße <strong class="text-accent">links</strong> / <strong class="text-accent">rechts</strong>. - Затем на первой улице налево / направо.</li>
+              <li>Der Bahnhof ist <strong class="text-accent">neben</strong> der Post. - Вокзал находится рядом с почтой.</li>
+            </ul>
+            
+            <h3 class="font-headline text-xl font-semibold mt-6 mb-2">Грамматика: Предлоги места с Dativ</h3>
+            <p class="mb-4">Когда мы отвечаем на вопрос "Где?" (<strong class="text-primary">Wo?</strong>), предлоги <strong class="text-primary">in, an, auf, neben, vor, hinter, über, unter, zwischen</strong> требуют после себя падеж <strong class="text-primary">Dativ</strong> (Дательный).</p>
+            <div class="bg-muted p-3 rounded-lg italic my-4">Das Buch liegt <strong class="text-accent">auf dem</strong> Tisch. (Книга лежит на столе.)</div>
+            <p>Артикли в Dativ: der → <strong class="text-primary">dem</strong>, die → <strong class="text-primary">der</strong>, das → <strong class="text-primary">dem</strong>, die (Pl.) → <strong class="text-primary">den (...n)</strong>.</p>
+
+            <h2 class="font-headline text-2xl font-bold mb-4">Говорим о прошлом: Perfekt</h2>
+            <p class="mb-4">Чтобы рассказать о прошлом путешествии, используется время Perfekt. Оно образуется с помощью <strong class="text-primary">haben</strong> или <strong class="text-primary">sein</strong> + Partizip II (причастие).</p>
+            <ul class="list-disc list-inside space-y-2 mb-6 bg-muted p-4 rounded-lg">
+              <li>Ich <strong class="text-accent">habe</strong> einen Kaffee <strong class="text-primary">getrunken</strong>. (Я выпил кофе).</li>
+              <li>Wir <strong class="text-accent">sind</strong> nach Berlin <strong class="text-primary">gefahren</strong>. (Мы поехали в Берлин).</li>
+            </ul>
+            <p>Глагол <strong class="text-primary">sein</strong> используется с глаголами движения (fahren, gehen, fliegen) и смены состояния.</p>
+          `,
+          vocabulary: [
+             {
+              theme: 'Путешествия и ориентация',
+              words: [
+                { german: 'der Bahnhof, "-e', russian: 'вокзал', example: 'Wo ist der Bahnhof?' },
+                { german: 'der Flughafen, "-', russian: 'аэропорт', example: 'Wir fahren zum Flughafen.' },
+                { german: 'der Zug, "-e', russian: 'поезд', example: 'Der Zug fährt um 10 Uhr ab.' },
+                { german: 'die Fahrkarte, -n', russian: 'билет', example: 'Ich brauche eine Fahrkarte.' },
+                { german: 'der Weg, -e', russian: 'путь, дорога', example: 'Können Sie mir den Weg zeigen?' },
+                { german: 'links', russian: 'налево', example: 'Gehen Sie hier links.' },
+                { german: 'rechts', russian: 'направо', example: 'Die Apotheke ist rechts.' },
+                { german: 'geradeaus', russian: 'прямо', example: 'Immer geradeaus.' },
+                { german: 'das Hotel, -s', russian: 'отель', example: 'Ich habe ein Zimmer im Hotel gebucht.' },
+                { german: 'buchen', russian: 'бронировать', example: 'Hast du das Ticket gebucht?' },
+                { german: 'reisen', russian: 'путешествовать', example: 'Ich reise gern.' },
+                { german: 'der Urlaub, -e', russian: 'отпуск', example: 'Wir machen Urlaub in Italien.' },
               ]
             }
           ]
@@ -183,7 +303,6 @@ export const curriculum: Curriculum = {
               <li><strong>Сильные глаголы:</strong> <strong class="text-primary">ge</strong> + (часто измененная) основа + <strong class="text-primary">en</strong>. Пример: sprechen → <strong class="text-accent">gesprochen</strong>. Формы сильных глаголов нужно запоминать.</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Прошедшие события',
@@ -245,7 +364,6 @@ export const curriculum: Curriculum = {
             </div>
             <p class="mt-4">Важно: во множественном числе в Dativ к существительному почти всегда добавляется окончание <strong class="text-primary">-n</strong> (если его там еще нет).</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Глаголы и предлоги, требующие Dativ',
@@ -290,7 +408,6 @@ export const curriculum: Curriculum = {
               <li><strong>dürfen:</strong> ich darf, du darfst, er/sie/es darf</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
              {
               theme: 'Возможности и обязанности',
@@ -330,7 +447,6 @@ export const curriculum: Curriculum = {
               <li><strong>gehen (сильный):</strong> ich ging, du gingst, er ging...</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Глаголы в Präteritum',
@@ -362,7 +478,6 @@ export const curriculum: Curriculum = {
             </ul>
             <p class="mt-4">В разговорной речи Genitiv часто заменяется конструкцией <strong class="text-primary">von + Dativ</strong>: Das Auto <strong class="text-accent">von dem Mann</strong>.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Выражение принадлежности',
@@ -394,7 +509,6 @@ export const curriculum: Curriculum = {
             </ul>
             <p>Чаще всего образуется с помощью формы <strong class="text-primary">würden + Infinitiv</strong>, что является универсальным способом.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Желания, просьбы, советы',
@@ -425,7 +539,6 @@ export const curriculum: Curriculum = {
               <li><strong>obwohl (хотя):</strong> Er geht spazieren, <strong class="text-accent">obwohl es regnet</strong>.</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
              {
               theme: 'Союзы придаточных предложений',
@@ -460,7 +573,6 @@ export const curriculum: Curriculum = {
             <div class="bg-muted p-3 rounded-lg italic my-4">Nachdem ich die Hausaufgaben <strong class="text-primary">gemacht hatte</strong>, ging ich ins Kino. (После того как я сделал домашнее задание, я пошел в кино.)</div>
             <p class="mt-2">Действие "сделал ДЗ" произошло раньше, чем "пошел в кино".</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Последовательность событий в прошлом',
@@ -491,7 +603,6 @@ export const curriculum: Curriculum = {
               <li><strong>Perfekt Passiv:</strong> Das Auto <strong class="text-primary">ist repariert worden</strong>. (Машина была отремонтирована.)</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Описание процессов и состояний',
@@ -519,7 +630,6 @@ export const curriculum: Curriculum = {
             <div class="bg-muted p-3 rounded-lg italic my-4">Das ist der Mann, <strong class="text-primary">der mir geholfen hat</strong>. (Это тот мужчина, <strong class="text-accent">который мне помог</strong>.)</div>
              <p class="mt-2">Глагол в Relativsatz, как и в других придаточных, стоит на последнем месте.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Описания и уточнения',
@@ -555,7 +665,6 @@ export const curriculum: Curriculum = {
               </table>
             </div>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Существительные N-склонения',
@@ -591,7 +700,6 @@ export const curriculum: Curriculum = {
             <div class="bg-muted p-3 rounded-lg italic my-4">Er sagt, er <strong class="text-primary">komme</strong> später. (Он говорит, что придет позже.)</div>
             <p class="mt-2">Сравните с обычным Präsens: Er kommt. Konjunktiv I показывает, что это не наши слова, а пересказ.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Передача косвенной речи',
@@ -622,7 +730,6 @@ export const curriculum: Curriculum = {
             </ul>
             <p>Формула: <strong class="text-primary">werden (спряг.) + Partizip II + haben/sein (Infinitiv)</strong>.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Предположения и будущие результаты',
@@ -653,7 +760,6 @@ export const curriculum: Curriculum = {
             </ul>
             <p class="mt-4">Это позволяет выражать мысли более сжато и в научном стиле.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Формальный и научный стиль',
@@ -683,7 +789,6 @@ export const curriculum: Curriculum = {
               <li><strong>Partizip II (пассивное, предшествующее действие):</strong> Die <strong class="text-primary">geschlossene</strong> Tür (закрытая дверь) = Die Tür, <strong class="text-accent">die geschlossen wurde</strong>.</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Сокращение предложений',
@@ -721,7 +826,6 @@ export const curriculum: Curriculum = {
               <li>Умение переключаться между <strong class="text-primary">разными регистрами речи</strong>: от формального до сленга.</li>
             </ul>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Синонимы и идиомы',
@@ -748,7 +852,6 @@ export const curriculum: Curriculum = {
             <p class="mb-4">Свободное владение сложными и многоуровневыми предложениями, включая редкие грамматические конструкции, для выражения самых тонких нюансов мысли. Например, использование распространенных причастных оборотов, инфинитивных конструкций и сложных союзов.</p>
             <div class="bg-muted p-3 rounded-lg italic my-4">Пример: Der Mann, <strong class="text-primary">dessen Hund gestern entlaufen war</strong>, suchte ihn den ganzen Tag. (Мужчина, <strong class="text-accent">чья собака вчера убежала</strong>, искал ее весь день.)</div>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Продвинутые союзы и конструкции',
@@ -781,7 +884,6 @@ export const curriculum: Curriculum = {
             </ul>
             <p class="mt-4">Это подразумевает не только знание терминов, но и понимание стиля общения в данной сфере.</p>
           `,
-          exercises: [],
           vocabulary: [
             {
               theme: 'Общая академическая и деловая лексика',
