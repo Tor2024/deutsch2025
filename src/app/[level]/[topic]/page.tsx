@@ -88,7 +88,7 @@ const WordCard = ({ word }: { word: VocabularyWord }) => {
     <div className="rounded-lg border bg-card p-4 text-card-foreground">
         <div className="flex justify-between items-start">
             <div>
-                <p className="text-xl font-bold">{word.german}</p>
+                <p className="text-xl font-bold">{getGermanDisplay()}</p>
                 <p className="text-md text-muted-foreground">{word.russian}</p>
             </div>
             <Badge variant="outline">{word.type}</Badge>
