@@ -1,14 +1,14 @@
 
 "use client";
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { ArrowLeft, ArrowRight, Check, CheckCircle, HelpCircle, RefreshCw, ThumbsUp, Volume2, X, XCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, Loader2, RefreshCw, ThumbsUp, Volume2, XCircle } from 'lucide-react';
 import { Progress } from './ui/progress';
-import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+import { generateAudio } from '@/ai/flows/text-to-speech';
 
 type Vocabulary = {
   german: string;
@@ -30,6 +30,8 @@ export function VocabularyTrainer({ vocabulary }: { vocabulary: Vocabulary[] }) 
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [stage, setStage] = useState<Stage>('learning');
   const [incorrectAnswers, setIncorrectAnswers] = useState<Vocabulary[]>([]);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setShuffledVocabulary([...vocabulary].sort(() => Math.random() - 0.5));
@@ -37,6 +39,23 @@ export function VocabularyTrainer({ vocabulary }: { vocabulary: Vocabulary[] }) 
 
   const currentWord = shuffledVocabulary[currentIndex];
   const progress = Math.round(((currentIndex) / shuffledVocabulary.length) * 100);
+
+  const handleSpeak = async (text: string) => {
+    if (isSpeaking) return;
+    setIsSpeaking(true);
+    try {
+      const { audio } = await generateAudio({ text });
+      if (audioRef.current) {
+        audioRef.current.src = audio;
+        audioRef.current.play();
+      }
+    } catch (error) {
+      console.error("Error generating or playing audio:", error);
+    } finally {
+      setIsSpeaking(false);
+    }
+  };
+
 
   const handleNext = () => {
     if (currentIndex < shuffledVocabulary.length - 1) {
@@ -117,6 +136,7 @@ export function VocabularyTrainer({ vocabulary }: { vocabulary: Vocabulary[] }) 
 
   return (
     <div className="space-y-4">
+      <audio ref={audioRef} />
       <div className="flex justify-between items-center mb-2">
         <h4 className="text-sm font-medium text-muted-foreground">
           {stage === 'learning' ? 'Этап 1: Изучение' : `Этап 2: Практика (${incorrectAnswers.length > 0 ? 'Работа над ошибками' : 'Закрепление'})`}
@@ -128,7 +148,12 @@ export function VocabularyTrainer({ vocabulary }: { vocabulary: Vocabulary[] }) 
       {stage === 'learning' ? (
         <Card className="min-h-[250px] flex flex-col">
           <CardHeader>
-            <CardTitle className="text-4xl font-bold text-center">{currentWord.german}</CardTitle>
+            <CardTitle className="text-4xl font-bold text-center flex items-center justify-center gap-4">
+                {currentWord.german}
+                <Button variant="ghost" size="icon" onClick={() => handleSpeak(currentWord.german)} disabled={isSpeaking}>
+                    {isSpeaking ? <Loader2 className="animate-spin" /> : <Volume2 />}
+                </Button>
+            </CardTitle>
             <CardDescription className="text-center text-lg">{currentWord.russian}</CardDescription>
           </CardHeader>
           <CardContent className="flex-grow flex items-center justify-center">
@@ -150,7 +175,10 @@ export function VocabularyTrainer({ vocabulary }: { vocabulary: Vocabulary[] }) 
             <CardDescription className="text-center text-4xl font-bold">{currentWord.russian}</CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleCheck} className="flex gap-2">
+            <form onSubmit={handleCheck} className="flex gap-2 items-center">
+                <Button variant="ghost" size="icon" className="shrink-0" onClick={() => handleSpeak(currentWord.german)} disabled={isSpeaking}>
+                    {isSpeaking ? <Loader2 className="animate-spin" /> : <Volume2 />}
+                </Button>
               <Input
                 type="text"
                 placeholder="Ответ на немецком..."
@@ -178,4 +206,3 @@ export function VocabularyTrainer({ vocabulary }: { vocabulary: Vocabulary[] }) 
     </div>
   );
 }
-
