@@ -1,3 +1,6 @@
+
+'use client';
+
 import { curriculum } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import {
@@ -7,8 +10,11 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookText } from 'lucide-react';
+import { ArrowRight, BookText, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { useUserProgress } from '@/hooks/use-user-progress';
+import { cn } from '@/lib/utils';
+
 
 type LevelPageProps = {
   params: {
@@ -16,14 +22,10 @@ type LevelPageProps = {
   };
 };
 
-export async function generateStaticParams() {
-  return curriculum.levels.map((level) => ({
-    level: level.id,
-  }));
-}
 
 export default function LevelPage({ params }: LevelPageProps) {
   const level = curriculum.levels.find((l) => l.id === params.level);
+  const { getTopicProficiency } = useUserProgress();
 
   if (!level) {
     notFound();
@@ -41,26 +43,30 @@ export default function LevelPage({ params }: LevelPageProps) {
 
       {level.topics.length > 0 ? (
         <Accordion type="single" collapsible className="w-full">
-          {level.topics.map((topic) => (
-            <AccordionItem value={topic.id} key={topic.id}>
-              <AccordionTrigger className="text-lg font-semibold hover:no-underline">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-md bg-primary/10 p-2 text-primary">
-                    <BookText className="h-5 w-5" />
-                  </div>
-                  {topic.title}
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="prose prose-blue max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: topic.explanation.substring(0, 150) + '...' }} />
-                <Button asChild className="mt-4">
-                  <Link href={`/${level.id}/${topic.id}`}>
-                    Перейти к теме <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
+          {level.topics.map((topic) => {
+            const proficiency = getTopicProficiency(topic.id);
+            const isCompleted = proficiency >= 100;
+            return (
+                <AccordionItem value={topic.id} key={topic.id}>
+                    <AccordionTrigger className={cn("text-lg font-semibold hover:no-underline", isCompleted && "text-green-600")}>
+                        <div className="flex items-center gap-3">
+                        <div className={cn("rounded-md p-2", isCompleted ? "bg-green-100 text-green-600" : "bg-primary/10 text-primary")}>
+                            {isCompleted ? <CheckCircle2 className="h-5 w-5" /> : <BookText className="h-5 w-5" />}
+                        </div>
+                        {topic.title}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <div className="prose prose-blue max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: topic.explanation.substring(0, 150) + '...' }} />
+                        <Button asChild className="mt-4">
+                        <Link href={`/${level.id}/${topic.id}`}>
+                            {isCompleted ? 'Повторить тему' : 'Перейти к теме'} <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                        </Button>
+                    </AccordionContent>
+                </AccordionItem>
+            );
+          })}
         </Accordion>
       ) : (
         <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/30 bg-muted/20 p-12 text-center">

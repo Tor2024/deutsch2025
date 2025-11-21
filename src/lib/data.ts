@@ -39,6 +39,10 @@ export const curriculum: Curriculum = {
                 { german: 'wohnen', russian: 'жить, проживать', example: 'Er wohnt in Berlin.' },
                 { german: 'das Land, "-er', russian: 'страна', example: 'Aus welchem Land kommst du?' },
                 { german: 'die Stadt, "-e', russian: 'город', example: 'Ich wohne in der Stadt München.' },
+                { german: 'die Adresse, -n', russian: 'адрес', example: 'Was ist deine Adresse?' },
+                { german: 'die Telefonnummer, -n', russian: 'номер телефона', example: 'Meine Telefonnummer ist ...' },
+                { german: 'sprechen', russian: 'говорить', example: 'Welche Sprachen sprichst du?' },
+                { german: 'die Sprache, -n', russian: 'язык', example: 'Ich lerne die deutsche Sprache.' },
               ]
             }
           ]
@@ -85,7 +89,23 @@ export const curriculum: Curriculum = {
             </div>
           `,
           exercises: [],
-          vocabulary: []
+          vocabulary: [
+             {
+              theme: 'Артикли и существительные',
+              words: [
+                { german: 'der Tisch, -e', russian: 'стол', example: 'Ich sehe den Tisch.' },
+                { german: 'das Buch, "-er', russian: 'книга', example: 'Sie liest ein Buch.' },
+                { german: 'die Tasche, -n', russian: 'сумка', example: 'Er kauft eine Tasche.' },
+                { german: 'der Stuhl, "-e', russian: 'стул', example: 'Der Stuhl ist alt.' },
+                { german: 'haben', russian: 'иметь', example: 'Ich habe einen Hund.' },
+                { german: 'sehen', russian: 'видеть', example: 'Siehst du den Vogel?' },
+                { german: 'kaufen', russian: 'покупать', example: 'Wir kaufen das Brot.' },
+                { german: 'lesen', russian: 'читать', example: 'Er liest eine Zeitung.' },
+                { german: 'brauchen', russian: 'нуждаться', example: 'Ich brauche einen Stift.' },
+                { german: 'suchen', russian: 'искать', example: 'Sie sucht den Schlüssel.' },
+              ]
+            }
+          ]
         },
         {
           id: 'prasens',
@@ -117,7 +137,23 @@ export const curriculum: Curriculum = {
             </ul>
           `,
           exercises: [],
-          vocabulary: []
+          vocabulary: [
+             {
+              theme: 'Часто используемые глаголы',
+              words: [
+                { german: 'machen', russian: 'делать', example: 'Was machst du?' },
+                { german: 'lernen', russian: 'учить', example: 'Wir lernen Deutsch.' },
+                { german: 'gehen', russian: 'идти', example: 'Ich gehe ins Kino.' },
+                { german: 'essen', russian: 'есть, кушать', example: 'Er isst einen Apfel.' },
+                { german_highlight: 'trinken', russian: 'пить', example: 'Was trinkst du?' },
+                { german: 'schlafen', russian: 'спать', example: 'Das Baby schläft.' },
+                { german: 'fahren', russian: 'ехать', example: 'Sie fährt mit dem Bus.' },
+                { german: 'geben', russian: 'давать', example: 'Gib mir bitte das Buch.' },
+                { german: 'helfen', russian: 'помогать', example: 'Er hilft seiner Mutter.' },
+                { german: 'nehmen', russian: 'брать', example: 'Ich nehme den Kaffee.' },
+              ]
+            }
+          ]
         }
       ]
     },
