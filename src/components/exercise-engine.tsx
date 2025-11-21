@@ -4,7 +4,6 @@
 import type { Topic, VocabularyWord } from "@/lib/types";
 import { generateAdaptiveExercise, AdaptiveExerciseOutput } from "@/ai/flows/adaptive-exercise-generation";
 import { verifyAnswer } from "@/ai/flows/verify-answer";
-import { generateAudio } from "@/ai/flows/text-to-speech";
 import { generateFeedback } from "@/ai/flows/generate-feedback";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { Button } from "./ui/button";
@@ -57,7 +56,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [exerciseHistory, setExerciseHistory] = useState<ExerciseHistoryItem[]>([]);
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
   const [finalFeedback, setFinalFeedback] = useState<string | null>(null);
   const router = useRouter();
 
@@ -98,35 +96,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const currentStepIndex = useMemo(() => steps.findIndex(s => s.id === currentStep), [steps, currentStep]);
   const currentVocabWord = shuffledVocabulary[vocabIndex];
 
-  const handleSpeak = useCallback(async (text: string) => {
-    if (isSpeaking || !text) return;
-    setIsSpeaking(true);
-    try {
-      const cacheKey = `audio_cache_${text}`;
-      let audioData = sessionStorage.getItem(cacheKey);
-
-      if (!audioData) {
-        console.log(`Audio for "${text}" not in cache. Generating...`);
-        const { audio } = await generateAudio({ text });
-        audioData = audio;
-        sessionStorage.setItem(cacheKey, audioData);
-      } else {
-        console.log(`Audio for "${text}" found in cache.`);
-      }
-
-      const audioEl = new Audio(audioData);
-      audioEl.play();
-      audioEl.onended = () => setIsSpeaking(false);
-      audioEl.onerror = () => {
-        console.error("Audio playback error");
-        setIsSpeaking(false);
-      }
-    } catch(e) {
-      console.error(e)
-      toast({title: "Ошибка", description: "Не удалось воспроизвести аудио.", variant: "destructive"})
-      setIsSpeaking(false);
-    }
-  }, [isSpeaking, toast]);
 
   const startExerciseCycle = useCallback(async () => {
     setCurrentStep('loading');
@@ -155,11 +124,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       setSentenceConstructionExercises(response.sentenceConstructionExercises || []);
       setCurrentStep('reading');
 
-      // Generate audio in parallel
-      if (response.readingText) {
-          handleSpeak(response.readingText);
-      }
-      
     } catch (error) {
       console.error("Error starting exercise cycle:", error);
       toast({
@@ -168,7 +132,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         variant: "destructive",
       });
     }
-  }, [topic.id, topic.title, exerciseHistory, toast, allWords, handleSpeak]);
+  }, [topic.id, topic.title, exerciseHistory, toast, allWords]);
 
   const addHistoryAndProficiency = (question: string, userAnswer: string, isCorrect: boolean) => {
     setExerciseHistory(prev => [...prev, { exercise: question, userAnswer, isCorrect }]);
@@ -395,9 +359,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                 <CardHeader>
                     <CardTitle className="text-4xl font-bold text-center flex items-center justify-center gap-4">
                         {getGermanDisplay(currentVocabWord)}
-                        <Button variant="ghost" size="icon" onClick={() => handleSpeak(currentVocabWord.german)} disabled={isSpeaking}>
-                            {isSpeaking ? <Loader2 className="animate-spin" /> : <Volume2 />}
-                        </Button>
                     </CardTitle>
                     <CardDescription className="text-center text-lg">{currentVocabWord.russian}</CardDescription>
                 </CardHeader>
@@ -462,14 +423,10 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         if (!exerciseData) return null;
         return (
           <Card>
-            <CardHeader><CardTitle>Прочитайте и прослушайте текст</CardTitle></CardHeader>
+            <CardHeader><CardTitle>Прочитайте текст</CardTitle></CardHeader>
             <CardContent>
               <p className="text-lg leading-relaxed">{exerciseData.readingText}</p>
               <div className="mt-4 flex gap-4">
-                <Button onClick={() => handleSpeak(exerciseData.readingText)} disabled={isSpeaking}>
-                    {isSpeaking ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Volume2 className="mr-2 h-4 w-4" />}
-                    Прослушать
-                </Button>
                 <Button onClick={handleGlobalContinue}>Продолжить</Button>
               </div>
             </CardContent>

@@ -4,48 +4,9 @@
 import type { VocabularyWord } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import { Volume2, Loader2 } from 'lucide-react';
-import { useState, useCallback } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import { generateAudio } from '@/ai/flows/text-to-speech';
 
 export function WordCard({ word }: { word: VocabularyWord }) {
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const { toast } = useToast();
-
-  const handleSpeak = useCallback(async (text: string) => {
-    if (isSpeaking || !text) return;
-    setIsSpeaking(true);
-
-    try {
-      const cacheKey = `audio_cache_${text}`;
-      let audioData = sessionStorage.getItem(cacheKey);
-
-      if (!audioData) {
-        console.log(`Audio for "${text}" not in cache. Generating...`);
-        const { audio } = await generateAudio({ text });
-        audioData = audio;
-        sessionStorage.setItem(cacheKey, audioData);
-      } else {
-        console.log(`Audio for "${text}" found in cache.`);
-      }
-      
-      const audioEl = new Audio(audioData);
-      audioEl.play();
-      audioEl.onended = () => setIsSpeaking(false);
-      audioEl.onerror = () => {
-        console.error("Audio playback error");
-        toast({title: "Ошибка", description: "Не удалось воспроизвести аудио.", variant: "destructive"})
-        setIsSpeaking(false);
-      }
-    } catch(e) {
-      console.error(e)
-      toast({title: "Ошибка", description: "Не удалось воспроизвести аудио.", variant: "destructive"})
-      setIsSpeaking(false);
-    }
-  }, [isSpeaking, toast]);
-
+  
   const renderDetails = () => {
     switch (word.type) {
       case 'noun':
@@ -99,9 +60,6 @@ export function WordCard({ word }: { word: VocabularyWord }) {
             <div>
                  <p className="text-xl font-bold flex items-center gap-2">
                     {getGermanDisplay()}
-                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => handleSpeak(word.german)} disabled={isSpeaking}>
-                        {isSpeaking ? <Loader2 className="animate-spin" /> : <Volume2 />}
-                    </Button>
                 </p>
                 <p className="text-md text-muted-foreground">{word.russian}</p>
             </div>
