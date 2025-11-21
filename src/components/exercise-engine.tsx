@@ -12,10 +12,13 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Progress } from "./ui/progress";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
-import { CheckCircle, Loader2, RefreshCw, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil, Volume2, Files, Sprout, ArrowRight, ArrowLeft, Move } from "lucide-react";
+import { CheckCircle, Loader2, ThumbsUp, XCircle, BookOpen, BrainCircuit, Pencil, Volume2, Files, Sprout, ArrowRight, ArrowLeft, Move, SkipForward } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
 import { useUserProgress } from "@/hooks/use-user-progress";
+import { curriculum } from "@/lib/data";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Feedback = {
   type: "correct" | "incorrect";
@@ -59,6 +62,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [finalFeedback, setFinalFeedback] = useState<string | null>(null);
+  const router = useRouter();
 
 
   // Vocabulary state
@@ -107,15 +111,16 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     setCurrentExerciseIndex(0);
 
     try {
+      const currentLevel = curriculum.levels.find(level => level.topics.some(t => t.id === topic.id));
       const response = await generateAdaptiveExercise({
         grammarConcept: topic.title,
-        userLevel: 'A1', // This should be dynamic based on topic.id or user profile
+        userLevel: (currentLevel?.id.toUpperCase() as 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2') || 'A1',
         pastErrors: exerciseHistory.filter(e => !e.isCorrect).map(e => e.exercise).join(', '),
         exerciseHistory: exerciseHistory, // Pass current session history
         vocabulary: allWords.map(word => ({
           german: word.german,
           russian: word.russian,
-          example: word.type === 'noun' ? word.exampleSingular : word.example,
+          example: 'example' in word ? word.example : (word as any).exampleSingular,
         })),
       });
       setExerciseData(response);
@@ -139,7 +144,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
         variant: "destructive",
       });
     }
-  }, [topic.title, exerciseHistory, toast, allWords]);
+  }, [topic.id, topic.title, exerciseHistory, toast, allWords]);
 
   const addHistoryAndProficiency = (question: string, userAnswer: string, isCorrect: boolean) => {
     setExerciseHistory(prev => [...prev, { exercise: question, userAnswer, isCorrect }]);
@@ -280,6 +285,20 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   };
 
+  const getNextTopic = () => {
+      const currentLevel = curriculum.levels.find(level => level.topics.some(t => t.id === topic.id));
+      if (!currentLevel) return null;
+
+      const currentTopicIndex = currentLevel.topics.findIndex(t => t.id === topic.id);
+      if (currentTopicIndex > -1 && currentTopicIndex < currentLevel.topics.length - 1) {
+          const nextTopic = currentLevel.topics[currentTopicIndex + 1];
+          return `/${currentLevel.id}/${nextTopic.id}`;
+      }
+      return null;
+  }
+
+  const nextTopicUrl = getNextTopic();
+
   // Vocab trainer logic
   const handleVocabNext = () => {
     if (vocabIndex < shuffledVocabulary.length - 1) {
@@ -378,7 +397,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                     <CardDescription className="text-center text-lg">{currentVocabWord.russian}</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow flex items-center justify-center">
-                    <p className="text-center text-muted-foreground italic text-lg">«{currentVocabWord.type === 'noun' ? currentVocabWord.exampleSingular : currentVocabWord.example}»</p>
+                    <p className="text-center text-muted-foreground italic text-lg">«{'example' in currentVocabWord ? currentVocabWord.example : (currentVocabWord as any).exampleSingular}»</p>
                 </CardContent>
                 <CardFooter className="flex justify-between">
                     <Button variant="outline" onClick={handleVocabPrev} disabled={vocabIndex === 0}>
@@ -528,10 +547,14 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   if (currentStep === 'mastered') {
     return (
       <Card className="bg-gradient-to-br from-primary/10 to-transparent">
-        <CardContent className="p-6 text-center">
-          <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4" />
-          <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
-          <p className="mt-2 text-muted-foreground">Отличная работа! Вы продемонстрировали уверенное понимание этой темы.</p>
+        <CardHeader>
+            <CardTitle className="text-center">
+                <ThumbsUp className="mx-auto h-16 w-16 text-green-500 bg-green-100 rounded-full p-3 mb-4" />
+                <h3 className="text-2xl font-bold text-foreground font-headline">Тема освоена!</h3>
+            </CardTitle>
+            <CardDescription className="text-center">Отличная работа! Вы продемонстрировали уверенное понимание этой темы.</CardDescription>
+        </CardHeader>
+        <CardContent className="text-center">
           {finalFeedback && (
              <Alert className="mt-4 text-left">
                 <BrainCircuit className="h-4 w-4" />
@@ -540,6 +563,15 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
             </Alert>
           )}
         </CardContent>
+        <CardFooter>
+            {nextTopicUrl && (
+                <Button asChild className="w-full">
+                    <Link href={nextTopicUrl}>
+                        Перейти к следующей теме <SkipForward className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            )}
+        </CardFooter>
       </Card>
     )
   }

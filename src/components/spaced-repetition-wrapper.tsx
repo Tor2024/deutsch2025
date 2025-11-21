@@ -8,8 +8,11 @@ import { personalizedSpacedRepetition } from '@/ai/flows/personalized-spaced-rep
 import { ExerciseEngine } from './exercise-engine';
 import { Timer } from './timer';
 import { Button } from './ui/button';
-import { Loader2, Brain, RefreshCw } from 'lucide-react';
+import { Loader2, Brain, RefreshCw, SkipForward } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
+import { curriculum } from '@/lib/data';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type RepetitionState = {
   nextReviewDate: string | null;
@@ -18,7 +21,7 @@ type RepetitionState = {
 };
 
 export function SpacedRepetitionWrapper({ topic }: { topic: Topic }) {
-  const { getTopicProficiency, setTopicProficiency } = useUserProgress();
+  const { getTopicProficiency, setTopicProficiency } = useUserProgress(topic.id);
   const [repetitionState, setRepetitionState] = useState<RepetitionState | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isReadyForReview, setIsReadyForReview] = useState(false);
@@ -88,7 +91,7 @@ export function SpacedRepetitionWrapper({ topic }: { topic: Topic }) {
   const handleReset = () => {
     setIsLoading(true);
     window.localStorage.removeItem(`repetition-${topic.id}`);
-    setTopicProficiency(0);
+    setTopicProficiency(0, topic.id);
     const state = getRepetitionState();
     setRepetitionState(state);
     setNextReviewDate(null);
@@ -99,6 +102,20 @@ export function SpacedRepetitionWrapper({ topic }: { topic: Topic }) {
   const handleReviewNow = () => {
      setIsReadyForReview(true);
   }
+
+  const getNextTopic = () => {
+      const currentLevel = curriculum.levels.find(level => level.topics.some(t => t.id === topic.id));
+      if (!currentLevel) return null;
+
+      const currentTopicIndex = currentLevel.topics.findIndex(t => t.id === topic.id);
+      if (currentTopicIndex > -1 && currentTopicIndex < currentLevel.topics.length - 1) {
+          const nextTopic = currentLevel.topics[currentTopicIndex + 1];
+          return `/${currentLevel.id}/${nextTopic.id}`;
+      }
+      return null;
+  }
+
+  const nextTopicUrl = getNextTopic();
 
   if (isLoading) {
     return (
@@ -122,6 +139,13 @@ export function SpacedRepetitionWrapper({ topic }: { topic: Topic }) {
 
             <div className="flex gap-4 justify-center">
                 <Button onClick={handleReviewNow} variant="default">Все равно повторить</Button>
+                {nextTopicUrl && (
+                    <Button asChild variant="secondary">
+                        <Link href={nextTopicUrl}>
+                            Следующая тема <SkipForward className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                )}
                 <Button onClick={handleReset} variant="outline">
                     <RefreshCw className="mr-2 h-4 w-4" />
                     Начать заново

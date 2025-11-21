@@ -20,7 +20,7 @@ const getInitialProgress = (): ProgressData => {
   }
 };
 
-export function useUserProgress(topicId?: string) {
+export function useUserProgress(initialTopicId?: string) {
   const [progress, setProgress] = useState<ProgressData>(getInitialProgress);
 
   useEffect(() => {
@@ -35,10 +35,11 @@ export function useUserProgress(topicId?: string) {
     }
   }, []);
 
-  const setTopicProficiency = useCallback((proficiency: number) => {
-    if (topicId) {
+  const setTopicProficiency = useCallback((proficiency: number, topicIdToUpdate?: string) => {
+    const id = topicIdToUpdate || initialTopicId;
+    if (id) {
         setProgress(currentProgress => {
-            const newProgress = { ...currentProgress, [topicId]: Math.max(0, Math.min(100, proficiency)) };
+            const newProgress = { ...currentProgress, [id]: Math.max(0, Math.min(100, proficiency)) };
             try {
                 window.localStorage.setItem('userProgress', JSON.stringify(newProgress));
                 // Dispatch a storage event to sync tabs
@@ -49,13 +50,13 @@ export function useUserProgress(topicId?: string) {
             return newProgress;
         });
     }
-  }, [topicId]);
+  }, [initialTopicId]);
   
   const getTopicProficiency = useCallback((id: string) => {
     return progress[id] || 0;
   }, [progress]);
 
-  const proficiency = topicId ? progress[topicId] || 0 : 0;
+  const proficiency = initialTopicId ? progress[initialTopicId] || 0 : 0;
 
   return { progress, proficiency, setTopicProficiency, getTopicProficiency };
 }
