@@ -1,3 +1,4 @@
+
 import type { Curriculum } from './types';
 
 export const curriculum: Curriculum = {
