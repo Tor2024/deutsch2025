@@ -29,7 +29,7 @@ const AdaptiveExerciseInputSchema = z.object({
     .string()
     .describe('The specific German grammar concept the user is struggling with.'),
   userLevel: z
-    .enum(['A1', 'A2', 'B1', 'B2', 'C1', 'C2'])
+    .enum(['A0', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'])
     .describe('The current German language level of the user.'),
   pastErrors: z
     .string()
