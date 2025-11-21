@@ -68,9 +68,21 @@ const WordCard = ({ word }: { word: VocabularyWord }) => {
           </>
         );
       default:
+        // This logic ensures that if the word has an 'article' property, it will be displayed.
+        // This handles cases where a word might be a noun but not fit the detailed 'noun' type structure.
+        if ('article' in word && (word as any).article) {
+          return <p>{(word as any).article} {word.german}</p>;
+        }
         return <p className="italic text-muted-foreground">{word.example}</p>;
     }
   };
+
+  const getGermanDisplay = () => {
+    if (word.type === 'noun') {
+      return `${word.article} ${word.german}`;
+    }
+    return word.german;
+  }
 
   return (
     <div className="rounded-lg border bg-card p-4 text-card-foreground">
