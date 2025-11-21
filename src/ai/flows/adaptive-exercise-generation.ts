@@ -98,7 +98,7 @@ const adaptiveExercisePrompt = ai.definePrompt({
   
   **Current Session Performance:**
   {{#if exerciseHistory}}
-  Analyze the user's performance in this session to identify recurring mistakes. Pay close attention to the `isCorrect` flag and the `userAnswer`.
+  Analyze the user's performance in this session to identify recurring mistakes. Pay close attention to the 'isCorrect' flag and the 'userAnswer'.
   {{#each exerciseHistory}}
   - **Question:** "{{exercise}}" | **User Answer:** "{{userAnswer}}" | **Correct:** {{isCorrect}}
   {{/each}}
@@ -117,7 +117,7 @@ const adaptiveExercisePrompt = ai.definePrompt({
 
   1.  **Reading Practice:** Write a short, engaging German text (3-5 sentences) that is relevant to the user's level, naturally incorporates the '{{grammarConcept}}', and uses several words from the provided vocabulary list.
   2.  **Comprehension Check:** Based on the text you just wrote, create an array of 3 comprehension questions in German. For each, provide the question and the correct answer.
-  3.  **Targeted Grammar Exercises:** Create an array of 3 fill-in-the-blank sentences. These exercises MUST directly target the primary weakness identified from the `exerciseHistory` (or the general `grammarConcept` if no history is available). Use words from the vocabulary list. Use underscores for the blank space (e.g., "Ich ___ ins Kino."). For each, provide the full sentence as the question and the exact word(s) for the blank as the answer.
+  3.  **Targeted Grammar Exercises:** Create an array of 3 fill-in-the-blank sentences. These exercises MUST directly target the primary weakness identified from the 'exerciseHistory' (or the general 'grammarConcept' if no history is available). Use words from the vocabulary list. Use underscores for the blank space (e.g., "Ich ___ ins Kino."). For each, provide the full sentence as the question and the exact word(s) for the blank as the answer.
   4.  **Sentence Construction:** Create an array of 2 exercises where the user must form a correct sentence from a given set of words. This tests word order and should also reflect the identified weakness.
   5.  **Explanation:** Provide a clear, concise explanation of the grammar rule being tested. The explanation MUST be in Russian and formatted with HTML. Use tags like <h2>, <ul>, <li>, and <strong>. Highlight key terms and concepts using '<strong class="text-primary">term</strong>'.
 
