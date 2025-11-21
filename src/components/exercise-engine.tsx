@@ -179,6 +179,30 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   }
   
+    const proceedToNextExercise = () => {
+        setFeedback(null);
+        setUserAnswer('');
+        let currentExercises: (Exercise | SentenceConstructionExercise)[] = [];
+
+        if (currentStep === 'comprehension') currentExercises = comprehensionExercises;
+        else if (currentStep === 'grammar') currentExercises = grammarExercises;
+        else if (currentStep === 'sentence-construction') currentExercises = sentenceConstructionExercises;
+
+
+        if (currentExerciseIndex < currentExercises.length - 1) {
+            setCurrentExerciseIndex(prev => prev + 1);
+        } else {
+            setCurrentExerciseIndex(0);
+            if (currentStep === 'comprehension') setCurrentStep('grammar');
+            else if (currentStep === 'grammar') {
+                if (sentenceConstructionExercises.length > 0) setCurrentStep('sentence-construction');
+                else setCurrentStep('explanation');
+            }
+            else if (currentStep === 'sentence-construction') setCurrentStep('explanation');
+        }
+    }
+
+
   const handleSubmitExercise = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!exerciseData || !userAnswer || isSubmitting) return;
@@ -216,23 +240,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
       setFeedback({ type: isCorrect ? 'correct' : 'incorrect', message: verification.explanation });
       addHistoryAndProficiency(question, userAnswer, isCorrect);
       
-      if (isCorrect) {
-        setTimeout(() => {
-            setFeedback(null);
-            setUserAnswer('');
-            if (currentExerciseIndex < currentExercises.length - 1) {
-                setCurrentExerciseIndex(prev => prev + 1);
-            } else {
-                setCurrentExerciseIndex(0);
-                if (currentStep === 'comprehension') setCurrentStep('grammar');
-                else if (currentStep === 'grammar') {
-                    if (sentenceConstructionExercises.length > 0) setCurrentStep('sentence-construction');
-                    else setCurrentStep('explanation');
-                }
-                else if (currentStep === 'sentence-construction') setCurrentStep('explanation');
-            }
-        }, 3000);
-      }
     } catch (error) {
       console.error("Error submitting answer:", error);
       toast({
@@ -245,9 +252,11 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
     }
   };
   
-  const handleContinue = async () => {
-    setFeedback(null);
-    setUserAnswer('');
+  const handleGlobalContinue = async () => {
+    if (feedback) { 
+        proceedToNextExercise();
+        return;
+    }
     
     if (currentStep === 'reading') {
         setCurrentStep('comprehension');
@@ -297,6 +306,23 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
   const nextTopicUrl = getNextTopic();
 
   // Vocab trainer logic
+  const proceedToNextVocab = () => {
+      setVocabFeedback(null);
+      setUserAnswer('');
+      if (vocabIndex < shuffledVocabulary.length - 1) {
+        setVocabIndex(prev => prev + 1);
+      } else {
+        if (incorrectVocab.length > 0) {
+          setShuffledVocabulary(incorrectVocab.sort(() => Math.random() - 0.5));
+          setIncorrectVocab([]);
+          setVocabIndex(0);
+          toast({ title: "Повторение", description: "Давайте повторим слова, в которых вы ошиблись." });
+        } else {
+          startExerciseCycle();
+        }
+      }
+  }
+
   const handleVocabNext = () => {
     if (vocabIndex < shuffledVocabulary.length - 1) {
       setVocabIndex(vocabIndex + 1);
@@ -342,24 +368,6 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
               setIncorrectVocab(prev => [...prev, currentVocabWord]);
             }
         }
-
-        setTimeout(() => {
-          setVocabFeedback(null);
-          setUserAnswer('');
-          if (vocabIndex < shuffledVocabulary.length - 1) {
-            setVocabIndex(prev => prev + 1);
-          } else {
-            if (incorrectVocab.length > 0) {
-              setShuffledVocabulary(incorrectVocab.sort(() => Math.random() - 0.5));
-              setIncorrectVocab([]);
-              setVocabIndex(0);
-              toast({ title: "Повторение", description: "Давайте повторим слова, в которых вы ошиблись." });
-            } else {
-              startExerciseCycle();
-            }
-          }
-        }, verification.isCorrect ? 2500 : 5000);
-
     } catch (error) {
         console.error("Error verifying vocab:", error);
         toast({ title: "Ошибка", description: "Не удалось проверить ответ.", variant: "destructive" });
@@ -416,27 +424,32 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                     <CardDescription className="text-center text-4xl font-bold">{currentVocabWord.russian}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form onSubmit={handleVocabCheck} className="flex gap-2 items-center">
-                        <Input
-                            type="text"
-                            placeholder="Ответ на немецком..."
-                            value={userAnswer}
-                            onChange={(e) => setUserAnswer(e.target.value)}
-                            disabled={!!vocabFeedback || isSubmitting}
-                            className="text-lg h-12"
-                            autoCapitalize="none"
-                            autoCorrect="off"
-                        />
-                        <Button type="submit" size="lg" disabled={!!vocabFeedback || !userAnswer.trim() || isSubmitting}>
-                            {isSubmitting ? <Loader2 className="animate-spin" /> : 'Проверить'}
-                        </Button>
+                    <form onSubmit={handleVocabCheck} className="flex flex-col gap-4">
+                        <div className="flex gap-2 items-center">
+                            <Input
+                                type="text"
+                                placeholder="Ответ на немецком..."
+                                value={userAnswer}
+                                onChange={(e) => setUserAnswer(e.target.value)}
+                                disabled={!!vocabFeedback || isSubmitting}
+                                className="text-lg h-12"
+                                autoCapitalize="none"
+                                autoCorrect="off"
+                            />
+                             <Button type="submit" size="lg" disabled={!!vocabFeedback || !userAnswer.trim() || isSubmitting}>
+                                {isSubmitting ? <Loader2 className="animate-spin" /> : 'Проверить'}
+                            </Button>
+                        </div>
                     </form>
                     {vocabFeedback && (
+                        <>
                         <Alert variant={vocabFeedback.type === 'correct' ? 'default' : 'destructive'} className="mt-4">
                             {vocabFeedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
                             <AlertTitle>{vocabFeedback.type === 'correct' ? 'Верно!' : 'Обратите внимание'}</AlertTitle>
                             <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: vocabFeedback.message }} />
                         </Alert>
+                        <Button onClick={proceedToNextVocab} className="mt-4 w-full">Продолжить</Button>
+                        </>
                     )}
                 </CardContent>
                 <CardFooter>
@@ -457,7 +470,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
                     {isSpeaking ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Volume2 className="mr-2 h-4 w-4" />}
                     Прослушать
                 </Button>
-                <Button onClick={handleContinue}>Продолжить</Button>
+                <Button onClick={handleGlobalContinue}>Продолжить</Button>
               </div>
             </CardContent>
           </Card>
@@ -521,7 +534,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
               <CardHeader><CardTitle>Объяснение правила</CardTitle></CardHeader>
               <CardContent>
                 <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: exerciseData.explanation }} />
-                <Button onClick={handleContinue} className="mt-4" disabled={isSubmitting}>
+                <Button onClick={handleGlobalContinue} className="mt-4" disabled={isSubmitting}>
                    {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Следующий цикл'}
                 </Button>
               </CardContent>
@@ -570,7 +583,7 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
             )}
         </CardFooter>
       </Card>
-    )
+    );
   }
   
   const getProgress = () => {
@@ -611,15 +624,20 @@ export function ExerciseEngine({ topic, onMastered }: ExerciseEngineProps) {
 
       {feedback && currentStep !== 'vocab-learning' && currentStep !== 'vocab-practicing' && (
         <Alert variant={feedback.type === 'incorrect' ? 'destructive' : 'default'} className="mt-4">
-          {feedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
-          <AlertTitle className="font-headline">
-            {feedback.type === 'correct' ? 'Правильно!' : 'Обратите внимание'}
-          </AlertTitle>
-          <AlertDescription className="prose prose-sm max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: feedback.message }} />
+          <div className="flex justify-between items-start">
+            <div className="flex-grow">
+              <div className="flex items-center gap-2">
+                {feedback.type === 'correct' ? <CheckCircle className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
+                <AlertTitle className="font-headline">
+                  {feedback.type === 'correct' ? 'Правильно!' : 'Обратите внимание'}
+                </AlertTitle>
+              </div>
+              <AlertDescription className="prose prose-sm max-w-none dark:prose-invert pl-6" dangerouslySetInnerHTML={{ __html: feedback.message }} />
+            </div>
+            <Button onClick={handleGlobalContinue} size="sm">Продолжить</Button>
+          </div>
         </Alert>
       )}
     </div>
   );
 }
-
-    
