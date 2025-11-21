@@ -323,7 +323,7 @@ export const curriculum: Curriculum = {
                 { german: 'studieren', russian: 'учиться (в вузе)', example: 'Sie hat in Berlin studiert.' },
                 { german: 'umziehen', russian: 'переезжать', example: 'Wir sind letztes Jahr umgezogen.' },
                 { german: 'heiraten', russian: 'жениться, выходить замуж', example: 'Sie haben 1990 geheiratet.' },
-                 { german: 'gelernt', russian: 'учил (Partizip II от lernen)', example: 'Wir haben Deutsch gelernt.' },
+                { german: 'gelernt', russian: 'учил (Partizip II от lernen)', example: 'Wir haben Deutsch gelernt.' },
                 { german: 'gesehen', russian: 'видел (Partizip II от sehen)', example: 'Hast du den Film gesehen?' },
                 { german: 'gegangen', russian: 'шел (Partizip II от gehen)', example: 'Sie ist ins Kino gegangen.' },
                 { german: 'gefahren', russian: 'ехал (Partizip II от fahren)', example: 'Ich bin nach Berlin gefahren.' },
