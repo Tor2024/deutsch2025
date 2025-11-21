@@ -19,9 +19,15 @@ import {
   getLevelImage,
 } from '@/lib/placeholder-images';
 import { useUserProgress } from '@/hooks/use-user-progress';
+import { useEffect, useState } from 'react';
 
 export default function DashboardPage() {
   const { getTopicProficiency } = useUserProgress();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   
   const calculateLevelProgress = (levelId: string) => {
     const level = curriculum.levels.find(l => l.id === levelId);
@@ -77,9 +83,9 @@ export default function DashboardPage() {
                 <div className="w-full">
                   <div className="mb-2 flex justify-between text-sm text-muted-foreground">
                     <span>Прогресс</span>
-                    <span>{levelProgress}%</span>
+                    {isClient ? <span>{levelProgress}%</span> : <span>0%</span>}
                   </div>
-                  <Progress value={levelProgress} />
+                  <Progress value={isClient ? levelProgress : 0} />
                 </div>
                 <Button asChild className="w-full" variant="default">
                   <Link href={`/${level.id}`}>
